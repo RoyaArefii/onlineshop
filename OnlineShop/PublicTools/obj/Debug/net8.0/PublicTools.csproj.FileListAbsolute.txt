@@ -1,0 +1,14 @@
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\bin\Debug\net8.0\PublicTools.deps.json
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\bin\Debug\net8.0\PublicTools.dll
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\bin\Debug\net8.0\PublicTools.pdb
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\obj\Debug\net8.0\PublicTools.Resources.MessageResource.resources
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\obj\Debug\net8.0\PublicTools.csproj.GenerateResource.cache
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\obj\Debug\net8.0\PublicTools.GeneratedMSBuildEditorConfig.editorconfig
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\obj\Debug\net8.0\PublicTools.AssemblyInfoInputs.cache
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\obj\Debug\net8.0\PublicTools.AssemblyInfo.cs
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\obj\Debug\net8.0\PublicTools.csproj.CoreCompileInputs.cache
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\obj\Debug\net8.0\PublicTools.sourcelink.json
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\obj\Debug\net8.0\PublicTools.dll
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\obj\Debug\net8.0\refint\PublicTools.dll
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\obj\Debug\net8.0\PublicTools.pdb
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\PublicTools\obj\Debug\net8.0\ref\PublicTools.dll

@@ -1,0 +1,12 @@
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\ResponseFramework\bin\Debug\net8.0\ResponseFramework.deps.json
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\ResponseFramework\bin\Debug\net8.0\ResponseFramework.dll
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\ResponseFramework\bin\Debug\net8.0\ResponseFramework.pdb
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.GeneratedMSBuildEditorConfig.editorconfig
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.AssemblyInfoInputs.cache
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.AssemblyInfo.cs
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.csproj.CoreCompileInputs.cache
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.sourcelink.json
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.dll
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\ResponseFramework\obj\Debug\net8.0\refint\ResponseFramework.dll
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.pdb
+F:\1C#MFT\FullStack\FinalProject_Web\OnlineShop\ResponseFramework\obj\Debug\net8.0\ref\ResponseFramework.dll
