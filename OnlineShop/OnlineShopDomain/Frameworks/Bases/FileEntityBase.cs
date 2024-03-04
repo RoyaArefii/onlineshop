@@ -9,12 +9,12 @@ namespace OnlineShopDomain.Frameworks.Bases
 {
     public class FileEntityBase : IFileEntity
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Descrription { get; set; }
-        public long Code { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime DateSoftDeletedLatin { get; set; }
-        public string DateSoftDeletedPersian { get; set; }
+        public Guid Id { get ; set ; }
+        public string Title { get ; set ; }
+        public string EntityDescription { get ; set ; }
+        public long Code { get ; set ; }
+        public bool IsDeleted { get ; set ; }
+        public DateTime DateSoftDeletedLatin { get ; set ; }
+        public string DateSoftDeletedPersian { get ; set ; }
     }
 }

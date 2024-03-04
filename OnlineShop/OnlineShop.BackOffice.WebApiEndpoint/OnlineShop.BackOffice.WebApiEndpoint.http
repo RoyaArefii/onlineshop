@@ -1,0 +1,6 @@
+@OnlineShop.BackOffice.WebApiEndpoint_HostAddress = http://localhost:5106
+
+GET {{OnlineShop.BackOffice.WebApiEndpoint_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

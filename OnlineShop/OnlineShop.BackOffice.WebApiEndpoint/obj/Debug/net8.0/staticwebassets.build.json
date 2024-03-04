@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "21ic2zBQottq6Jce8EUVRlHNite28Jok+8v86SCw2QY=",
+  "Source": "OnlineShop.BackOffice.WebApiEndpoint",
+  "BasePath": "_content/OnlineShop.BackOffice.WebApiEndpoint",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
