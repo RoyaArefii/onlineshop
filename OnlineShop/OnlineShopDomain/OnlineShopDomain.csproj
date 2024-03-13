@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Aggregates\Infrustructure\" />
-    <Folder Include="Aggregates\Sale\" />
     <Folder Include="Enums\" />
   </ItemGroup>
 

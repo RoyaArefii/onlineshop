@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="UserManagmentServices\**" />
+    <EmbeddedResource Remove="UserManagmentServices\**" />
+    <None Remove="UserManagmentServices\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Dtos\UserManagementAppDtos\UserRoleAppDtos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineShop.RepositoryDesignPatern\OnlineShop.RepositoryDesignPatern.csproj" />
+    <ProjectReference Include="..\PublicTools\PublicTools.csproj" />
+    <ProjectReference Include="..\ResponseFramework\ResponseFramework.csproj" />
+  </ItemGroup>
+
+</Project>

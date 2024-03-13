@@ -50,7 +50,7 @@ namespace onlineshop.repositorydesignpatern.frameworks.bases
             return new Response<object>(entity);
         }
         #endregion
-
+       
         #region [-DeleteAsync(TPrimaryKey id)-]
         public async Task<IResponse<object>> DeleteAsync(TPrimaryKey id)
         {

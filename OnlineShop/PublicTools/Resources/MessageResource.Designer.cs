@@ -29,7 +29,7 @@ namespace PublicTools.Resources {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public MessageResource() {
+        internal MessageResource() {
         }
         
         /// <summary>
@@ -59,13 +59,49 @@ namespace PublicTools.Resources {
                 resourceCulture = value;
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process was failed..
+        /// </summary>
+        public static string Error_FailProcess {
+            get {
+                return ResourceManager.GetString("Error_FailProcess", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Object Was Not Found.
         /// </summary>
         public static string Error_FailToFindObject {
             get {
                 return ResourceManager.GetString("Error_FailToFindObject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Parameter is null.
+        /// </summary>
+        public static string Error_TheParameterIsNull {
+            get {
+                return ResourceManager.GetString("Error_TheParameterIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This field is mandatory.
+        /// </summary>
+        public static string Error_ThisFieldIsMandatory {
+            get {
+                return ResourceManager.GetString("Error_ThisFieldIsMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process was Successful..
+        /// </summary>
+        public static string Info_SuccessfullProcess {
+            get {
+                return ResourceManager.GetString("Info_SuccessfullProcess", resourceCulture);
             }
         }
     }
