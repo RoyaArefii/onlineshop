@@ -13,6 +13,7 @@
           "Microsoft.EntityFrameworkCore.Design": "8.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.2",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.2",
+          "OnlineShop.Application": "1.0.0",
           "OnlineShop.EFCore": "1.0.0",
           "OnlineShopDomain": "1.0.0",
           "Swashbuckle.AspNetCore": "6.5.0"
@@ -1115,6 +1116,16 @@
           }
         }
       },
+      "OnlineShop.Application/1.0.0": {
+        "dependencies": {
+          "OnlineShop.RepositoryDesignPatern": "1.0.0",
+          "PublicTools": "1.0.0",
+          "ResponseFramework": "1.0.0"
+        },
+        "runtime": {
+          "OnlineShop.Application.dll": {}
+        }
+      },
       "OnlineShop.EFCore/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.2",
@@ -1125,6 +1136,18 @@
         },
         "runtime": {
           "OnlineShop.EFCore.dll": {}
+        }
+      },
+      "OnlineShop.RepositoryDesignPatern/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.2",
+          "Microsoft.EntityFrameworkCore": "8.0.2",
+          "OnlineShop.EFCore": "1.0.0",
+          "PublicTools": "1.0.0",
+          "ResponseFramework": "1.0.0"
+        },
+        "runtime": {
+          "OnlineShop.RepositoryDesignPatern.dll": {}
         }
       },
       "OnlineShopDomain/1.0.0": {
@@ -1143,6 +1166,14 @@
         },
         "runtime": {
           "PublicTools.dll": {}
+        }
+      },
+      "ResponseFramework/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.2"
+        },
+        "runtime": {
+          "ResponseFramework.dll": {}
         }
       }
     }
@@ -1923,7 +1954,17 @@
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
     },
+    "OnlineShop.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "OnlineShop.EFCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OnlineShop.RepositoryDesignPatern/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -1934,6 +1975,11 @@
       "sha512": ""
     },
     "PublicTools/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ResponseFramework/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

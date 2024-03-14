@@ -2077,6 +2077,21 @@
           }
         }
       },
+      "OnlineShop.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "OnlineShop.RepositoryDesignPatern": "1.0.0",
+          "PublicTools": "1.0.0",
+          "ResponseFramework": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/OnlineShop.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/OnlineShop.Application.dll": {}
+        }
+      },
       "OnlineShop.EFCore/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -2092,6 +2107,23 @@
         },
         "runtime": {
           "bin/placeholder/OnlineShop.EFCore.dll": {}
+        }
+      },
+      "OnlineShop.RepositoryDesignPatern/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.2",
+          "Microsoft.EntityFrameworkCore": "8.0.2",
+          "OnlineShop.EFCore": "1.0.0",
+          "PublicTools": "1.0.0",
+          "ResponseFramework": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/OnlineShop.RepositoryDesignPatern.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/OnlineShop.RepositoryDesignPatern.dll": {}
         }
       },
       "OnlineShopDomain/1.0.0": {
@@ -2120,6 +2152,19 @@
         },
         "runtime": {
           "bin/placeholder/PublicTools.dll": {}
+        }
+      },
+      "ResponseFramework/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.2"
+        },
+        "compile": {
+          "bin/placeholder/ResponseFramework.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ResponseFramework.dll": {}
         }
       }
     }
@@ -5494,10 +5539,20 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "OnlineShop.Application/1.0.0": {
+      "type": "project",
+      "path": "../OnlineShop.Application/OnlineShop.Application.csproj",
+      "msbuildProject": "../OnlineShop.Application/OnlineShop.Application.csproj"
+    },
     "OnlineShop.EFCore/1.0.0": {
       "type": "project",
       "path": "../OnlineShop.EFCore/OnlineShop.EFCore.csproj",
       "msbuildProject": "../OnlineShop.EFCore/OnlineShop.EFCore.csproj"
+    },
+    "OnlineShop.RepositoryDesignPatern/1.0.0": {
+      "type": "project",
+      "path": "../OnlineShop.RepositoryDesignPatern/OnlineShop.RepositoryDesignPatern.csproj",
+      "msbuildProject": "../OnlineShop.RepositoryDesignPatern/OnlineShop.RepositoryDesignPatern.csproj"
     },
     "OnlineShopDomain/1.0.0": {
       "type": "project",
@@ -5508,6 +5563,11 @@
       "type": "project",
       "path": "../PublicTools/PublicTools.csproj",
       "msbuildProject": "../PublicTools/PublicTools.csproj"
+    },
+    "ResponseFramework/1.0.0": {
+      "type": "project",
+      "path": "../ResponseFramework/ResponseFramework.csproj",
+      "msbuildProject": "../ResponseFramework/ResponseFramework.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5517,6 +5577,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 8.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.2",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.2",
+      "OnlineShop.Application >= 1.0.0",
       "OnlineShop.EFCore >= 1.0.0",
       "OnlineShopDomain >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.5.0"
@@ -5555,6 +5616,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.Application\\OnlineShop.Application.csproj": {
+              "projectPath": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.Application\\OnlineShop.Application.csproj"
+            },
             "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {
               "projectPath": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj"
             },

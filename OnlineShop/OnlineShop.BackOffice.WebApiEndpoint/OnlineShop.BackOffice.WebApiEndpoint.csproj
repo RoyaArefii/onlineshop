@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OnlineShop.Application\OnlineShop.Application.csproj" />
     <ProjectReference Include="..\OnlineShop.EFCore\OnlineShop.EFCore.csproj" />
     <ProjectReference Include="..\OnlineShopDomain\OnlineShopDomain.csproj" />
   </ItemGroup>

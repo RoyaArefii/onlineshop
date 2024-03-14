@@ -445,3 +445,9 @@ D:\FinalProject_Web_Class\OnlineShop\OnlineShop.BackOffice.WebApiEndpoint\obj\De
 D:\FinalProject_Web_Class\OnlineShop\OnlineShop.BackOffice.WebApiEndpoint\obj\Debug\net8.0\OnlineSh.466B62E5.Up2Date
 D:\FinalProject_Web_Class\OnlineShop\OnlineShop.BackOffice.WebApiEndpoint\obj\Debug\net8.0\OnlineShop.BackOffice.WebApiEndpoint.genruntimeconfig.cache
 D:\FinalProject_Web_Class\OnlineShop\OnlineShop.BackOffice.WebApiEndpoint\obj\Debug\net8.0\ref\OnlineShop.BackOffice.WebApiEndpoint.dll
+D:\FinalProject_Web_Class\OnlineShop\OnlineShop.BackOffice.WebApiEndpoint\bin\Debug\net8.0\OnlineShop.Application.dll
+D:\FinalProject_Web_Class\OnlineShop\OnlineShop.BackOffice.WebApiEndpoint\bin\Debug\net8.0\OnlineShop.RepositoryDesignPatern.dll
+D:\FinalProject_Web_Class\OnlineShop\OnlineShop.BackOffice.WebApiEndpoint\bin\Debug\net8.0\ResponseFramework.dll
+D:\FinalProject_Web_Class\OnlineShop\OnlineShop.BackOffice.WebApiEndpoint\bin\Debug\net8.0\OnlineShop.Application.pdb
+D:\FinalProject_Web_Class\OnlineShop\OnlineShop.BackOffice.WebApiEndpoint\bin\Debug\net8.0\OnlineShop.RepositoryDesignPatern.pdb
+D:\FinalProject_Web_Class\OnlineShop\OnlineShop.BackOffice.WebApiEndpoint\bin\Debug\net8.0\ResponseFramework.pdb
