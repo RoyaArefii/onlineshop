@@ -15,7 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetValue<string>("ConnectionStrings:Dafault");
+var connectionString = builder.Configuration.GetValue<string>("ConnectionStrings:Default");
 
 builder.Services.AddDbContext<OnlineShopDbContext>(c => c.UseSqlServer(connectionString));
 builder.Services.AddIdentity<AppUser, AppRole>(/* کل بلاک پسورد را میتوان اینجا کانفیگ کرد*/).AddEntityFrameworkStores<OnlineShopDbContext>().AddDefaultTokenProviders();

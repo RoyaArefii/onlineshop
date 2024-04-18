@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OnlineShop.EFCore.Migrations
 {
     /// <inheritdoc />
-    public partial class firstmig : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,7 +48,7 @@ namespace OnlineShop.EFCore.Migrations
                     Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 29, 13, 1, 55, 757, DateTimeKind.Local).AddTicks(5856)),
+                    DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 4, 15, 20, 42, 10, 104, DateTimeKind.Local).AddTicks(5559)),
                     DateCreatedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsModified = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     DateModifiedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -254,12 +254,6 @@ namespace OnlineShop.EFCore.Migrations
                     { "2", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, "Admin", null },
                     { "3", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, "Support", null }
                 });
-
-            migrationBuilder.InsertData(
-                schema: "UserManagement",
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId", "IsActive" },
-                values: new object[] { "1", "1", false });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

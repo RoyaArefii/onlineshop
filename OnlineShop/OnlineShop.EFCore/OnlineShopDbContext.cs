@@ -7,7 +7,7 @@ using OnlineShopDomain.Frameworks.Abstracts;
 using PublicTools.Constants;
 using System.Reflection;
 
-
+ 
 
 namespace OnlineShop.EFCore
 {

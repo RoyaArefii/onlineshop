@@ -12,8 +12,8 @@ using OnlineShop.EFCore;
 namespace OnlineShop.EFCore.Migrations
 {
     [DbContext(typeof(OnlineShopDbContext))]
-    [Migration("20240229093156_firstmig")]
-    partial class firstmig
+    [Migration("20240415171210_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -207,7 +207,7 @@ namespace OnlineShop.EFCore.Migrations
                     b.Property<DateTime>("DateCreatedLatin")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 2, 29, 13, 1, 55, 757, DateTimeKind.Local).AddTicks(5856));
+                        .HasDefaultValue(new DateTime(2024, 4, 15, 20, 42, 10, 104, DateTimeKind.Local).AddTicks(5559));
 
                     b.Property<string>("DateCreatedPersian")
                         .HasColumnType("nvarchar(max)");
@@ -322,14 +322,6 @@ namespace OnlineShop.EFCore.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", "UserManagement");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "1",
-                            RoleId = "1",
-                            IsActive = false
-                        });
                 });
 
             modelBuilder.Entity("OnlineShopDomain.Aggregates.UserManagement.OTP", b =>

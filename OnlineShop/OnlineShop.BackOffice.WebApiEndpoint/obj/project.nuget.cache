@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "f8Q3q6NMcXslTxlo1TuUmUk2Uj+hqeYq3ACk2vujqft5riPiwfBoYC82dQpTvlF9hKGtEf7OG+BHzk2PK5gw2Q==",
+  "dgSpecHash": "Mnb0bEUBbmOsPWbxdyvqPygWdsCbr5h0Yk7vYMPaWaJgr+ii610Lyg9Z3WccRDNC4atUA/dz78lJzNgBfz6uLg==",
   "success": true,
-  "projectFilePath": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj",
+  "projectFilePath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

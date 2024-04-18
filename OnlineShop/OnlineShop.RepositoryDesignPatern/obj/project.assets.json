@@ -4307,11 +4307,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\OnlineShop.RepositoryDesignPatern.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\OnlineShop.RepositoryDesignPatern.csproj",
       "projectName": "OnlineShop.RepositoryDesignPatern",
-      "projectPath": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\OnlineShop.RepositoryDesignPatern.csproj",
+      "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\OnlineShop.RepositoryDesignPatern.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\obj\\",
+      "outputPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4333,14 +4333,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {
-              "projectPath": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj"
+            "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {
+              "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj"
             },
-            "D:\\FinalProject_Web_Class\\OnlineShop\\PublicTools\\PublicTools.csproj": {
-              "projectPath": "D:\\FinalProject_Web_Class\\OnlineShop\\PublicTools\\PublicTools.csproj"
+            "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\PublicTools\\PublicTools.csproj": {
+              "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\PublicTools\\PublicTools.csproj"
             },
-            "D:\\FinalProject_Web_Class\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj": {
-              "projectPath": "D:\\FinalProject_Web_Class\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj"
+            "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj": {
+              "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj"
             }
           }
         }

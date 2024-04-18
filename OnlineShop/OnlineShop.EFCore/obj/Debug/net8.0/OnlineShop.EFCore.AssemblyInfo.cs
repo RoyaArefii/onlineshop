@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OnlineShop.EFCore")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+54a3685b140073feb663bab0a173ddd1221f741d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+07b526191b0407a0080f307f08ff6883f89a9e37")]
 [assembly: System.Reflection.AssemblyProductAttribute("OnlineShop.EFCore")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OnlineShop.EFCore")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

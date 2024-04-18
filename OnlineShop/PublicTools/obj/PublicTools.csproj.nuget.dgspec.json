@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FinalProject_Web_Class\\OnlineShop\\PublicTools\\PublicTools.csproj": {}
+    "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\PublicTools\\PublicTools.csproj": {}
   },
   "projects": {
-    "D:\\FinalProject_Web_Class\\OnlineShop\\PublicTools\\PublicTools.csproj": {
+    "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\PublicTools\\PublicTools.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FinalProject_Web_Class\\OnlineShop\\PublicTools\\PublicTools.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\PublicTools\\PublicTools.csproj",
         "projectName": "PublicTools",
-        "projectPath": "D:\\FinalProject_Web_Class\\OnlineShop\\PublicTools\\PublicTools.csproj",
+        "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\PublicTools\\PublicTools.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\FinalProject_Web_Class\\OnlineShop\\PublicTools\\obj\\",
+        "outputPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\PublicTools\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

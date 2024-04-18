@@ -13,6 +13,7 @@ namespace OnlineShop.RepositoryDesignPatern.Services.Sale
     {
         public ProductRepository(OnlineShopDbContext dbContext) : base(dbContext)
         {
+
         }
     }
 }

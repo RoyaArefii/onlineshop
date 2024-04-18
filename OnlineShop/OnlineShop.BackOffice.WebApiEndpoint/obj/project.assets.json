@@ -2082,6 +2082,7 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "OnlineShop.RepositoryDesignPatern": "1.0.0",
+          "OnlineShopDomain": "1.0.0",
           "PublicTools": "1.0.0",
           "ResponseFramework": "1.0.0"
         },
@@ -5590,11 +5591,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj",
       "projectName": "OnlineShop.BackOffice.WebApiEndpoint",
-      "projectPath": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj",
+      "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\obj\\",
+      "outputPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5616,14 +5617,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.Application\\OnlineShop.Application.csproj": {
-              "projectPath": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.Application\\OnlineShop.Application.csproj"
+            "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.Application\\OnlineShop.Application.csproj": {
+              "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.Application\\OnlineShop.Application.csproj"
             },
-            "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {
-              "projectPath": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj"
+            "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {
+              "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj"
             },
-            "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
-              "projectPath": "D:\\FinalProject_Web_Class\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj"
+            "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
+              "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj"
             }
           }
         }
