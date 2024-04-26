@@ -20,7 +20,7 @@ namespace OnlineShop.Application.Services.SaleServices
         #endregion
 
         #region [- DeleteAsync(string id) -]
-        public async Task<IResponse<object>> DeleteAsync(string id)
+        public async Task<IResponse<object>> DeleteAsync(Guid id)
         {
             var deleteProductCategory = await _repository.FindById(id);
             if (deleteProductCategory == null)
@@ -39,8 +39,7 @@ namespace OnlineShop.Application.Services.SaleServices
         {
             var deleteProductCategory = new ProductCategory
             {
-                Id = model.Id,
-                Title = model.Title,
+                Id = model.Id
             };
             if (deleteProductCategory == null)
             {
@@ -124,10 +123,10 @@ namespace OnlineShop.Application.Services.SaleServices
         #endregion
 
         #region [-FindById(string id)-]
-        public async Task<IResponse<GetProductCategoryAppDto>> FindById(string id)
+        public async Task<IResponse<GetProductCategoryAppDto>> FindById(Guid id)
         {
             #region [-Validation-]
-            if (string.IsNullOrWhiteSpace(id)) return new Response<GetProductCategoryAppDto>(MessageResource.Error_ThisFieldIsMandatory);
+            if (id.Equals(null)) return new Response<GetProductCategoryAppDto>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
 
             #region [-Task-]

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShopDomain.Frameworks.Abstracts
 {
-    public interface ISimpleEntity : IEntity<int>, ITitledEntity, IDescribedEntity, IActiveEntity
+    public interface ISimpleEntity : IEntity<Guid>, ITitledEntity, IDescribedEntity, IActiveEntity
     {
 
     }

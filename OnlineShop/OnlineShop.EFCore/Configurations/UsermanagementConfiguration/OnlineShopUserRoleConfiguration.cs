@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineShop.EFCore.Configurations
+namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
 {
     public class OnlineShopUserRoleConfiguration : IEntityTypeConfiguration<AppUserRole>
     {
         public void Configure(EntityTypeBuilder<AppUserRole> builder)
         {
             builder.ToTable(nameof(AppUserRole));
-                
+
             //    HasData(
             //new AppUserRole
             //{

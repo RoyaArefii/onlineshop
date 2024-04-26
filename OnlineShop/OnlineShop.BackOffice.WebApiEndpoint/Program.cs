@@ -15,6 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 var connectionString = builder.Configuration.GetValue<string>("ConnectionStrings:Default");
 
 builder.Services.AddDbContext<OnlineShopDbContext>(c => c.UseSqlServer(connectionString));

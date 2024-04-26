@@ -20,8 +20,12 @@ namespace OnlineShop.Application.Services.SaleServices
         #endregion
 
         #region [- DeleteAsync(string id) -]
-        public async Task<IResponse<object>> DeleteAsync(string id)
+        public async Task<IResponse<object>> DeleteAsync(Guid id)
         {
+            if (id.Equals(null))
+            {
+                return new Response<object>(MessageResource.Error_TheParameterIsNull);
+            }
             var deleteProduct = await _repository.FindById(id);
             if (deleteProduct == null)
             {
@@ -32,18 +36,15 @@ namespace OnlineShop.Application.Services.SaleServices
                 return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, deleteProduct, HttpStatusCode.OK);
             return new Response<object>(MessageResource.Error_FailProcess);
         }
-        #endregion
+        #endregion 
 
         #region [- DeleteAsync(DeleteProductAppDto model) -]
         public async Task<IResponse<object>> DeleteAsync(DeleteProductAppDto model)
         {
             var deleteProduct = new Product
             {
-                Id = model.Id,
-                Title = model.Title,
-                ProductCategoryId = model.ProductCategoryId,
-                Code = model.Code,
-                UnitPrice = model.UnitPrice,
+                Id = model.Id
+
             };
             if (deleteProduct == null)
             {
@@ -149,10 +150,10 @@ namespace OnlineShop.Application.Services.SaleServices
         #endregion
 
         #region [-FindById(string id)-]
-        public async Task<IResponse<GetProductAppDto>> FindById(string id)
+        public async Task<IResponse<GetProductAppDto>> FindById(Guid id)
         {
             #region [-Validation-]
-            if (string.IsNullOrWhiteSpace(id)) return new Response<GetProductAppDto>(MessageResource.Error_ThisFieldIsMandatory);
+            if (id.Equals(null)) return new Response<GetProductAppDto>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
 
             #region [-Task-]

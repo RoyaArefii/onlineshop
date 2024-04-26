@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Application.Contracts
 {
-    public interface IApplicationService<T, TPut, TGet, TPost , TDelete>
+    public interface IApplicationService<T, TPut, TGet, TPost , TDelete , TKey>
     {
         Task<IResponse<object>> PutAsync(TPut model);
         Task<IResponse<object>> PostAsync(TPost model);
-        Task<IResponse<object>> DeleteAsync(string id);
+        Task<IResponse<object>> DeleteAsync(TKey id);
         Task<IResponse<object>> DeleteAsync(TDelete model);
         Task<IResponse<List<TGet>>> GetAsync();
-        Task<IResponse<TGet>> FindById(string id);
+        Task<IResponse<TGet>> FindById(TKey id);
         Task SaveChanges();
     }
 }

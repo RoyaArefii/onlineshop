@@ -12,6 +12,7 @@
           "Microsoft.EntityFrameworkCore": "8.0.2",
           "Microsoft.EntityFrameworkCore.Design": "8.0.2",
           "OnlineShop.EFCore": "1.0.0",
+          "OnlineShopDomain": "1.0.0",
           "PublicTools": "1.0.0",
           "ResponseFramework": "1.0.0"
         },

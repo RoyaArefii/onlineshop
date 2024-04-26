@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.RepositoryDesignPatern.Services.Sale
 {
-    public class ProductRepository : BaseRepository<OnlineShopDbContext, Product, string>
+    public class ProductRepository : BaseRepository<OnlineShopDbContext, Product, Guid> 
     {
         public ProductRepository(OnlineShopDbContext dbContext) : base(dbContext)
         {

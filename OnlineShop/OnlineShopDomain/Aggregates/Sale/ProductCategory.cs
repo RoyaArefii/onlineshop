@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace OnlineShopDomain.Aggregates.Sale
 {
-    public class ProductCategory
+    public class ProductCategory:SimpleEntityBase //, IDbSetEntity
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
+        //Naming Convension
+        public Guid ParentId { get; set; }
+        List<Product> Products { get; set;} 
+
     }
 }

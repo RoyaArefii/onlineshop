@@ -7,13 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Dtos\UserManagementAppDtos\UserRoleAppDtos\**" />
     <Compile Remove="UserManagmentServices\**" />
+    <EmbeddedResource Remove="Dtos\UserManagementAppDtos\UserRoleAppDtos\**" />
     <EmbeddedResource Remove="UserManagmentServices\**" />
+    <None Remove="Dtos\UserManagementAppDtos\UserRoleAppDtos\**" />
     <None Remove="UserManagmentServices\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Dtos\UserManagementAppDtos\UserRoleAppDtos\" />
   </ItemGroup>
 
   <ItemGroup>

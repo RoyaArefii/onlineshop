@@ -16,6 +16,9 @@ namespace OnlineShop.EFCore.Migrations
             migrationBuilder.EnsureSchema(
                 name: "UserManagement");
 
+            migrationBuilder.EnsureSchema(
+                name: "Sale");
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 schema: "UserManagement",
@@ -48,7 +51,7 @@ namespace OnlineShop.EFCore.Migrations
                     Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 4, 15, 20, 42, 10, 104, DateTimeKind.Local).AddTicks(5559)),
+                    DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 4, 24, 10, 32, 49, 341, DateTimeKind.Local).AddTicks(7342)),
                     DateCreatedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsModified = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     DateModifiedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -84,7 +87,7 @@ namespace OnlineShop.EFCore.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Code = table.Column<long>(type: "bigint", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -92,6 +95,38 @@ namespace OnlineShop.EFCore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FileEntityBase", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderHeader",
+                schema: "Sale",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Seller = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Buyer = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderHeader", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductCategory",
+                schema: "Sale",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductCategory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,6 +248,39 @@ namespace OnlineShop.EFCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Product",
+                schema: "Sale",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateCreatedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsModified = table.Column<bool>(type: "bit", nullable: false),
+                    DateModifiedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateModifiedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Product", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Product_ProductCategory_ProductCategoryId",
+                        column: x => x.ProductCategoryId,
+                        principalSchema: "Sale",
+                        principalTable: "ProductCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OTP",
                 schema: "UserManagement",
                 columns: table => new
@@ -241,6 +309,48 @@ namespace OnlineShop.EFCore.Migrations
                         principalSchema: "UserManagement",
                         principalTable: "AspNetUserRoles",
                         principalColumns: new[] { "UserId", "RoleId" },
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderDetail",
+                schema: "Sale",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderHeaderid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateCreatedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsModified = table.Column<bool>(type: "bit", nullable: false),
+                    DateModifiedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateModifiedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderDetail_OrderHeader_OrderHeaderid",
+                        column: x => x.OrderHeaderid,
+                        principalSchema: "Sale",
+                        principalTable: "OrderHeader",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderDetail_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalSchema: "Sale",
+                        principalTable: "Product",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -302,10 +412,28 @@ namespace OnlineShop.EFCore.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderDetail_OrderHeaderid",
+                schema: "Sale",
+                table: "OrderDetail",
+                column: "OrderHeaderid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetail_ProductId",
+                schema: "Sale",
+                table: "OrderDetail",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OTP_AppUserRoleUserId_AppUserRoleRoleId",
                 schema: "UserManagement",
                 table: "OTP",
                 columns: new[] { "AppUserRoleUserId", "AppUserRoleRoleId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_ProductCategoryId",
+                schema: "Sale",
+                table: "Product",
+                column: "ProductCategoryId");
         }
 
         /// <inheritdoc />
@@ -332,12 +460,28 @@ namespace OnlineShop.EFCore.Migrations
                 schema: "UserManagement");
 
             migrationBuilder.DropTable(
+                name: "OrderDetail",
+                schema: "Sale");
+
+            migrationBuilder.DropTable(
                 name: "OTP",
                 schema: "UserManagement");
 
             migrationBuilder.DropTable(
+                name: "OrderHeader",
+                schema: "Sale");
+
+            migrationBuilder.DropTable(
+                name: "Product",
+                schema: "Sale");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUserRoles",
                 schema: "UserManagement");
+
+            migrationBuilder.DropTable(
+                name: "ProductCategory",
+                schema: "Sale");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles",

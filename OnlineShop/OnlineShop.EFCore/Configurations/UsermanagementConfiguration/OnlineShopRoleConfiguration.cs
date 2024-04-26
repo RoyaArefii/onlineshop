@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineShop.EFCore.Configurations
+namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
 {
     public class OnlineShopRoleConfiguration : IEntityTypeConfiguration<AppRole>
     {

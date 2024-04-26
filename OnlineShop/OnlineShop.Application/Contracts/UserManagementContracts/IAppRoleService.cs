@@ -1,5 +1,6 @@
 ﻿using OnlineShop.Application.Dtos.UserManagementAppDtos.RoleAppDtos;
 using OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos;
+using OnlineShopDomain.Aggregates.UserManagement;
 using ResponseFramework;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Application.Contracts.UserManagementContracts
 {
-    public interface IAppRoleService
+    public interface IAppRoleService :IApplicationService<AppRole , PutRoleAppDto , GetRoleAppDto , PostRoleAppDto, DeleteRoleAppDto , string>
     {
-        Task<IResponse<object>> Post(PostRoleAppDto model);
-        Task<IResponse<object>> Put(PutRoleAppDto model);
-        Task<IResponse<List<GetRoleAppDto>>> GetAll();
-        Task<IResponse<object>> Delete(DeleteRoleAppDto model);
     }
 }

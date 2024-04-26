@@ -8,12 +8,12 @@ namespace OnlineShopDomain.Frameworks.Bases
 {
     public class MainEntityBase : IMainEntity
     {
+        public Guid Id { get; set; }
         public bool IsActive { get; set; }
-        public long Code { get; set; }
+        public string Code { get; set; }
         public DateTime DateCreatedLatin { get; set; }
         public string DateCreatedPersian { get; set; }
         public string EntityDescription { get; set; }
-        public Guid Id { get; set; }
         public bool IsModified { get; set; }
         public DateTime DateModifiedLatin { get; set; }
         public string DateModifiedPersian { get; set; }

@@ -17,8 +17,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineShop.EFCore\OnlineShop.EFCore.csproj" />
+    <ProjectReference Include="..\OnlineShopDomain\OnlineShopDomain.csproj" />
     <ProjectReference Include="..\PublicTools\PublicTools.csproj" />
     <ProjectReference Include="..\ResponseFramework\ResponseFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Frameworks\Contracs\UserManagementContracts\" />
   </ItemGroup>
 
 

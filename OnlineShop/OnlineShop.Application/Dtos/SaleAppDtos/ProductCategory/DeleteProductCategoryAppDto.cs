@@ -9,6 +9,5 @@ namespace OnlineShop.Application.Dtos.SaleAppDtos.ProductCategory
     public class DeleteProductCategoryAppDto
     {
         public Guid Id { get; set; }
-        public string Title { get; set; }
     }
 }

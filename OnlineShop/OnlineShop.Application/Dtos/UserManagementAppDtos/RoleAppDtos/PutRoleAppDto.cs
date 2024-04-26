@@ -8,5 +8,12 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.RoleAppDtos
 {
     public class PutRoleAppDto
     {
+        public string Id { get; set; }
+        public string Title { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime DateSoftDeletedLatin { get; set; }
+        public string? DateSoftDeletedPersian { get; set; }
+        public string? EntityDescription { get; set; }
     }
 }

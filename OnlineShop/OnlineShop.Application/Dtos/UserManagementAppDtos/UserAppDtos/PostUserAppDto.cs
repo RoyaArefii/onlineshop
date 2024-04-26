@@ -8,6 +8,8 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos
 {
     public class PostUserAppDto
     {
+        public string Id { get; set; }
+        public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Cellphone { get; set; }
@@ -19,6 +21,7 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos
         public bool IsModified { get; set; }
         public DateTime DateModifiedLatin { get; set; }
         public string? DateModifiedPersian { get; set; }
+        public bool IsDeleted { get; set; }
         public DateTime DateSoftDeletedLatin { get; set; }
         public string? DateSoftDeletedPersian { get; set; }
     }

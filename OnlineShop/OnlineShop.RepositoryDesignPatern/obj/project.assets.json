@@ -4296,6 +4296,7 @@
       "Microsoft.EntityFrameworkCore >= 8.0.2",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.2",
       "OnlineShop.EFCore >= 1.0.0",
+      "OnlineShopDomain >= 1.0.0",
       "PublicTools >= 1.0.0",
       "ResponseFramework >= 1.0.0"
     ]
@@ -4335,6 +4336,9 @@
           "projectReferences": {
             "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {
               "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj"
+            },
+            "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
+              "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj"
             },
             "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\PublicTools\\PublicTools.csproj": {
               "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\PublicTools\\PublicTools.csproj"
