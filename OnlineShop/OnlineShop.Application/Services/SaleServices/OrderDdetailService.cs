@@ -1,26 +1,20 @@
 ﻿using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderDetailAppDtos;
-using OnlineShop.Application.Dtos.SaleAppDtos.OrderHeaderAppDtos;
 using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 using OnlineShop.RepositoryDesignPatern.Services.Sale;
 using OnlineShopDomain.Aggregates.Sale;
 using PublicTools.Resources;
 using ResponseFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineShop.Application.Services.SaleServices
 {
-    public class OrderDdetailService : IApplicationOrderDetail
+    public class OrderDdetailService : IAppOrderDetailService
     {
-        private readonly OrderDetailRepository _repository;
+        private readonly IRepository<OrderDetail , Guid> _repository;
 
         #region [-Ctor-]
-        public OrderDdetailService(OrderDetailRepository repository)
+        public OrderDdetailService(IRepository<OrderDetail, Guid> repository)
         {
             _repository = repository;
         }

@@ -1,5 +1,7 @@
 ﻿
+using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.ProductCategory;
+using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 using OnlineShop.RepositoryDesignPatern.Services.Sale;
 using OnlineShopDomain.Aggregates.Sale;
 using PublicTools.Resources;
@@ -8,12 +10,12 @@ using System.Net;
 
 namespace OnlineShop.Application.Services.SaleServices
 {
-    public class ProductCategoryService
+    public class ProductCategoryService :IAppProductCategoryService
     {
-        private readonly ProductCategoryRepository _repository;
+        private readonly IRepository<ProductCategory, Guid> _repository;
 
         #region [-Ctor-]
-        public ProductCategoryService(ProductCategoryRepository repository)
+        public ProductCategoryService(IRepository<ProductCategory, Guid> repository)
         {
             _repository = repository;
         }
@@ -39,7 +41,11 @@ namespace OnlineShop.Application.Services.SaleServices
         {
             var deleteProductCategory = new ProductCategory
             {
-                Id = model.Id
+                Id = model.Id,
+                ParentId = model.ParentId,
+                IsActive = model.IsActive,
+                Title = model.Title ,
+                EntityDescription = model.EntityDescription
             };
             if (deleteProductCategory == null)
             {
@@ -63,7 +69,10 @@ namespace OnlineShop.Application.Services.SaleServices
             var getProductCategorys = getResult.Result.Select(item => new GetProductCategoryAppDto()
             {
                 Id = item.Id,
+                ParentId = item.ParentId,
+                IsActive = item.IsActive,
                 Title = item.Title,
+                EntityDescription = item.EntityDescription
             }).ToList();
 
             return new Response<List<GetProductCategoryAppDto>>(true, MessageResource.Info_SuccessfullProcess, string.Empty, getProductCategorys, HttpStatusCode.OK);
@@ -83,7 +92,10 @@ namespace OnlineShop.Application.Services.SaleServices
             var putProductCategory = new ProductCategory
             {
                 Id = model.Id,
+                ParentId = model.ParentId,
+                IsActive = model.IsActive,
                 Title = model.Title,
+                EntityDescription = model.EntityDescription,
             };
             if (putProductCategory == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             var putResult = await _repository.UpdateAsync(putProductCategory);
@@ -109,7 +121,10 @@ namespace OnlineShop.Application.Services.SaleServices
             var postProductCategory = new ProductCategory()
             {
                 Id = new Guid(),
+                ParentId = model.ParentId,
+                IsActive = model.IsActive,
                 Title = model.Title,
+                EntityDescription = model.EntityDescription,
             };
             var postResult = await _repository.InsertAsync(postProductCategory);
             #endregion
@@ -135,8 +150,10 @@ namespace OnlineShop.Application.Services.SaleServices
             var findProductCategory = new GetProductCategoryAppDto()
             {
                 Id = findResult.Result.Id,
+                ParentId = findResult.Result.ParentId,
+                IsActive = findResult.Result.IsActive,
                 Title = findResult.Result.Title,
-
+                EntityDescription=findResult.Result.EntityDescription
             };
             #endregion
 

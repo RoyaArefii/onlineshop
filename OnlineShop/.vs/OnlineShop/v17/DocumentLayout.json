@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|c:\\users\\user\\desktop\\onlineshop_webproject\\onlineshop\\onlineshop.application\\services\\usermanagmentservices\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|solutionrelative:onlineshop.application\\services\\usermanagmentservices\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.EFCore\\Migrations\\20240501173422_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:OnlineShop.EFCore\\Migrations\\20240501173422_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|c:\\users\\user\\desktop\\onlineshop_webproject\\onlineshop\\onlineshop.application\\services\\saleservices\\productcategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|solutionrelative:onlineshop.application\\services\\saleservices\\productcategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9604605-38CF-45E2-8A6A-E1B424459959}|OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj|c:\\users\\user\\desktop\\onlineshop_webproject\\onlineshop\\onlineshop.backoffice.webapiendpoint\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9604605-38CF-45E2-8A6A-E1B424459959}|OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj|solutionrelative:onlineshop.backoffice.webapiendpoint\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +27,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.Application\\Services\\UserManagmentServices\\UserService.cs",
-              "RelativeDocumentMoniker": "OnlineShop.Application\\Services\\UserManagmentServices\\UserService.cs",
-              "ToolTip": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.Application\\Services\\UserManagmentServices\\UserService.cs",
-              "RelativeToolTip": "OnlineShop.Application\\Services\\UserManagmentServices\\UserService.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA0AAAAHAAAA",
+              "Title": "20240501173422_init.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.EFCore\\Migrations\\20240501173422_init.cs",
+              "RelativeDocumentMoniker": "OnlineShop.EFCore\\Migrations\\20240501173422_init.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.EFCore\\Migrations\\20240501173422_init.cs",
+              "RelativeToolTip": "OnlineShop.EFCore\\Migrations\\20240501173422_init.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T14:14:04.013Z",
+              "WhenOpened": "2024-05-01T17:34:22.636Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ProductCategoryService.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.Application\\Services\\SaleServices\\ProductCategoryService.cs",
+              "RelativeDocumentMoniker": "OnlineShop.Application\\Services\\SaleServices\\ProductCategoryService.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.Application\\Services\\SaleServices\\ProductCategoryService.cs",
+              "RelativeToolTip": "OnlineShop.Application\\Services\\SaleServices\\ProductCategoryService.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAxwKwAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-01T17:00:12.882Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\Program.cs",
+              "RelativeDocumentMoniker": "OnlineShop.BackOffice.WebApiEndpoint\\Program.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\Program.cs",
+              "RelativeToolTip": "OnlineShop.BackOffice.WebApiEndpoint\\Program.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAACAAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-28T15:54:18.503Z",
               "EditorCaption": ""
             }
           ]

@@ -10,9 +10,9 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers
     [ApiController]
     public class BackOfficeOrderHeaderController : ControllerBase
     {
-        private readonly IApplicationOrderHeaderService _appOrderHeaderlService;
+        private readonly IAppOrderHeaderService _appOrderHeaderlService;
 
-        public BackOfficeOrderHeaderController(IApplicationOrderHeaderService appOrderHeaderlService)
+        public BackOfficeOrderHeaderController(IAppOrderHeaderService appOrderHeaderlService)
         {
             _appOrderHeaderlService = appOrderHeaderlService;
         }

@@ -1,5 +1,6 @@
 ﻿using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.ProductAppDtos;
+using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 using OnlineShop.RepositoryDesignPatern.Services.Sale;
 using OnlineShopDomain.Aggregates.Sale;
 using PublicTools.Resources;
@@ -10,10 +11,10 @@ namespace OnlineShop.Application.Services.SaleServices
 {
     public class ProductService : IAppProductService
     {
-        private readonly ProductRepository _repository;
+        private readonly IRepository<Product , Guid> _repository;
 
         #region [-Ctor-]
-        public ProductService(ProductRepository repository)
+        public ProductService(IRepository<Product, Guid> repository)
         {
             _repository = repository;
         }

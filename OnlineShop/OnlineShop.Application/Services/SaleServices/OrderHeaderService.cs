@@ -6,16 +6,17 @@ using ResponseFramework;
 using System.Net;
 using OnlineShopDomain.Aggregates.Sale;
 using OnlineShop.Application.Dtos.SaleAppDtos.ProductAppDtos;
+using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 
 
 namespace OnlineShop.Application.Services.SaleServices
 {
-    public class OrderHeaderService : IApplicationOrderHeaderService
+    public class OrderHeaderService : IAppOrderHeaderService
     {
-        private readonly OrderHeaderRepository _repository;
+        private readonly IRepository<OrderHeader, Guid> _repository;
 
         #region [-Ctor-]
-        public OrderHeaderService(OrderHeaderRepository repository)
+        public OrderHeaderService(IRepository<OrderHeader, Guid> repository)
         {
             _repository = repository;
         }

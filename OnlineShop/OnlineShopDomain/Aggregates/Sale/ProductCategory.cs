@@ -9,7 +9,7 @@ namespace OnlineShopDomain.Aggregates.Sale
     public class ProductCategory:SimpleEntityBase //, IDbSetEntity
     {
         //Naming Convension
-        public Guid ParentId { get; set; }
+        public Guid? ParentId { get; set; }
         List<Product> Products { get; set;} 
 
     }

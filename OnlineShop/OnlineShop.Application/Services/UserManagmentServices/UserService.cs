@@ -1,4 +1,5 @@
-﻿using OnlineShop.Application.Contracts.UserManagementContracts;
+﻿using Microsoft.AspNetCore.Identity;
+using OnlineShop.Application.Contracts.UserManagementContracts;
 using OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos;
 using OnlineShop.RepositoryDesignPatern.Services.UserManagement;
 using OnlineShopDomain.Aggregates.Sale;
@@ -12,11 +13,13 @@ namespace OnlineShop.Application.Services.UserManagmentServices
     public class UserService : IAppUserService 
     {
         private readonly UserRepository _repository;
+        private readonly UserManager<AppUser> _userManagerRep;
 
         #region [-Ctor-]
-        public UserService(UserRepository repository)
+        public UserService(UserRepository repository , UserManager<AppUser> userManager )
         {
             _repository = repository;
+            _userManagerRep = userManager;
         }
         #endregion
 
@@ -27,7 +30,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             {
                 return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             }
-            var userDelete = _repository.FindById(id);
+            var userDelete = _userManagerRep.FindByIdAsync(id); 
             if (userDelete == null)
             {
                 return new Response<object>(MessageResource.Error_FailToFindObject);
