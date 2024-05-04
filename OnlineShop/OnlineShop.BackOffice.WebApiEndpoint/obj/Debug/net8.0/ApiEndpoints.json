@@ -1,6 +1,6 @@
 [
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeOrderHeaderController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderHeaderController",
     "Method": "Put",
     "RelativePath": "api/BackOfficeOrderHeader",
     "HttpMethod": "PUT",
@@ -16,7 +16,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeOrderHeaderController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderHeaderController",
     "Method": "Post",
     "RelativePath": "api/BackOfficeOrderHeader",
     "HttpMethod": "POST",
@@ -32,7 +32,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeOrderHeaderController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderHeaderController",
     "Method": "Delete",
     "RelativePath": "api/BackOfficeOrderHeader",
     "HttpMethod": "DELETE",
@@ -48,7 +48,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeOrderHeaderController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderHeaderController",
     "Method": "GetAll",
     "RelativePath": "api/BackOfficeOrderHeader",
     "HttpMethod": "GET",
@@ -58,7 +58,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeProductController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeProductController",
     "Method": "Put",
     "RelativePath": "api/BackOfficeProduct",
     "HttpMethod": "PUT",
@@ -74,7 +74,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeProductController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeProductController",
     "Method": "Post",
     "RelativePath": "api/BackOfficeProduct",
     "HttpMethod": "POST",
@@ -90,7 +90,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeProductController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeProductController",
     "Method": "Delete",
     "RelativePath": "api/BackOfficeProduct",
     "HttpMethod": "DELETE",
@@ -106,7 +106,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeProductController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeProductController",
     "Method": "GetAll",
     "RelativePath": "api/BackOfficeProduct",
     "HttpMethod": "GET",
@@ -116,7 +116,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeProductCategoryController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeProductCategoryController",
     "Method": "Put",
     "RelativePath": "api/BackOfficeProductCategory",
     "HttpMethod": "PUT",
@@ -132,7 +132,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeProductCategoryController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeProductCategoryController",
     "Method": "Post",
     "RelativePath": "api/BackOfficeProductCategory",
     "HttpMethod": "POST",
@@ -148,7 +148,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeProductCategoryController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeProductCategoryController",
     "Method": "Delete",
     "RelativePath": "api/BackOfficeProductCategory",
     "HttpMethod": "DELETE",
@@ -164,9 +164,67 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeProductCategoryController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeProductCategoryController",
     "Method": "GetAll",
     "RelativePath": "api/BackOfficeProductCategory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserController",
+    "Method": "Put",
+    "RelativePath": "api/BackOfficeUser",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos.PutUserAppDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserController",
+    "Method": "Post",
+    "RelativePath": "api/BackOfficeUser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos.PostUserAppDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserController",
+    "Method": "Delete",
+    "RelativePath": "api/BackOfficeUser",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos.DeleteUserAppDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserController",
+    "Method": "GetAll",
+    "RelativePath": "api/BackOfficeUser",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

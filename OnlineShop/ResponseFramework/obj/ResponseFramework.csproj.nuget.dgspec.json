@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj": {}
+    "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj": {}
   },
   "projects": {
-    "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj": {
+    "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj",
         "projectName": "ResponseFramework",
-        "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj",
+        "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject\\OnlineShop\\ResponseFramework\\obj\\",
+        "outputPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\ResponseFramework\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

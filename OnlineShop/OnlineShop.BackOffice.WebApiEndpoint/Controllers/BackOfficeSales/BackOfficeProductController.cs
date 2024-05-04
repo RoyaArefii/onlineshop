@@ -6,7 +6,7 @@ using OnlineShop.Application.Dtos.SaleAppDtos.ProductAppDtos;
 using PublicTools.Resources;
 using ResponseFramework;
 
-namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers
+namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,12 +18,12 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers
         {
             _appProductService = appProductService;
         }
-        private static JsonResult Guard (PutProductAppDto model)
+        private static JsonResult Guard(PutProductAppDto model)
         {
-            if (model.Id.Equals(null)) return new JsonResult (new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            if (model.Title.IsNullOrEmpty()) return new JsonResult( new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            if (model.UnitPrice.Equals(null)) return new JsonResult( new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-             return (model.ProductCategoryId.Equals(null)) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)): new JsonResult(null);
+            if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            if (model.Title.IsNullOrEmpty()) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            if (model.UnitPrice.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            return model.ProductCategoryId.Equals(null) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
 
         private static JsonResult Guard(PostProductAppDto model)
@@ -32,14 +32,14 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers
             if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.Title.IsNullOrEmpty()) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.UnitPrice.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            return (model.ProductCategoryId.Equals(null)) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
+            return model.ProductCategoryId.Equals(null) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
         [HttpPut(Name = "PutProduct")]
         public async Task<IActionResult> Put(PutProductAppDto model)
         {
             Guard(model);
-           var putResult = await _appProductService.PutAsync(model);
-            return new JsonResult(putResult);   
+            var putResult = await _appProductService.PutAsync(model);
+            return new JsonResult(putResult);
         }
         [HttpPost(Name = "PostProduct")]
         public async Task<IActionResult> Post(PostProductAppDto model)
@@ -48,19 +48,19 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers
             var postResult = await _appProductService.PostAsync(model);
             return new JsonResult(postResult);
         }
-        [HttpDelete (Name ="DeleteProduct")]
+        [HttpDelete(Name = "DeleteProduct")]
         public async Task<IActionResult> Delete(DeleteProductAppDto model)
         {
-            if (model.Id.Equals(null)) return new JsonResult (new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             var postResult = await _appProductService.DeleteAsync(model);
             return new JsonResult(postResult);
         }
 
-        [HttpGet (Name = "GetProduct")]
+        [HttpGet(Name = "GetProduct")]
         public async Task<IActionResult> GetAll()
         {
             var getresult = await _appProductService.GetAsync();
-            return new JsonResult(getresult);   
+            return new JsonResult(getresult);
         }
     }
 }

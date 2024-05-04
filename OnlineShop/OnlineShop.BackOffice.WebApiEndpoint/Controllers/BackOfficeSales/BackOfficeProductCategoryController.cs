@@ -6,7 +6,7 @@ using OnlineShop.Application.Dtos.SaleAppDtos.ProductCategory;
 using PublicTools.Resources;
 using ResponseFramework;
 
-namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers
+namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,14 +21,16 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers
         private static JsonResult Guard(PutProductCategoryAppDto model)
         {
             if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            return (model.Title.IsNullOrEmpty()) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
+            if (model.IsActive.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            return model.Title.IsNullOrEmpty() ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
 
         private static JsonResult Guard(PostProductCategoryAppDto model)
         {
 
             if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            return (model.Title.IsNullOrEmpty()) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
+            if (model.IsActive.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            return model.Title.IsNullOrEmpty() ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
 
         [HttpPut(Name = "PutProductCategory")]
@@ -38,7 +40,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers
             var putResult = await _appProductCategoryService.PutAsync(model);
             return new JsonResult(putResult);
         }
-        
+
         [HttpPost(Name = "PostProductCategory")]
         public async Task<IActionResult> Post(PostProductCategoryAppDto model)
         {
@@ -46,7 +48,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers
             var postResult = await _appProductCategoryService.PostAsync(model);
             return new JsonResult(postResult);
         }
-       
+
         [HttpDelete(Name = "DeleteProductCategory")]
         public async Task<IActionResult> Delete(DeleteProductCategoryAppDto model)
         {

@@ -4,7 +4,7 @@ using OnlineShop.Application.Dtos.SaleAppDtos.OrderHeaderAppDtos;
 using PublicTools.Resources;
 using ResponseFramework;
 
-namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers
+namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -23,7 +23,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers
             if (model.Code.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.Seller.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.Buyer.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            return (model.OrderDate.Equals(null)) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
+            return model.OrderDate.Equals(null) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
 
         private static JsonResult Guard(PostOrderHeaderAppDto model)
@@ -33,7 +33,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers
             if (model.Code.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.Seller.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.Buyer.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            return (model.OrderDate.Equals(null)) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
+            return model.OrderDate.Equals(null) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
 
         [HttpPut(Name = "PutOrderHeader")]

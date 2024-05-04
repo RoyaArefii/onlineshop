@@ -12,8 +12,8 @@ using OnlineShop.EFCore;
 namespace OnlineShop.EFCore.Migrations
 {
     [DbContext(typeof(OnlineShopDbContext))]
-    [Migration("20240501173422_init")]
-    partial class init
+    [Migration("20240504090314_init-withPasswor")]
+    partial class initwithPasswor
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -134,18 +134,16 @@ namespace OnlineShop.EFCore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateModifiedLatin")
+                    b.Property<DateTime?>("DateModifiedLatin")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DateModifiedPersian")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateSoftDeletedLatin")
+                    b.Property<DateTime?>("DateSoftDeletedLatin")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DateSoftDeletedPersian")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EntityDescription")
@@ -227,18 +225,16 @@ namespace OnlineShop.EFCore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateModifiedLatin")
+                    b.Property<DateTime?>("DateModifiedLatin")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DateModifiedPersian")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateSoftDeletedLatin")
+                    b.Property<DateTime?>("DateSoftDeletedLatin")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DateSoftDeletedPersian")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EntityDescription")
@@ -305,7 +301,7 @@ namespace OnlineShop.EFCore.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateSoftDeletedLatin")
+                    b.Property<DateTime?>("DateSoftDeletedLatin")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DateSoftDeletedPersian")
@@ -343,7 +339,6 @@ namespace OnlineShop.EFCore.Migrations
                         new
                         {
                             Id = "1",
-                            DateSoftDeletedLatin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsActive = false,
                             IsDeleted = false,
                             Name = "GodAdmin"
@@ -351,7 +346,6 @@ namespace OnlineShop.EFCore.Migrations
                         new
                         {
                             Id = "2",
-                            DateSoftDeletedLatin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsActive = false,
                             IsDeleted = false,
                             Name = "Admin"
@@ -359,7 +353,6 @@ namespace OnlineShop.EFCore.Migrations
                         new
                         {
                             Id = "3",
-                            DateSoftDeletedLatin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsActive = false,
                             IsDeleted = false,
                             Name = "Support"
@@ -383,21 +376,26 @@ namespace OnlineShop.EFCore.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ConfirmPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DateCreatedLatin")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 1, 21, 4, 22, 189, DateTimeKind.Local).AddTicks(507));
+                        .HasDefaultValue(new DateTime(2024, 5, 4, 12, 33, 13, 849, DateTimeKind.Local).AddTicks(2771));
 
                     b.Property<string>("DateCreatedPersian")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateModifiedLatin")
+                    b.Property<DateTime?>("DateModifiedLatin")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DateModifiedPersian")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateSoftDeletedLatin")
+                    b.Property<DateTime?>("DateSoftDeletedLatin")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DateSoftDeletedPersian")
@@ -449,6 +447,10 @@ namespace OnlineShop.EFCore.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -575,11 +577,10 @@ namespace OnlineShop.EFCore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateSoftDeletedLatin")
+                    b.Property<DateTime?>("DateSoftDeletedLatin")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DateSoftDeletedPersian")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EntityDescription")

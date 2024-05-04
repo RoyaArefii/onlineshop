@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.ProductCategory;
 using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
@@ -6,7 +7,9 @@ using OnlineShop.RepositoryDesignPatern.Services.Sale;
 using OnlineShopDomain.Aggregates.Sale;
 using PublicTools.Resources;
 using ResponseFramework;
+using System.Diagnostics;
 using System.Net;
+using System.Security.Policy;
 
 namespace OnlineShop.Application.Services.SaleServices
 {
@@ -86,17 +89,36 @@ namespace OnlineShop.Application.Services.SaleServices
             if (model == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             if (model.Id.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Title.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            var productCategory = await _repository.FindById(model.Id);
+            if (productCategory == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             #endregion
-
+   
             #region [-Task-]
-            var putProductCategory = new ProductCategory
-            {
-                Id = model.Id,
-                ParentId = model.ParentId,
-                IsActive = model.IsActive,
-                Title = model.Title,
-                EntityDescription = model.EntityDescription,
-            };
+
+            //var putProductCategory = new ProductCategory
+            //{
+            //    Id = productCategory.Result.Id,
+            //    ParentId = productCategory.Result.ParentId,
+            //    IsActive = productCategory.Result.IsActive,
+            //    Title = productCategory.Result.Title,
+            //    EntityDescription = productCategory.Result.EntityDescription,
+            //};
+
+            //به خاطر خطای زیر کدهای بالا کامنت شد -
+            //پاسخ chatgpt:
+            //System.InvalidOperationException: The instance of entity type 'ProductCategory' cannot be tracked because another instance with the same key value for { 'Id'} is already being tracked.When attaching existing entities, ensure that only one entity instance with a given key value is attached.Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+            //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.ThrowIdentityConflict(InternalEntityEntry entry)
+            //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(TKey key, InternalEntityEntry entry, Boolean updateDuplicate)
+            //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(TKey key, InternalEntityEntry entry)
+            //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(InternalEntityEntry entry)
+            //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.
+
+            var putProductCategory=  productCategory.Result;
+            putProductCategory.ParentId = model.ParentId;
+            putProductCategory.IsActive = model.IsActive;
+            putProductCategory.Title = model.Title;
+            putProductCategory.Id = model.Id;
+            putProductCategory.EntityDescription = model.EntityDescription;
             if (putProductCategory == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             var putResult = await _repository.UpdateAsync(putProductCategory);
             #endregion
@@ -114,6 +136,7 @@ namespace OnlineShop.Application.Services.SaleServices
             #region [-Validation-]
           
             if (model.Title.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            if (model.IsActive.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Id.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
 

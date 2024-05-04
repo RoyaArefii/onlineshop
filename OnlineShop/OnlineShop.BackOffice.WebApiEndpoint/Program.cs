@@ -9,6 +9,8 @@ using OnlineShop.RepositoryDesignPatern.Frameworks.Contracs.SaleContracts;
 using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 using onlineshop.repositorydesignpatern.frameworks.bases;
 using OnlineShopDomain.Aggregates.Sale;
+using OnlineShop.Application.Contracts.UserManagementContracts;
+using OnlineShop.Application.Services.UserManagmentServices;
 
 
 
@@ -30,6 +32,7 @@ builder.Services.AddScoped<IAppProductCategoryService, ProductCategoryService>()
 builder.Services.AddScoped<IAppProductService, ProductService>();
 builder.Services.AddScoped<IAppOrderHeaderService, OrderHeaderService>();
 builder.Services.AddScoped<IAppOrderDetailService, OrderDdetailService>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<IRepository<Product, Guid>, BaseRepository<OnlineShopDbContext, Product, Guid>>();
 builder.Services.AddScoped<IRepository<ProductCategory, Guid>, BaseRepository<OnlineShopDbContext, ProductCategory, Guid>>();
 builder.Services.AddScoped<IRepository<OrderHeader, Guid>, BaseRepository<OnlineShopDbContext, OrderHeader, Guid>>();

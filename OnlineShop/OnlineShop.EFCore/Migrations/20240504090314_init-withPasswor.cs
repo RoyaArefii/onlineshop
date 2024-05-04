@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OnlineShop.EFCore.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class initwithPasswor : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,7 +27,7 @@ namespace OnlineShop.EFCore.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
@@ -48,16 +48,18 @@ namespace OnlineShop.EFCore.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Cellphone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 1, 21, 4, 22, 189, DateTimeKind.Local).AddTicks(507)),
-                    DateCreatedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 4, 12, 33, 13, 849, DateTimeKind.Local).AddTicks(2771)),
+                    DateCreatedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsModified = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    DateModifiedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateModifiedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateModifiedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -89,8 +91,8 @@ namespace OnlineShop.EFCore.Migrations
                     EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -262,11 +264,11 @@ namespace OnlineShop.EFCore.Migrations
                     DateCreatedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsModified = table.Column<bool>(type: "bit", nullable: false),
-                    DateModifiedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateModifiedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateModifiedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateModifiedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -329,11 +331,11 @@ namespace OnlineShop.EFCore.Migrations
                     DateCreatedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsModified = table.Column<bool>(type: "bit", nullable: false),
-                    DateModifiedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateModifiedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateModifiedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateModifiedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -361,9 +363,9 @@ namespace OnlineShop.EFCore.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "DateSoftDeletedLatin", "DateSoftDeletedPersian", "EntityDescription", "IsActive", "IsDeleted", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, "GodAdmin", null },
-                    { "2", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, "Admin", null },
-                    { "3", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, "Support", null }
+                    { "1", null, null, null, null, false, false, "GodAdmin", null },
+                    { "2", null, null, null, null, false, false, "Admin", null },
+                    { "3", null, null, null, null, false, false, "Support", null }
                 });
 
             migrationBuilder.CreateIndex(

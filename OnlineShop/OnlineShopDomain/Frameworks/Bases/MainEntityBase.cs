@@ -15,11 +15,11 @@ namespace OnlineShopDomain.Frameworks.Bases
         public string DateCreatedPersian { get; set; }
         public string EntityDescription { get; set; }
         public bool IsModified { get; set; }
-        public DateTime DateModifiedLatin { get; set; }
-        public string DateModifiedPersian { get; set; }
+        public DateTime? DateModifiedLatin { get; set; }
+        public string ?DateModifiedPersian { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime DateSoftDeletedLatin { get; set; }
-        public string DateSoftDeletedPersian { get; set; }
+        public DateTime ?DateSoftDeletedLatin { get; set; }
+        public string ?DateSoftDeletedPersian { get; set; }
         public string Title { get; set; }
     }
 }
