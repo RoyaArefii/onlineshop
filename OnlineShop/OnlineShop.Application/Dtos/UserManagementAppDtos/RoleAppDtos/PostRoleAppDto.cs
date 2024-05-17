@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineShop.Application.Services.UserManagmentServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,7 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.RoleAppDtos
 {
     public class PostRoleAppDto
     {
-        public Guid Id { get; set; } 
-        public string Title { get; set; } 
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime DateSoftDeletedLatin { get; set; }
-        public string? DateSoftDeletedPersian { get; set; }
-        public string? EntityDescription { get; set; }
+        public string Name { get; set; }
+        public string? EntityDescription { get; set; }        
     }
 }

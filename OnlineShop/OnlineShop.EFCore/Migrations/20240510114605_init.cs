@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OnlineShop.EFCore.Migrations
 {
     /// <inheritdoc />
-    public partial class initwithPasswor : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,6 +30,11 @@ namespace OnlineShop.EFCore.Migrations
                     DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsModified = table.Column<bool>(type: "bit", nullable: false),
+                    DateModifiedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateModifiedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateCreatedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -48,12 +53,10 @@ namespace OnlineShop.EFCore.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Cellphone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 4, 12, 33, 13, 849, DateTimeKind.Local).AddTicks(2771)),
+                    DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 10, 15, 16, 4, 787, DateTimeKind.Local).AddTicks(7972)),
                     DateCreatedPersian = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsModified = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     DateModifiedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -88,7 +91,7 @@ namespace OnlineShop.EFCore.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -123,7 +126,7 @@ namespace OnlineShop.EFCore.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EntityDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -205,9 +208,7 @@ namespace OnlineShop.EFCore.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -258,6 +259,7 @@ namespace OnlineShop.EFCore.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -268,8 +270,7 @@ namespace OnlineShop.EFCore.Migrations
                     DateModifiedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -325,6 +326,7 @@ namespace OnlineShop.EFCore.Migrations
                     OrderHeaderid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreatedLatin = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -335,8 +337,7 @@ namespace OnlineShop.EFCore.Migrations
                     DateModifiedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DateSoftDeletedLatin = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DateSoftDeletedPersian = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -360,13 +361,26 @@ namespace OnlineShop.EFCore.Migrations
             migrationBuilder.InsertData(
                 schema: "UserManagement",
                 table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "DateSoftDeletedLatin", "DateSoftDeletedPersian", "EntityDescription", "IsActive", "IsDeleted", "Name", "NormalizedName" },
+                columns: new[] { "Id", "ConcurrencyStamp", "DateCreatedLatin", "DateCreatedPersian", "DateModifiedLatin", "DateModifiedPersian", "DateSoftDeletedLatin", "DateSoftDeletedPersian", "EntityDescription", "IsActive", "IsDeleted", "IsModified", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", null, null, null, null, false, false, "GodAdmin", null },
-                    { "2", null, null, null, null, false, false, "Admin", null },
-                    { "3", null, null, null, null, false, false, "Support", null }
+                    { "1", null, new DateTime(2024, 5, 10, 15, 16, 4, 786, DateTimeKind.Local).AddTicks(3018), "1403/2/21", null, null, null, null, null, true, false, false, "GodAdmin", null },
+                    { "2", null, new DateTime(2024, 5, 10, 15, 16, 4, 786, DateTimeKind.Local).AddTicks(5021), "1403/2/21", null, null, null, null, null, true, false, false, "Admin", null },
+                    { "3", null, new DateTime(2024, 5, 10, 15, 16, 4, 786, DateTimeKind.Local).AddTicks(6936), "1403/2/21", null, null, null, null, null, true, false, false, "Support", null },
+                    { "4", null, new DateTime(2024, 5, 10, 15, 16, 4, 786, DateTimeKind.Local).AddTicks(8852), "1403/2/21", null, null, null, null, null, true, false, false, "Normal", null }
                 });
+
+            migrationBuilder.InsertData(
+                schema: "UserManagement",
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Cellphone", "ConcurrencyStamp", "DateCreatedLatin", "DateCreatedPersian", "DateModifiedLatin", "DateModifiedPersian", "DateSoftDeletedLatin", "DateSoftDeletedPersian", "Email", "EmailConfirmed", "FirstName", "IsActive", "LastName", "Location", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Picture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "1", 0, "09378748824", "475d9f1f-9ab8-4904-b84e-5df343797363", new DateTime(2024, 5, 10, 15, 16, 4, 787, DateTimeKind.Local).AddTicks(4027), "1403/2/21", null, null, null, null, null, false, "Roya", true, "Arefi", null, false, null, null, null, "652388890", null, false, null, "0f7fc827-f1a6-43c3-b178-35209736ad79", false, "09378748824" });
+
+            migrationBuilder.InsertData(
+                schema: "UserManagement",
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "1", "1" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

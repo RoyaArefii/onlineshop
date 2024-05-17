@@ -9,8 +9,8 @@ using OnlineShop.RepositoryDesignPatern.Frameworks.Contracs.SaleContracts;
 using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 using onlineshop.repositorydesignpatern.frameworks.bases;
 using OnlineShopDomain.Aggregates.Sale;
-using OnlineShop.Application.Contracts.UserManagementContracts;
 using OnlineShop.Application.Services.UserManagmentServices;
+using PublicTools.Tools;
 
 
 
@@ -32,11 +32,14 @@ builder.Services.AddScoped<IAppProductCategoryService, ProductCategoryService>()
 builder.Services.AddScoped<IAppProductService, ProductService>();
 builder.Services.AddScoped<IAppOrderHeaderService, OrderHeaderService>();
 builder.Services.AddScoped<IAppOrderDetailService, OrderDdetailService>();
-builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<IRepository<Product, Guid>, BaseRepository<OnlineShopDbContext, Product, Guid>>();
 builder.Services.AddScoped<IRepository<ProductCategory, Guid>, BaseRepository<OnlineShopDbContext, ProductCategory, Guid>>();
 builder.Services.AddScoped<IRepository<OrderHeader, Guid>, BaseRepository<OnlineShopDbContext, OrderHeader, Guid>>();
 builder.Services.AddScoped<IRepository<OrderDetail, Guid>, BaseRepository<OnlineShopDbContext, OrderDetail, Guid>>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<RoleService>();
+builder.Services.AddScoped<UserRoleService>(); 
+builder.Services.AddScoped<AccountService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

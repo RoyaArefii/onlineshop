@@ -13,6 +13,7 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos
         public string LastName { get; set; }
         public string UserName { get; set; }   
         public string Cellphone { get; set; }
+        public string PasswordHash { get; set; }
         public byte[]? Picture { get; set; }
         public string? Location { get; set; }
         public bool IsActive { get; set; }

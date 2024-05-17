@@ -271,7 +271,6 @@ namespace OnlineShop.EFCore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("EntityDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -298,6 +297,19 @@ namespace OnlineShop.EFCore.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("DateCreatedLatin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DateCreatedPersian")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateModifiedLatin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DateModifiedPersian")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DateSoftDeletedLatin")
                         .HasColumnType("datetime2");
 
@@ -311,6 +323,9 @@ namespace OnlineShop.EFCore.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsModified")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -336,23 +351,42 @@ namespace OnlineShop.EFCore.Migrations
                         new
                         {
                             Id = "1",
-                            IsActive = false,
+                            DateCreatedLatin = new DateTime(2024, 5, 10, 15, 16, 4, 786, DateTimeKind.Local).AddTicks(3018),
+                            DateCreatedPersian = "1403/2/21",
+                            IsActive = true,
                             IsDeleted = false,
+                            IsModified = false,
                             Name = "GodAdmin"
                         },
                         new
                         {
                             Id = "2",
-                            IsActive = false,
+                            DateCreatedLatin = new DateTime(2024, 5, 10, 15, 16, 4, 786, DateTimeKind.Local).AddTicks(5021),
+                            DateCreatedPersian = "1403/2/21",
+                            IsActive = true,
                             IsDeleted = false,
+                            IsModified = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = "3",
-                            IsActive = false,
+                            DateCreatedLatin = new DateTime(2024, 5, 10, 15, 16, 4, 786, DateTimeKind.Local).AddTicks(6936),
+                            DateCreatedPersian = "1403/2/21",
+                            IsActive = true,
                             IsDeleted = false,
+                            IsModified = false,
                             Name = "Support"
+                        },
+                        new
+                        {
+                            Id = "4",
+                            DateCreatedLatin = new DateTime(2024, 5, 10, 15, 16, 4, 786, DateTimeKind.Local).AddTicks(8852),
+                            DateCreatedPersian = "1403/2/21",
+                            IsActive = true,
+                            IsDeleted = false,
+                            IsModified = false,
+                            Name = "Normal"
                         });
                 });
 
@@ -373,14 +407,10 @@ namespace OnlineShop.EFCore.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ConfirmPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateCreatedLatin")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 4, 12, 33, 13, 849, DateTimeKind.Local).AddTicks(2771));
+                        .HasDefaultValue(new DateTime(2024, 5, 10, 15, 16, 4, 787, DateTimeKind.Local).AddTicks(7972));
 
                     b.Property<string>("DateCreatedPersian")
                         .IsRequired()
@@ -445,10 +475,6 @@ namespace OnlineShop.EFCore.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -482,6 +508,29 @@ namespace OnlineShop.EFCore.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", "UserManagement");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 0,
+                            Cellphone = "09378748824",
+                            ConcurrencyStamp = "475d9f1f-9ab8-4904-b84e-5df343797363",
+                            DateCreatedLatin = new DateTime(2024, 5, 10, 15, 16, 4, 787, DateTimeKind.Local).AddTicks(4027),
+                            DateCreatedPersian = "1403/2/21",
+                            EmailConfirmed = false,
+                            FirstName = "Roya",
+                            IsActive = true,
+                            IsDeleted = false,
+                            IsModified = false,
+                            LastName = "Arefi",
+                            LockoutEnabled = false,
+                            PasswordHash = "652388890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "0f7fc827-f1a6-43c3-b178-35209736ad79",
+                            TwoFactorEnabled = false,
+                            UserName = "09378748824"
+                        });
                 });
 
             modelBuilder.Entity("OnlineShopDomain.Aggregates.UserManagement.AppUserRole", b =>
@@ -492,17 +541,18 @@ namespace OnlineShop.EFCore.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", "UserManagement");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "1"
+                        });
                 });
 
             modelBuilder.Entity("OnlineShopDomain.Aggregates.UserManagement.OTP", b =>
@@ -581,7 +631,6 @@ namespace OnlineShop.EFCore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EntityDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")

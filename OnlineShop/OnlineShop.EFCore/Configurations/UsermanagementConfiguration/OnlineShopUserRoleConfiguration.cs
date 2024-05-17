@@ -14,16 +14,14 @@ namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
     {
         public void Configure(EntityTypeBuilder<AppUserRole> builder)
         {
-            builder.ToTable(nameof(AppUserRole));
+            builder.ToTable(nameof(AppUserRole)).HasData(
+        new AppUserRole
+        {
+            UserId = DatabaseConstants.GodAdminUsers.ArefiUserId,
+            RoleId = DatabaseConstants.DefaultRoles.GodAadminId
+        });
 
-            //    HasData(
-            //new AppUserRole
-            //{
-            //    UserId=DatabaseConstants.GodAdminUsers.ArefiUserId,
-            //    RoleId= DatabaseConstants.DefaultRoles.GodAadminId
-            //});
-
-            //builder.HasKey(p=>  new{ p.UserId , p.RoleId});
+            builder.HasKey(p=>  new{ p.UserId , p.RoleId});
         }
     }
 }

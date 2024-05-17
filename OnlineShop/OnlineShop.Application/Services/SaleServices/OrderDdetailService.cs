@@ -46,6 +46,7 @@ namespace OnlineShop.Application.Services.SaleServices
 
         public async Task<IResponse<object>> DeleteAsync(DeleteOrderDetailAppDto model)
         {
+            if (model == null) return new Response<object>(MessageResource.Error_ModelNull);
             var deleteOrderDetail = new OrderDetail
             {
                 Id = model.Id

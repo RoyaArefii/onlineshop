@@ -2,11 +2,8 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnlineShopDomain.Aggregates.UserManagement;
 using PublicTools.Constants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PublicTools.Tools;
+
 
 namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
 {
@@ -15,16 +12,21 @@ namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
         ///*************************************    Questionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
-            builder.ToTable(nameof(AppUser));
-            //.
-            //    HasData(
-            //            new {Id = DatabaseConstants.GodAdminUsers.ArefiUserId,
-            //                 FirstName = DatabaseConstants.GodAdminUsers.ArefiFirstName,
-            //                 LastName = DatabaseConstants.GodAdminUsers.ArefiLastName,
-            //                 CellPhone  = DatabaseConstants.GodAdminUsers.ArefiCellPhone,
-            //                 UserName  = DatabaseConstants.GodAdminUsers.ArefiCellPhone,
-            //                AccessFailedCount=5
-            //            });
+            builder.ToTable(nameof(AppUser)).HasData(
+                        new AppUser
+                        {
+                            Id = DatabaseConstants.GodAdminUsers.ArefiUserId,
+                            FirstName = DatabaseConstants.GodAdminUsers.ArefiFirstName,
+                            LastName = DatabaseConstants.GodAdminUsers.ArefiLastName,
+                            Cellphone = DatabaseConstants.GodAdminUsers.ArefiCellPhone,
+                            UserName = DatabaseConstants.GodAdminUsers.ArefiCellPhone,
+                            PasswordHash = DatabaseConstants.GodAdminUsers.ArefiPassword.GetHashCode().ToString(),
+                            IsActive = true,
+                            DateCreatedLatin = DateTime.Now,
+                            DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now),
+                            IsDeleted = false,
+                            IsModified = false
+                        });
 
             //    builder.ToTable(table => table.HasCheckConstraint(
             //DatabaseConstants.CheckConstraints.CellphoneOnlyNumericalTitle,

@@ -47,6 +47,7 @@ namespace OnlineShop.Application.Services.SaleServices
         #region [-Task<IResponse<object>> DeleteAsync(DeleteOrderHeaderAppDtos model)-]
         public async Task<IResponse<object>> DeleteAsync(DeleteOrderHeaderAppDtos model)
         {
+            if (model == null) return new Response<object>(MessageResource.Error_ModelNull);
             var deleteOrderHeader = new OrderHeader
             {
                 Id = model.Id,

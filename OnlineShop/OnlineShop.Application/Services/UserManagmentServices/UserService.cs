@@ -1,22 +1,29 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos;
+using OnlineShop.Application.Dtos.UserManagementAppDtos.UserRoleAppDto;
+using OnlineShop.EFCore;
 using OnlineShopDomain.Aggregates.UserManagement;
 using PublicTools.Resources;
+using PublicTools.Tools;
 using ResponseFramework;
 using System.Net;
+using static PublicTools.Constants.DatabaseConstants;
 
 namespace OnlineShop.Application.Services.UserManagmentServices
 {
-    public class UserService //: IAppUserService 
+    public class UserService 
     {
-        //private readonly UserRepository _repository;
-        private readonly UserManager<AppUser> _repository;
+        private readonly UserManager<AppUser> _userService;
+        private readonly RoleManager<AppRole> _roleService;
+        private readonly OnlineShopDbContext _context;
 
         #region [-Ctor-]
-        public UserService(UserManager<AppUser> repository)
+        public UserService(UserManager<AppUser> userRepository , RoleManager<AppRole> roleRepository , OnlineShopDbContext onlineShopDbContext)
         {
-            _repository = repository;
+            _userService = userRepository;
+            _roleService = roleRepository;
+            _context = onlineShopDbContext;
         }
         #endregion
 
@@ -27,12 +34,12 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             {
                 return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             }
-            var userDelete = await _repository.FindByIdAsync(id);
+            var userDelete = await _userService.FindByIdAsync(id);
             if (userDelete == null)
             {
                 return new Response<object>(MessageResource.Error_FailToFindObject);
             }
-            var result = await _repository.DeleteAsync(userDelete);
+            var result = await _userService.DeleteAsync(userDelete);
             if (!result.Succeeded)
             {
                 return new Response<object>(MessageResource.Error_FailProcess);
@@ -44,12 +51,13 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         #region [-Task<IResponse<object>> DeleteAsync(DeleteUserAppDto model)-]
         public async Task<IResponse<object>> DeleteAsync(DeleteUserAppDto model)
         {
-            var appUser = await _repository.FindByIdAsync(model.Id);
+            if (model == null) return new Response<object>(MessageResource.Error_ModelNull);
+            var appUser = await _userService.FindByIdAsync(model.Id);
             if (appUser == null)
             {
                 return new Response<object>(MessageResource.Error_FailToFindObject);
             }
-            var resultDelete = await _repository.DeleteAsync(appUser);
+            var resultDelete = await _userService.DeleteAsync(appUser);
             if (!resultDelete.Succeeded)
                 return new Response<object>(MessageResource.Error_FailProcess);
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, appUser, HttpStatusCode.OK);
@@ -57,7 +65,6 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         #endregion
 
         #region [-Task<IResponse<GetUserAppDto>> FindById(string id)-]
-
         public async Task<IResponse<GetUserAppDto>> FindById(string id)
         {
             #region [-Validation-]
@@ -65,7 +72,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             #endregion
 
             #region [-Task-]
-            var findResult = await _repository.FindByIdAsync(id);
+            var findResult = await _userService.FindByIdAsync(id);
             if (findResult == null) return new Response<GetUserAppDto>(MessageResource.Error_FailProcess);
             var findAppUser = new GetUserAppDto()
             {
@@ -74,6 +81,9 @@ namespace OnlineShop.Application.Services.UserManagmentServices
                 FirstName = findResult.FirstName,
                 LastName = findResult.LastName,
                 Cellphone = findResult.Cellphone,
+                PasswordHash = findResult.PasswordHash,  
+                Picture = findResult.Picture,
+                Location = findResult.Location,
                 IsActive = findResult.IsActive,
                 DateCreatedLatin = findResult.DateCreatedLatin,
                 DateCreatedPersian = findResult.DateCreatedPersian,
@@ -95,8 +105,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         #region [-Task<IResponse<List<GetUserAppDto>>> GetAsync()-]
         public async Task<IResponse<List<GetUserAppDto>>> GetAsync()
         {
-            var getResult = await _repository.Users.ToListAsync();
-            //if (!getResult.IsSuccessful) return new Response<List<GetUserAppDto>>(MessageResource.Error_FailProcess);????????????
+            var getResult = await _userService.Users.ToListAsync();
             var getAppUserList = new List<GetUserAppDto>();
             var getAppUsers = getResult.Select(item => new GetUserAppDto()
             {
@@ -105,6 +114,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
                 FirstName = item.FirstName,
                 LastName = item.LastName,
                 Cellphone = item.Cellphone,
+                PasswordHash = item.PasswordHash,
                 IsActive = item.IsActive,
                 IsModified = item.IsModified,
                 IsDeleted = item.IsDeleted,
@@ -125,47 +135,54 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         {
             #region [- Validation -]
             if (model == null) return new Response<object>(MessageResource.Error_FailToFindObject);
-            if (model.Id.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.FirstName.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.LastName.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Password.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.ConfirmPassword.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Cellphone.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.IsActive.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.IsModified.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.IsDeleted.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.DateCreatedLatin.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.DateCreatedPersian.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion 
+
             #region [-Task-]
             var postAppUser = new AppUser
             {
-                Id = model.Id,
+                //Id = Convert.ToString( new Guid()),
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                UserName = model.Cellphone,
-                Password = model.Password,
-                ConfirmPassword = model.ConfirmPassword,
                 Cellphone = model.Cellphone,
+                UserName = model.Cellphone,
+                PasswordHash = model.Password,
                 Picture = model.Picture,
                 Location = model.Location,
-                IsActive = model.IsActive,
-                IsModified = model.IsModified,
-                IsDeleted = model.IsDeleted,
-                DateCreatedPersian = model.DateCreatedPersian,
-                DateCreatedLatin = model.DateCreatedLatin,
-                DateModifiedLatin = model.DateModifiedLatin,
-                DateModifiedPersian = model.DateModifiedPersian,
-                DateSoftDeletedLatin = model.DateSoftDeletedLatin,
-                DateSoftDeletedPersian = model.DateSoftDeletedPersian,
-
+                IsActive = true,
+                IsModified = false,
+                IsDeleted = false,
+                DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now),
+                DateCreatedLatin = DateTime.Now
             };
             if (postAppUser == null) return new Response<object>(MessageResource.Error_FailToFindObject);
-            var postResult = await _repository.CreateAsync(postAppUser ,postAppUser.Password);
+            IdentityResult postResult;
+            #region [Transaction]
+            using (_context.Database.BeginTransaction())
+            {
+                postResult = await _userService.CreateAsync(postAppUser, postAppUser.PasswordHash);
+                if (!postResult.Succeeded) return new Response<object>(MessageResource.Error_FailProcess);
+
+                var newUser = await _userService.FindByNameAsync(postAppUser.UserName);
+                var defaultRole = _roleService.FindByNameAsync(DefaultRoles.NormalName);
+                var asignUserRoleAppDto = new AsignUserRoleAppDto
+                {
+                    UserId = newUser.Id,
+                    RoleId = DefaultRoles.NormalId
+                };
+                var userRole = AsignUserToRole(asignUserRoleAppDto);
+                //await _userService.AddToRoleAsync(newUser, DefaultRoles.NormalName);
+                if (userRole.Result == null) return new Response<object>(MessageResource.Error_FailedToAssignRoleToUser);
+                _context.Database.CommitTransaction();  
+            }
+             #endregion
             #endregion
 
             #region [-Result-] 
-            if (!postResult.Succeeded) return new Response<object>(MessageResource.Error_FailProcess);
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, postResult, HttpStatusCode.OK);
             #endregion
         }
@@ -182,17 +199,13 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             if (model.Cellphone.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Cellphone.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.IsActive.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.IsModified.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.DateModifiedLatin.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.DateModifiedPersian.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
 
             #region [-Task-]
-            var user = _repository.FindByIdAsync(model.Id);
+            var user = _userService.FindByIdAsync(model.Id);
             if ((user == null)) return new Response<object>(MessageResource.Error_FailToFindObject);
             var putAppUser = user.Result;
 
-            putAppUser.Id = model.Id;
             putAppUser.FirstName = model.FirstName;
             putAppUser.LastName = model.LastName;
             putAppUser.Cellphone = model.Cellphone;
@@ -200,12 +213,12 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             putAppUser.Picture = model.picture;
             putAppUser.Location = model.Location;       
             putAppUser.IsActive = model.IsActive;
-            putAppUser.IsModified = model.IsModified;
-            putAppUser.DateModifiedLatin = model.DateModifiedLatin; 
-            putAppUser.DateModifiedPersian = model.DateModifiedPersian; 
+            putAppUser.IsModified = true;
+            putAppUser.DateModifiedLatin = DateTime.Now; 
+            putAppUser.DateModifiedPersian = Helpers.ConvertToPersianDate(DateTime.Now); 
 
             if (putAppUser == null) return new Response<object>(MessageResource.Error_FailToFindObject);
-            var putResult = await _repository.UpdateAsync(putAppUser);
+            var putResult = await _userService.UpdateAsync(putAppUser);
             #endregion
 
             #region [-Result-] 
@@ -215,11 +228,56 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         }
         #endregion
 
-        #region [-async Task SaveChanges()-]?????????????
-        public Task SaveChanges()
+        //#region [-async Task SaveChanges()-]?????????????
+        //public Task SaveChanges()
+        //{
+        //    throw new NotImplementedException();
+        //}
+        //#endregion
+
+        #region [- Task<IResponse<object>> AsignUserToRole(AsignUserRoleAppDto model) -]
+        public async Task<IResponse<object>> AsignUserToRole(AsignUserRoleAppDto model)
         {
-            throw new NotImplementedException();
+            if (model.Equals(null)) return new Response<object>(MessageResource.Error_ModelNull);
+            if (model.UserId.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            if (model.RoleId.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+
+            var user = await _userService.FindByIdAsync(model.UserId);  
+            if (user == null) return new Response<object>(MessageResource.Error_UserNotFound);
+
+            var role = await _roleService.FindByIdAsync(model.RoleId);
+            if (role == null) return new Response<object>(MessageResource.Error_RoleNotFound);
+
+            var userInRoleResult =  HasUserRole(user.Id , role.Name);   
+            if (userInRoleResult.Result) new Response<object>(MessageResource.Error_UserInRole);
+            var result = await _userService.AddToRoleAsync(user, role.Name);
+            if (!result.Succeeded) return new Response<object>(MessageResource.Error_FailedToAssignRoleToUser);
+            return new Response<object>(true,MessageResource.Info_SuccessfullProcess ,string.Empty , result , HttpStatusCode.OK );
         }
         #endregion
+
+        #region [- Task<IResponse<object>> DeleteUserRole(DeleteUserRoleAppDto model) -]
+        public async Task<IResponse<object>> DeleteUserRole(DeleteUserRoleAppDto model)
+        {
+            if (model.Equals(null)) return new Response<object>(MessageResource.Error_ModelNull);
+            if (model.UserId.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            if (model.RoleId.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            var user = await _userService.FindByIdAsync(model.UserId);
+            if (user == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            var role = await _roleService.FindByIdAsync(model.RoleId);
+            if (role == null) return new Response<object>(MessageResource.Error_RoleNotFound);
+            var result = await _userService.RemoveFromRoleAsync(user, role.Name);
+            if (!result.Succeeded) return new Response<object>(MessageResource.Error_FailProcess);
+            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, result, HttpStatusCode.OK);
+        }
+        #endregion
+
+        public async Task<bool> HasUserRole(string userId, string roleName)
+        {
+            var appUser = await _userService.FindByIdAsync(userId);
+            return roleName != null && appUser != null && !await _userService.IsInRoleAsync(appUser, roleName) ? false : true;
+        }
+        //خروجی نهایی باید یک متد کوتاه شود و مثلا ok , 
+        //و جاهایی که خطا داریم object  خالی است و نباید خروخی object  داشته باشیم 
     }
 }

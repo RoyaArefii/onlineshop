@@ -15,8 +15,5 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos
         public byte[]? picture { get; set; }
         public string? Location { get; set; }
         public bool IsActive { get; set; }
-        public bool IsModified { get; set; }
-        public DateTime DateModifiedLatin { get; set; }
-        public string DateModifiedPersian { get; set; }
     }
 }

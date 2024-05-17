@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OnlineShop.EFCore\OnlineShop.EFCore.csproj" />
     <ProjectReference Include="..\OnlineShop.RepositoryDesignPatern\OnlineShop.RepositoryDesignPatern.csproj" />
     <ProjectReference Include="..\OnlineShopDomain\OnlineShopDomain.csproj" />
     <ProjectReference Include="..\PublicTools\PublicTools.csproj" />

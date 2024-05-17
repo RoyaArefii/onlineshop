@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeLoginController",
+    "Method": "Login",
+    "RelativePath": "api/BackOfficeLogin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDto",
+        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.AccountDtos.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderHeaderController",
     "Method": "Put",
     "RelativePath": "api/BackOfficeOrderHeader",
@@ -174,6 +190,64 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeRoleController",
+    "Method": "Delete",
+    "RelativePath": "api/BackOfficeRole",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.RoleAppDtos.DeleteRoleAppDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeRoleController",
+    "Method": "Post",
+    "RelativePath": "api/BackOfficeRole",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.RoleAppDtos.PostRoleAppDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeRoleController",
+    "Method": "GetAll",
+    "RelativePath": "api/BackOfficeRole",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeRoleController",
+    "Method": "Put",
+    "RelativePath": "api/BackOfficeRole",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.RoleAppDtos.PutRoleAppDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserController",
     "Method": "Put",
     "RelativePath": "api/BackOfficeUser",
@@ -229,6 +303,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserRoleController",
+    "Method": "Post",
+    "RelativePath": "api/BackOfficeUserRole",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.UserRoleAppDto.AsignUserRoleAppDto",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

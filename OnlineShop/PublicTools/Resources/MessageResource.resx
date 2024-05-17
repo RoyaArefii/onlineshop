@@ -117,17 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Error_FailedToAssignRoleToUser" xml:space="preserve">
+    <value>Sorry  Assign Role To Role Was  Failed</value>
+  </data>
   <data name="Error_FailProcess" xml:space="preserve">
     <value>Process was failed.</value>
   </data>
   <data name="Error_FailToFindObject" xml:space="preserve">
     <value>Object Was Not Found</value>
   </data>
+  <data name="Error_ModelNull" xml:space="preserve">
+    <value>The Model Is null </value>
+  </data>
+  <data name="Error_RoleNotFound" xml:space="preserve">
+    <value>Role Not Found!</value>
+  </data>
   <data name="Error_TheParameterIsNull" xml:space="preserve">
     <value>The Parameter is null</value>
   </data>
   <data name="Error_ThisFieldIsMandatory" xml:space="preserve">
     <value>This field is mandatory</value>
+  </data>
+  <data name="Error_UserInRole" xml:space="preserve">
+    <value>UserHasThisRole!</value>
+  </data>
+  <data name="Error_UserNotFound" xml:space="preserve">
+    <value>User Not Found!</value>
+  </data>
+  <data name="Error_WrongPassword" xml:space="preserve">
+    <value>The Password Is Not Correct</value>
   </data>
   <data name="Info_SuccessfullProcess" xml:space="preserve">
     <value>Process was Successful.</value>

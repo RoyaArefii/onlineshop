@@ -9,6 +9,7 @@ namespace OnlineShopDomain.Frameworks.Bases
     public class MainEntityBase : IMainEntity
     {
         public Guid Id { get; set; }
+        public string Title { get; set; }
         public bool IsActive { get; set; }
         public string Code { get; set; }
         public DateTime DateCreatedLatin { get; set; }
@@ -20,6 +21,5 @@ namespace OnlineShopDomain.Frameworks.Bases
         public bool IsDeleted { get; set; }
         public DateTime ?DateSoftDeletedLatin { get; set; }
         public string ?DateSoftDeletedPersian { get; set; }
-        public string Title { get; set; }
     }
 }

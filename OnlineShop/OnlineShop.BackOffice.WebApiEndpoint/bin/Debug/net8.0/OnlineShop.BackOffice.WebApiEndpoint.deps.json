@@ -1119,6 +1119,7 @@
       "OnlineShop.Application/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity": "2.2.0",
+          "OnlineShop.EFCore": "1.0.0",
           "OnlineShop.RepositoryDesignPatern": "1.0.0",
           "OnlineShopDomain": "1.0.0",
           "PublicTools": "1.0.0",

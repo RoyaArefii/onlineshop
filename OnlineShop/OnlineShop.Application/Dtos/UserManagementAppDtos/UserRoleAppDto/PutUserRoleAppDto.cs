@@ -8,7 +8,7 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.UserRoleAppDto
 {
     public class PutUserRoleAppDto
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public int UserId { get; set; }
         public int RoleId { get; set; }
     }

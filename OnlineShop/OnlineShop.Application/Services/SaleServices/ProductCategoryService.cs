@@ -42,13 +42,10 @@ namespace OnlineShop.Application.Services.SaleServices
         #region [- DeleteAsync(DeleteProductCategoryAppDto model) -]
         public async Task<IResponse<object>> DeleteAsync(DeleteProductCategoryAppDto model)
         {
+            if (model == null) return new Response<object>(MessageResource.Error_ModelNull);
             var deleteProductCategory = new ProductCategory
             {
-                Id = model.Id,
-                ParentId = model.ParentId,
-                IsActive = model.IsActive,
-                Title = model.Title ,
-                EntityDescription = model.EntityDescription
+                Id = model.Id
             };
             if (deleteProductCategory == null)
             {
@@ -137,7 +134,6 @@ namespace OnlineShop.Application.Services.SaleServices
           
             if (model.Title.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.IsActive.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.Id.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
 
             #region [-Task-]

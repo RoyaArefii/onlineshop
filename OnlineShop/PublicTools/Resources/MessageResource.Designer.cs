@@ -61,6 +61,15 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sorry  Assign Role To Role Was  Failed.
+        /// </summary>
+        public static string Error_FailedToAssignRoleToUser {
+            get {
+                return ResourceManager.GetString("Error_FailedToAssignRoleToUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Process was failed..
         /// </summary>
         public static string Error_FailProcess {
@@ -79,6 +88,24 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Model Is null .
+        /// </summary>
+        public static string Error_ModelNull {
+            get {
+                return ResourceManager.GetString("Error_ModelNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role Not Found!.
+        /// </summary>
+        public static string Error_RoleNotFound {
+            get {
+                return ResourceManager.GetString("Error_RoleNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Parameter is null.
         /// </summary>
         public static string Error_TheParameterIsNull {
@@ -93,6 +120,33 @@ namespace PublicTools.Resources {
         public static string Error_ThisFieldIsMandatory {
             get {
                 return ResourceManager.GetString("Error_ThisFieldIsMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserHasThisRole!.
+        /// </summary>
+        public static string Error_UserInRole {
+            get {
+                return ResourceManager.GetString("Error_UserInRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Not Found!.
+        /// </summary>
+        public static string Error_UserNotFound {
+            get {
+                return ResourceManager.GetString("Error_UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Password Is Not Correct.
+        /// </summary>
+        public static string Error_WrongPassword {
+            get {
+                return ResourceManager.GetString("Error_WrongPassword", resourceCulture);
             }
         }
         

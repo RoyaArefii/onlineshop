@@ -8,7 +8,6 @@ namespace OnlineShop.Application.Dtos.SaleAppDtos.ProductCategory
 {
     public class PostProductCategoryAppDto
     {
-        public Guid Id { get; set; }
         public string Title { get; set; }
         public Guid? ParentId { get; set; }
         public Boolean IsActive { get; set; }

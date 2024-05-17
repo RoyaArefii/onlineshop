@@ -1,9 +1,9 @@
 ﻿using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.ProductAppDtos;
 using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
-using OnlineShop.RepositoryDesignPatern.Services.Sale;
 using OnlineShopDomain.Aggregates.Sale;
 using PublicTools.Resources;
+using PublicTools.Tools;
 using ResponseFramework;
 using System.Net;
 
@@ -11,12 +11,13 @@ namespace OnlineShop.Application.Services.SaleServices
 {
     public class ProductService : IAppProductService
     {
-        private readonly IRepository<Product , Guid> _repository;
+        private readonly IRepository<Product, Guid> _repository;
 
         #region [-Ctor-]
-        public ProductService(IRepository<Product, Guid> repository)
+        public ProductService(IRepository<Product, Guid> repository )
         {
             _repository = repository;
+
         }
         #endregion
 
@@ -42,6 +43,7 @@ namespace OnlineShop.Application.Services.SaleServices
         #region [- DeleteAsync(DeleteProductAppDto model) -]
         public async Task<IResponse<object>> DeleteAsync(DeleteProductAppDto model)
         {
+            if (model == null) return new Response<object>(MessageResource.Error_ModelNull);
             var deleteProduct = new Product
             {
                 Id = model.Id
@@ -84,6 +86,16 @@ namespace OnlineShop.Application.Services.SaleServices
                 ProductCategoryId = item.ProductCategoryId,
                 Code = item.Code,
                 UnitPrice = item.UnitPrice,
+                IsActive = item.IsActive,
+                DateCreatedLatin = item.DateCreatedLatin,
+                DateCreatedPersian = item.DateCreatedPersian,
+                EntityDescription = item.EntityDescription,
+                IsModified = item.IsModified,
+                DateModifiedLatin = item.DateModifiedLatin,
+                DateModifiedPersian = item.DateModifiedPersian,
+                IsDeleted = item.IsDeleted,
+                DateSoftDeletedLatin = item.DateSoftDeletedLatin,
+                DateSoftDeletedPersian = item.DateSoftDeletedPersian
             }).ToList();
 
             return new Response<List<GetProductAppDto>>(true, MessageResource.Info_SuccessfullProcess, string.Empty, getProducts, HttpStatusCode.OK);
@@ -95,22 +107,32 @@ namespace OnlineShop.Application.Services.SaleServices
         {
             #region [- Validation -]
             if (model == null) return new Response<object>(MessageResource.Error_FailToFindObject);
+            if (model.Id.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Code.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.ProductCategoryId.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.UnitPrice.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Title.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            if (model.IsActive.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
 
             #region [-Task-]
-            var putProduct = new Product
-            {
-                UnitPrice = model.UnitPrice,
-                ProductCategoryId = model.ProductCategoryId,
-                Code = model.Code,
-                Id = model.Id,
-                Title = model.Title,
-            };
-            if (putProduct == null) return new Response<object>(MessageResource.Error_FailToFindObject);
+            var product = await _repository.FindById(model.Id);   
+            if (product == null) return new Response<object>(MessageResource.Error_FailToFindObject);
+            
+            var putProduct = product.Result;
+
+            putProduct.UnitPrice = model.UnitPrice;
+            putProduct.ProductCategoryId = model.ProductCategoryId;
+            putProduct.Code = model.Code;
+            putProduct.Id = model.Id;
+            putProduct.Title = model.Title;
+            putProduct.IsActive = model.IsActive;
+            putProduct.IsDeleted = false;
+            putProduct.IsModified = true;
+            putProduct.DateModifiedLatin = DateTime.Now;
+            putProduct.DateModifiedPersian = Helpers.ConvertToPersianDate(DateTime.Now);
+            putProduct.EntityDescription = model.EntityDescription;
+
             var putResult = await _repository.UpdateAsync(putProduct);
             #endregion
 
@@ -138,8 +160,15 @@ namespace OnlineShop.Application.Services.SaleServices
                 Title = model.Title,
                 Code = model.Code,
                 UnitPrice = model.UnitPrice,
+                EntityDescription= model.EntityDescription,
+                IsActive = true,
+                DateCreatedLatin = DateTime.UtcNow,
+                DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now),
+                IsModified = false,
+                IsDeleted = false,
+
             };
-            var putResult = await _repository.InsertAsync(putProduct);
+        var putResult = await _repository.InsertAsync(putProduct);
             #endregion
 
             #region [-Result-]

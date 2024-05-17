@@ -68,6 +68,9 @@ namespace PublicTools.Constants
             public const string SupportName = "Support";
             //public const string SupportNormalizedName = "SUPPORT";
             //public const string SupportCuncurencyStamp = "3";
+
+            public const string NormalId = "4";
+            public const string NormalName = "Normal";
         }
         public static class GodAdminUsers
         {

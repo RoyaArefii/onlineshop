@@ -27,8 +27,6 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
 
         private static JsonResult Guard(PostProductCategoryAppDto model)
         {
-
-            if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.IsActive.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             return model.Title.IsNullOrEmpty() ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
