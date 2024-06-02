@@ -12,7 +12,7 @@ using OnlineShop.EFCore;
 namespace OnlineShop.EFCore.Migrations
 {
     [DbContext(typeof(OnlineShopDbContext))]
-    [Migration("20240510114605_init")]
+    [Migration("20240527170807_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -159,7 +159,7 @@ namespace OnlineShop.EFCore.Migrations
                     b.Property<bool>("IsModified")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("OrderHeaderid")
+                    b.Property<Guid>("OrderHeaderId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProductId")
@@ -177,7 +177,7 @@ namespace OnlineShop.EFCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderHeaderid");
+                    b.HasIndex("OrderHeaderId");
 
                     b.HasIndex("ProductId");
 
@@ -190,18 +190,51 @@ namespace OnlineShop.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("Buyer")
+                    b.Property<Guid>("BuyerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("OrderDate")
+                    b.Property<DateTime>("DateCreatedLatin")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("Seller")
+                    b.Property<string>("DateCreatedPersian")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateModifiedLatin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DateModifiedPersian")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateSoftDeletedLatin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DateSoftDeletedPersian")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EntityDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsModified")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("SellerId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -353,9 +386,9 @@ namespace OnlineShop.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1",
-                            DateCreatedLatin = new DateTime(2024, 5, 10, 15, 16, 4, 786, DateTimeKind.Local).AddTicks(3018),
-                            DateCreatedPersian = "1403/2/21",
+                            Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbo",
+                            DateCreatedLatin = new DateTime(2024, 5, 27, 20, 38, 7, 410, DateTimeKind.Local).AddTicks(8246),
+                            DateCreatedPersian = "1403/3/7",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
@@ -363,9 +396,9 @@ namespace OnlineShop.EFCore.Migrations
                         },
                         new
                         {
-                            Id = "2",
-                            DateCreatedLatin = new DateTime(2024, 5, 10, 15, 16, 4, 786, DateTimeKind.Local).AddTicks(5021),
-                            DateCreatedPersian = "1403/2/21",
+                            Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbl",
+                            DateCreatedLatin = new DateTime(2024, 5, 27, 20, 38, 7, 410, DateTimeKind.Local).AddTicks(9627),
+                            DateCreatedPersian = "1403/3/7",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
@@ -373,9 +406,9 @@ namespace OnlineShop.EFCore.Migrations
                         },
                         new
                         {
-                            Id = "3",
-                            DateCreatedLatin = new DateTime(2024, 5, 10, 15, 16, 4, 786, DateTimeKind.Local).AddTicks(6936),
-                            DateCreatedPersian = "1403/2/21",
+                            Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbp",
+                            DateCreatedLatin = new DateTime(2024, 5, 27, 20, 38, 7, 411, DateTimeKind.Local).AddTicks(923),
+                            DateCreatedPersian = "1403/3/7",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
@@ -383,9 +416,9 @@ namespace OnlineShop.EFCore.Migrations
                         },
                         new
                         {
-                            Id = "4",
-                            DateCreatedLatin = new DateTime(2024, 5, 10, 15, 16, 4, 786, DateTimeKind.Local).AddTicks(8852),
-                            DateCreatedPersian = "1403/2/21",
+                            Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbmm",
+                            DateCreatedLatin = new DateTime(2024, 5, 27, 20, 38, 7, 411, DateTimeKind.Local).AddTicks(2218),
+                            DateCreatedPersian = "1403/3/7",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
@@ -413,7 +446,7 @@ namespace OnlineShop.EFCore.Migrations
                     b.Property<DateTime>("DateCreatedLatin")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 10, 15, 16, 4, 787, DateTimeKind.Local).AddTicks(7972));
+                        .HasDefaultValue(new DateTime(2024, 5, 27, 20, 38, 7, 411, DateTimeKind.Local).AddTicks(6897));
 
                     b.Property<string>("DateCreatedPersian")
                         .IsRequired()
@@ -515,12 +548,12 @@ namespace OnlineShop.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1",
+                            Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbn",
                             AccessFailedCount = 0,
                             Cellphone = "09378748824",
-                            ConcurrencyStamp = "475d9f1f-9ab8-4904-b84e-5df343797363",
-                            DateCreatedLatin = new DateTime(2024, 5, 10, 15, 16, 4, 787, DateTimeKind.Local).AddTicks(4027),
-                            DateCreatedPersian = "1403/2/21",
+                            ConcurrencyStamp = "1e862e78-ab26-4780-8a09-e7cfd4a715b4",
+                            DateCreatedLatin = new DateTime(2024, 5, 27, 20, 38, 7, 411, DateTimeKind.Local).AddTicks(4997),
+                            DateCreatedPersian = "1403/3/7",
                             EmailConfirmed = false,
                             FirstName = "Roya",
                             IsActive = true,
@@ -528,9 +561,9 @@ namespace OnlineShop.EFCore.Migrations
                             IsModified = false,
                             LastName = "Arefi",
                             LockoutEnabled = false,
-                            PasswordHash = "652388890",
+                            PasswordHash = "-909316394",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0f7fc827-f1a6-43c3-b178-35209736ad79",
+                            SecurityStamp = "89bb6332-3f35-41cd-92ab-fab5af6386c8",
                             TwoFactorEnabled = false,
                             UserName = "09378748824"
                         });
@@ -553,8 +586,8 @@ namespace OnlineShop.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "1",
-                            RoleId = "1"
+                            UserId = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbn",
+                            RoleId = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbo"
                         });
                 });
 
@@ -688,7 +721,7 @@ namespace OnlineShop.EFCore.Migrations
                 {
                     b.HasOne("OnlineShopDomain.Aggregates.Sale.OrderHeader", "OrderHeader")
                         .WithMany()
-                        .HasForeignKey("OrderHeaderid")
+                        .HasForeignKey("OrderHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineShop.Application.Dtos.SaleAppDtos.OrderHeaderAppDtos
+namespace OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos
 {
-    public class DeleteOrderHeaderAppDtos
+    public class DeleteOrderDetailAppDto
     {
         public Guid Id { get; set; }
 

@@ -25,7 +25,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.OrderHeaderAppDtos.PutOrderHeaderAppDto",
+        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos.PutOrderHeaderAppDto",
         "IsRequired": true
       }
     ],
@@ -41,7 +41,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.OrderHeaderAppDtos.PostOrderHeaderAppDto",
+        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.PostOrder",
         "IsRequired": true
       }
     ],
@@ -57,7 +57,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.OrderHeaderAppDtos.DeleteOrderHeaderAppDtos",
+        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos.DeleteOrderHeaderAppDtos",
         "IsRequired": true
       }
     ],

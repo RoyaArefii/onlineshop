@@ -160,6 +160,7 @@ namespace OnlineShop.Application.Services.SaleServices
                 Title = model.Title,
                 Code = model.Code,
                 UnitPrice = model.UnitPrice,
+                ProductCategoryId = model.ProductCategoryId,
                 EntityDescription= model.EntityDescription,
                 IsActive = true,
                 DateCreatedLatin = DateTime.UtcNow,

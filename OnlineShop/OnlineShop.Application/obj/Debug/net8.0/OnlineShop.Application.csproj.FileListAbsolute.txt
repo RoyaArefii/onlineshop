@@ -54,11 +54,11 @@ C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Appli
 C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Application\bin\Debug\net8.0\OnlineShopDomain.dll
 C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Application\bin\Debug\net8.0\PublicTools.dll
 C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Application\bin\Debug\net8.0\ResponseFramework.dll
+C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Application\bin\Debug\net8.0\OnlineShop.EFCore.pdb
 C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Application\bin\Debug\net8.0\OnlineShop.RepositoryDesignPatern.pdb
 C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Application\bin\Debug\net8.0\OnlineShopDomain.pdb
 C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Application\bin\Debug\net8.0\PublicTools.pdb
 C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Application\bin\Debug\net8.0\ResponseFramework.pdb
-C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Application\bin\Debug\net8.0\OnlineShop.EFCore.pdb
 C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Application\obj\Debug\net8.0\OnlineShop.Application.csproj.AssemblyReference.cache
 C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Application\obj\Debug\net8.0\OnlineShop.Application.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\USER\Desktop\OnlineShop_WebProject_FinalGit\OnlineShop\OnlineShop.Application\obj\Debug\net8.0\OnlineShop.Application.AssemblyInfoInputs.cache

@@ -1,4 +1,5 @@
-﻿using OnlineShop.Application.Dtos.SaleAppDtos.OrderHeaderAppDtos;
+﻿using OnlineShop.Application.Dtos.SaleAppDtos;
+using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos;
 using OnlineShopDomain.Aggregates.Sale;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Application.Contracts.SaleContracts
 {
-    public interface IAppOrderHeaderService:IApplicationService<OrderHeader , PutOrderHeaderAppDto , GetOrderHeaderAppDto , PostOrderHeaderAppDto , DeleteOrderHeaderAppDtos , Guid>
+    public interface IAppOrderHeaderService:IApplicationService<OrderHeader , PutOrderHeaderAppDto , GetOrderHeaderAppDto , PostOrder, DeleteOrderHeaderAppDtos , Guid>
     {
     }
 }

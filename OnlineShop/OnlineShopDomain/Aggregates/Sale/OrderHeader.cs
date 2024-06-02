@@ -2,13 +2,11 @@
 
 namespace OnlineShopDomain.Aggregates.Sale
 {
-    public class OrderHeader
+    public class OrderHeader : MainEntityBase
     {
-        public Guid Id{ get; set; }
-        public string Code { get; set; }
-        public DateTime OrderDate{ get; set; }
-        public Guid Seller{ get; set; }
-        public Guid Buyer{ get; set; }
-        List<OrderDetail> List { get; set;}
+        //public DateTime OrderDate{ get; set; }
+        public string SellerId{ get; set; }
+        public string BuyerId{ get; set; }
+        List<OrderDetail>? OrderDetails { get; set;}// name convenshion is ok for this prop ?
     }
 }

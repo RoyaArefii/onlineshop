@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Application.Contracts.SaleContracts;
-using OnlineShop.Application.Dtos.SaleAppDtos.OrderHeaderAppDtos;
+using OnlineShop.Application.Dtos.SaleAppDtos;
+using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos;
 using PublicTools.Resources;
 using ResponseFramework;
 
@@ -26,14 +27,14 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
             return model.OrderDate.Equals(null) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
 
-        private static JsonResult Guard(PostOrderHeaderAppDto model)
+        private static JsonResult Guard(PostOrder model)
         {
 
-            if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            if (model.Code.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            if (model.Seller.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            if (model.Buyer.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            return model.OrderDate.Equals(null) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
+            //if (model.ProductId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            if (model.OrderHeader.SellerId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            if (model.OrderHeader.BuyerId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            if (model.OrderHeader.Quantity.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            return model.OrderHeader.Code.Equals(null) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
 
         [HttpPut(Name = "PutOrderHeader")]
@@ -45,7 +46,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
         }
 
         [HttpPost(Name = "PostOrderHeader")]
-        public async Task<IActionResult> Post(PostOrderHeaderAppDto model)
+        public async Task<IActionResult> Post(PostOrder model)
         {
             Guard(model);
             var postResult = await _appOrderHeaderlService.PostAsync(model);

@@ -1,4 +1,4 @@
-﻿using OnlineShop.Application.Dtos.SaleAppDtos.OrderDetailAppDtos;
+﻿using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos;
 using OnlineShopDomain.Aggregates.Sale;
 using System;
 using System.Collections.Generic;

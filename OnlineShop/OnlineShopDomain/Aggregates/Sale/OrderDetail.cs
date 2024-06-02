@@ -13,7 +13,7 @@ namespace OnlineShopDomain.Aggregates.Sale
         //Navigation Property 
         public Product Product { get; set; }
         //forign Key
-        public Guid OrderHeaderid { get; set; }
+        public Guid OrderHeaderId { get; set; }
         //Navigation Property 
         public OrderHeader OrderHeader { get; set; }
         public decimal UnitPrice { get; set; }

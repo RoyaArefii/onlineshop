@@ -11,6 +11,12 @@ using onlineshop.repositorydesignpatern.frameworks.bases;
 using OnlineShopDomain.Aggregates.Sale;
 using OnlineShop.Application.Services.UserManagmentServices;
 using PublicTools.Tools;
+using Microsoft.AspNetCore.Authentication.BearerToken;
+using System.Security.Cryptography;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 
 
 
@@ -22,7 +28,34 @@ var configuration = builder.Configuration;
 var connectionString = builder.Configuration.GetValue<string>("ConnectionStrings:Default");
 
 builder.Services.AddDbContext<OnlineShopDbContext>(c => c.UseSqlServer(connectionString));
-builder.Services.AddIdentity<AppUser, AppRole>(/* کل بلاک پسورد را میتوان اینجا کانفیگ کرد*/).AddEntityFrameworkStores<OnlineShopDbContext>().AddDefaultTokenProviders();
+
+builder.Services.AddIdentity<AppUser, AppRole>(/* کل بلاک پسورد را میتوان اینجا کانفیگ کرد*/)
+    .AddEntityFrameworkStores<OnlineShopDbContext>().AddDefaultTokenProviders();
+
+
+
+builder.Services.AddAuthentication(opt =>
+{
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+
+})
+    .AddJwtBearer(options =>
+    {
+        options.SaveToken = true;
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            RequireExpirationTime = false,
+            RequireAudience = false,   
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            //ValidAudience = builder.Configuration["JWT:ValidAudience"],
+            //ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+        };
+    });
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
@@ -31,7 +64,7 @@ builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
 builder.Services.AddScoped<IAppProductCategoryService, ProductCategoryService>();
 builder.Services.AddScoped<IAppProductService, ProductService>();
 builder.Services.AddScoped<IAppOrderHeaderService, OrderHeaderService>();
-builder.Services.AddScoped<IAppOrderDetailService, OrderDdetailService>();
+//builder.Services.AddScoped<IAppOrderDetailService, OrderDdetailService>();
 builder.Services.AddScoped<IRepository<Product, Guid>, BaseRepository<OnlineShopDbContext, Product, Guid>>();
 builder.Services.AddScoped<IRepository<ProductCategory, Guid>, BaseRepository<OnlineShopDbContext, ProductCategory, Guid>>();
 builder.Services.AddScoped<IRepository<OrderHeader, Guid>, BaseRepository<OnlineShopDbContext, OrderHeader, Guid>>();

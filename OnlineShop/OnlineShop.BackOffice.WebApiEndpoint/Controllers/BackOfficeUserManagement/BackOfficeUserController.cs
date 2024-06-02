@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos;
 using OnlineShop.Application.Services.UserManagmentServices;
@@ -13,12 +14,10 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
     public class BackOfficeUserController : ControllerBase
     {
         private readonly UserService _userService;
-        private readonly UserRoleService _userRoleService;
 
-        public BackOfficeUserController(UserService appUserService , UserRoleService userRoleService)
+        public BackOfficeUserController(UserService appUserService)
         {
-            _userService = appUserService;
-            _userRoleService = userRoleService; 
+            _userService = appUserService;           
         }
 
         private static JsonResult Guard(PutUserAppDto model)
@@ -66,6 +65,8 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
         }
 
         [HttpGet(Name = "GetUser")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize()]
         public async Task<IActionResult> GetAll()
         {
             var getresult = await _userService.GetAsync();

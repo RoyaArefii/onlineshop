@@ -29,13 +29,13 @@ namespace onlineshop.repositorydesignpatern.frameworks.bases
         #endregion
 
         #region [-InsertAsync(TEntity entity)-]
-        public async Task<IResponse<object>> InsertAsync(TEntity entity)
+        public async Task<IResponse<TEntity>> InsertAsync(TEntity entity)
         {
             await using (_dbContext)
             {
                 await dbSet.AddAsync(entity);
-                await SaveChanges();
-                return new Response<object>(entity);
+                //await SaveChanges();
+                return new Response<TEntity>(entity);
 
             }
         }

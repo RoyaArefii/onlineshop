@@ -19,12 +19,19 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
             _accountService = accountService;
         }
 
-        [HttpPost (Name ="Login" )] 
-        public async Task<IActionResult> Login (LoginDto loginDto)
+        [HttpPost(Name = "Login")]
+        public async Task<IActionResult> Login(LoginDto loginDto)
         {
-            if (loginDto == null) return new JsonResult( new Response<object>(MessageResource.Error_ModelNull)); 
-            var result = await _accountService.Login (loginDto); 
-            return (!result.IsSuccessful) ? new JsonResult(new Response<object>(MessageResource.Error_FailProcess)): new JsonResult(null);
+            if (loginDto == null) return new JsonResult(new Response<object>(MessageResource.Error_ModelNull));
+
+            // برای حالت کوکی
+            //var result = await _accountService.Login (loginDto); 
+            //return (!result.IsSuccessful) ? new JsonResult(new Response<object>(MessageResource.Error_FailProcess)): new JsonResult(null);
+
+
+            var result = await _accountService.Login(loginDto);
+            return (!result.IsSuccessful) ? new JsonResult(new Response<object>(MessageResource.Error_FailProcess)): 
+                                            new JsonResult(result.Result);
         }
     }
 }

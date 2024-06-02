@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B9604605-38CF-45E2-8A6A-E1B424459959}|OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj|c:\\users\\user\\desktop\\onlineshop_webproject_finalgit\\onlineshop\\onlineshop.backoffice.webapiendpoint\\controllers\\backofficeusermanagement\\backofficeusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9604605-38CF-45E2-8A6A-E1B424459959}|OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj|solutionrelative:onlineshop.backoffice.webapiendpoint\\controllers\\backofficeusermanagement\\backofficeusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|c:\\users\\user\\desktop\\onlineshop_webproject_finalgit\\onlineshop\\onlineshop.application\\services\\saleservices\\orderheaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|solutionrelative:onlineshop.application\\services\\saleservices\\orderheaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDAEFC72-811C-4526-9146-CD84F5E3D108}|OnlineShop.RepositoryDesignPatern\\OnlineShop.RepositoryDesignPatern.csproj|c:\\users\\user\\desktop\\onlineshop_webproject_finalgit\\onlineshop\\onlineshop.repositorydesignpatern\\frameworks\\bases\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDAEFC72-811C-4526-9146-CD84F5E3D108}|OnlineShop.RepositoryDesignPatern\\OnlineShop.RepositoryDesignPatern.csproj|solutionrelative:onlineshop.repositorydesignpatern\\frameworks\\bases\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9604605-38CF-45E2-8A6A-E1B424459959}|OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj|c:\\users\\user\\desktop\\onlineshop_webproject_finalgit\\onlineshop\\onlineshop.backoffice.webapiendpoint\\controllers\\backofficesales\\backofficeorderheadercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9604605-38CF-45E2-8A6A-E1B424459959}|OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj|solutionrelative:onlineshop.backoffice.webapiendpoint\\controllers\\backofficesales\\backofficeorderheadercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "BackOfficeUserController.cs",
-              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeUserManagement\\BackOfficeUserController.cs",
-              "RelativeDocumentMoniker": "OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeUserManagement\\BackOfficeUserController.cs",
-              "ToolTip": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeUserManagement\\BackOfficeUserController.cs",
-              "RelativeToolTip": "OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeUserManagement\\BackOfficeUserController.cs",
-              "ViewState": "AQIAACMAAAAAAAAAAAA3wDcAAAAMAAAA",
+              "DocumentIndex": 1,
+              "Title": "BaseRepository.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\Frameworks\\Bases\\BaseRepository.cs",
+              "RelativeDocumentMoniker": "OnlineShop.RepositoryDesignPatern\\Frameworks\\Bases\\BaseRepository.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\Frameworks\\Bases\\BaseRepository.cs",
+              "RelativeToolTip": "OnlineShop.RepositoryDesignPatern\\Frameworks\\Bases\\BaseRepository.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAAACgAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-04T06:54:02.697Z",
+              "WhenOpened": "2024-05-28T16:55:41.911Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BackOfficeOrderHeaderController.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeSales\\BackOfficeOrderHeaderController.cs",
+              "RelativeDocumentMoniker": "OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeSales\\BackOfficeOrderHeaderController.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeSales\\BackOfficeOrderHeaderController.cs",
+              "RelativeToolTip": "OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeSales\\BackOfficeOrderHeaderController.cs",
+              "ViewState": "AQIAACYAAAAAAAAAAAAAADMAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-27T17:14:08.734Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrderHeaderService.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.Application\\Services\\SaleServices\\OrderHeaderService.cs",
+              "RelativeDocumentMoniker": "OnlineShop.Application\\Services\\SaleServices\\OrderHeaderService.cs",
+              "ToolTip": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.Application\\Services\\SaleServices\\OrderHeaderService.cs*",
+              "RelativeToolTip": "OnlineShop.Application\\Services\\SaleServices\\OrderHeaderService.cs*",
+              "ViewState": "AQIAAIgAAAAAAAAAAAAQwNEAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-24T09:44:04.46Z",
               "EditorCaption": ""
             }
           ]

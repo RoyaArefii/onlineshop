@@ -54,27 +54,27 @@ namespace PublicTools.Constants
         }
         public static class DefaultRoles
         {
-            public const string GodAadminId = "1";
+            public const string GodAadminId = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbo";
             public const string GodAadminName = "GodAdmin";
             //public const string GodAadminNormalizedName = "GODADMIN";
             //public const string GodAadminCuncurencyStamp = "1";
 
-            public const string AadminId = "2";
+            public const string AadminId = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbl";
             public const string AadminName = "Admin";
             //public const string AadminNormalizedName = "ADMIN";
             //public const string AadminCuncurencyStamp = "2";
 
-            public const string SupportId = "3";
+            public const string SupportId = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbp";
             public const string SupportName = "Support";
             //public const string SupportNormalizedName = "SUPPORT";
             //public const string SupportCuncurencyStamp = "3";
 
-            public const string NormalId = "4";
+            public const string NormalId = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbmm";
             public const string NormalName = "Normal";
         }
         public static class GodAdminUsers
         {
-            public const string ArefiUserId = "1";
+            public const string ArefiUserId = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbn";
             public const string ArefiFirstName = "Roya";
             public const string ArefiLastName = "Arefi";
             public const string ArefiCellPhone = "09378748824";
