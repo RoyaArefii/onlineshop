@@ -10,6 +10,7 @@ namespace OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDto
     public class PostOrderHeaderAppDto
     {
         public string Code { get; set; }
+        public string Title { get; set; }
         //public DateTime OrderDate { get; set; }
         public string SellerId { get; set; }
         public string BuyerId { get; set; }

@@ -9,7 +9,9 @@ namespace OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDto
     public class PostOrderDetailAppDto
     {
         public Guid ProductId { get; set; }
-        //public Guid OrderHeaderId { get; set; }
+       //public Guid OrderHeaderId { get; set; }
+        public string Code { get; set; }
+        public string Title { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Quantity { get; set; }
         public string? EntityDescription { get; set; }

@@ -123,6 +123,11 @@ namespace OnlineShop.Application.Services.SaleServices
         }
         #endregion
 
+        public async Task<IResponse<List<>GetOrdersAppDto>> GetOrdersAsync()
+        {
+
+        }
+
         #region [-Task<IResponse<object>> PostAsync(PostOrderHeaderAppDto model) -]
         public async Task<IResponse<object>> PostAsync(PostOrder model)
         {
@@ -151,21 +156,23 @@ namespace OnlineShop.Application.Services.SaleServices
                     {
                         Id = new Guid(),
                         Code = orderHeaderDto.Code, //generate shavad ,
+                        Title = orderHeaderDto.Title,
                         DateCreatedLatin = DateTime.Now,
                         DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now),
                         IsActive = true,
                         IsDeleted = false,
                         IsModified = false,
                         SellerId = orderHeaderDto.SellerId,//in bayad ba login generatte shavad 
-                        BuyerId = orderHeaderDto.BuyerId
+                        BuyerId = orderHeaderDto.BuyerId,
+                        EntityDescription = orderHeaderDto.EntityDescription
                     };
                     var postResult = await _headerRepository.InsertAsync(header);
-                    _context.SaveChanges();
-                    if (!postResult.IsSuccessful)
-                    {
-                        _context.Database.RollbackTransaction();
-                        // return error Response 
-                    }
+                    //_context.SaveChanges();
+                    //if (!postResult.IsSuccessful)
+                    //{
+                    //    _context.Database.RollbackTransaction();
+                    //    // return error Response 
+                    //}
 
                     List<PostOrderDetailAppDto> detailDtos = model.OrderDetails;
                     foreach (var dto in detailDtos)
@@ -177,6 +184,8 @@ namespace OnlineShop.Application.Services.SaleServices
                         detail.Id = new Guid();
                         detail.OrderHeaderId = postResult.Result.Id;
                         detail.Quantity = dto.Quantity;
+                        detail.Code = dto.Code; 
+                        detail.Title = dto.Title; 
                         detail.ProductId = product.Id;
                         detail.UnitPrice = product.UnitPrice;
                         detail.EntityDescription = dto.EntityDescription;
@@ -186,29 +195,18 @@ namespace OnlineShop.Application.Services.SaleServices
                         detail.DateCreatedLatin = DateTime.Now;
                         detail.DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now);
                         var orderDetailResult = await _detailRepository.InsertAsync(detail);
-                        _context.SaveChanges();
-                        _context.Database.CommitTransaction();
+                        //_context.SaveChanges();
+                        //context.Database.CommitTransaction();
                     }
+                    _context.SaveChanges();
+                    _context.Database.CommitTransaction();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _context.Database.RollbackTransaction();
                     return new Response<object>(MessageResource.Error_FailProcess);
 
                 }
-                
-
-                    //if (orderDetailResult.IsSuccessful)
-                    //{
-                    //    return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, postResult, HttpStatusCode.OK);
-                        
-                    //}
-                    //else
-                    //{
-                    //    _context.Database.RollbackTransaction();
-                    //    return new Response<object>(MessageResource.Error_FailProcess);
-                    //    // return error Response 
-                    //}
             }
 
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, header, HttpStatusCode.OK);

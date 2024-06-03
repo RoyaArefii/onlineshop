@@ -13,5 +13,7 @@ namespace OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDto
         public DateTime OrderDate { get; set; }
         public string SellerId { get; set; }
         public string BuyerId { get; set; }
+
+
     }
 }

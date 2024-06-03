@@ -170,6 +170,7 @@ namespace OnlineShop.Application.Services.SaleServices
 
             };
         var putResult = await _repository.InsertAsync(putProduct);
+            await SaveChanges();
             #endregion
 
             #region [-Result-]

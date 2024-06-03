@@ -146,6 +146,7 @@ namespace OnlineShop.Application.Services.SaleServices
                 EntityDescription = model.EntityDescription,
             };
             var postResult = await _repository.InsertAsync(postProductCategory);
+            await SaveChanges();
             #endregion
 
             #region [-Result-]
