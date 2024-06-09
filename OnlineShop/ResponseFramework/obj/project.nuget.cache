@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xJAZKhdMHH1rR2xztJRfKGTW9WPEoWdKeB6TH0UN9qfsgM9gEcNx6J1dJQ2pqtTrVPrSVkv61Z8tRtn7iBsryA==",
+  "dgSpecHash": "r6axTlaumKuOilRj4F7OSwmA/pUmc8XEyrbvr/favMgxdRXTGMEhhfEjiAyiGMYWWsMO26yykPAHSvjSuFY3Jw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj",
+  "projectFilePath": "D:\\Projects\\NewWebProject\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.2\\microsoft.entityframeworkcore.8.0.2.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.2\\microsoft.entityframeworkcore.abstractions.8.0.2.nupkg.sha512",
