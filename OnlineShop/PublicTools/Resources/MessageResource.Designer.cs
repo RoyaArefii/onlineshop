@@ -61,6 +61,15 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TheModelIsEmpty.
+        /// </summary>
+        public static string Error_EmptyList {
+            get {
+                return ResourceManager.GetString("Error_EmptyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry  Assign Role To Role Was  Failed.
         /// </summary>
         public static string Error_FailedToAssignRoleToUser {
@@ -151,7 +160,16 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Process was Successful..
+        ///   Looks up a localized string similar to This Object Is Final, You Can&apos;t Delete It.
+        /// </summary>
+        public static string Finalobject {
+            get {
+                return ResourceManager.GetString("Finalobject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process was Successfull.
         /// </summary>
         public static string Info_SuccessfullProcess {
             get {

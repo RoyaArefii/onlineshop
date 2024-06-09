@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineShopDomain.Aggregates.Sale;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,5 @@ namespace OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDto
     public class DeleteOrderDetailAppDto
     {
         public Guid Id { get; set; }
-
     }
 }

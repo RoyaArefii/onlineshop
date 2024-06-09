@@ -9,7 +9,6 @@ namespace OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDto
     public class PutOrderDetailAppDto
     {
         public Guid ProductId { get; set; }
-        public Guid OrderHeaderId { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Quantity { get; set; }
     }

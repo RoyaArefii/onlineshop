@@ -3,13 +3,10 @@ using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.ProductCategory;
 using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
-using OnlineShop.RepositoryDesignPatern.Services.Sale;
 using OnlineShopDomain.Aggregates.Sale;
 using PublicTools.Resources;
 using ResponseFramework;
-using System.Diagnostics;
 using System.Net;
-using System.Security.Policy;
 
 namespace OnlineShop.Application.Services.SaleServices
 {
@@ -32,7 +29,8 @@ namespace OnlineShop.Application.Services.SaleServices
             {
                 return new Response<object>(MessageResource.Error_FailToFindObject);
             }
-            var resultDelete = await _repository.DeleteAsync(id);
+            var resultDelete = await _repository.DeleteByIdAsync(id);
+            await _repository.SaveChanges();
             if (resultDelete.IsSuccessful)
                 return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, deleteProductCategory, HttpStatusCode.OK);
             return new Response<object>(MessageResource.Error_FailProcess);
@@ -52,6 +50,7 @@ namespace OnlineShop.Application.Services.SaleServices
                 return new Response<object>(MessageResource.Error_FailToFindObject);
             }
             var resultDelete = await _repository.DeleteAsync(deleteProductCategory);
+            await _repository.SaveChanges();  
             if (!resultDelete.IsSuccessful)
                 return new Response<object>(MessageResource.Error_FailProcess);
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, deleteProductCategory, HttpStatusCode.OK);

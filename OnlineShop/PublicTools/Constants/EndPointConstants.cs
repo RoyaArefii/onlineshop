@@ -23,6 +23,7 @@ namespace PublicTools.Constants
         public const string Put = $"Put{nameof(OrderHeader)}";
         public const string Delete = $"Delete{nameof(OrderHeader)}";
         public const string GetAll = $"GetAll{nameof(OrderHeader)}";
+        //public const string DeleteDetail = $"DeleteOrderDetail{nameof(OrderHeader)}";
     }
     public static class OrderDetail
     {

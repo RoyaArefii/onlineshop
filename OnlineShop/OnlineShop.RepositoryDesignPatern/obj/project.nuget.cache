@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zYq+bWFdVrkLJW1jQ+6vR7I++ZkEbMi6VJM50+6obcjPpVFFlCvEsdyMjt+4iEM8jNxXw/vvm9Mkzei3a7sT6g==",
+  "dgSpecHash": "l8QwUXmDi3H4az1MgOQi6V0KJSYaXue3YrNMyjDN6mb5Cr4tUa+CBgUKh8ks0hkvTSkLjXvL5t/VvF0TGQTEhQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\OnlineShop.RepositoryDesignPatern.csproj",
+  "projectFilePath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\OnlineShop.RepositoryDesignPatern.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

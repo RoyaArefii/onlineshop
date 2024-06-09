@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos;
 
 
 
@@ -63,7 +64,7 @@ builder.Services.AddScoped<IOrderHeaderRepository, OrderHeaderRepository>();
 builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
 builder.Services.AddScoped<IAppProductCategoryService, ProductCategoryService>();
 builder.Services.AddScoped<IAppProductService, ProductService>();
-builder.Services.AddScoped<IAppOrderHeaderService, OrderHeaderService>();
+builder.Services.AddScoped<IAppOrderHeaderService<DeleteOrderDetailAppDto>, OrderHeaderService>();
 //builder.Services.AddScoped<IAppOrderDetailService, OrderDdetailService>();
 builder.Services.AddScoped<IRepository<Product, Guid>, BaseRepository<OnlineShopDbContext, Product, Guid>>();
 builder.Services.AddScoped<IRepository<ProductCategory, Guid>, BaseRepository<OnlineShopDbContext, ProductCategory, Guid>>();

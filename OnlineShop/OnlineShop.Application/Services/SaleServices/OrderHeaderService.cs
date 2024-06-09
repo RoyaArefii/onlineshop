@@ -6,15 +6,15 @@ using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 using PublicTools.Tools;
 using OnlineShop.EFCore;
 using OnlineShop.Application.Dtos.SaleAppDtos;
-
 using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos;
+using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos;
 
 
 namespace OnlineShop.Application.Services.SaleServices
 {
-    public class OrderHeaderService : IAppOrderHeaderService
+    public class OrderHeaderService : IAppOrderHeaderService<DeleteOrderDetailAppDto>
     {
         private readonly IRepository<OrderHeader, Guid> _headerRepository;
         private readonly IRepository<OrderDetail, Guid> _detailRepository;
@@ -31,109 +31,399 @@ namespace OnlineShop.Application.Services.SaleServices
         }
         #endregion
 
-        #region [-Task<IResponse<object>> DeleteAsync(Guid id)-]
+        #region [-SaveChanges-]
+        public async Task SaveChanges()
+        {
+            _context.SaveChanges();
+        }
+        #endregion
 
+        #region [- Task<IResponse<object>> PutAsync(PutOrderHeaderAppDto model) -]
+        public async Task<IResponse<object>> PutAsync(PutOrderHeaderAppDto model)
+        {
+            //#region [- Validation -]
+            //if (model == null) return new Response<object>(MessageResource.Error_FailToFindObject);
+            //if (model.Id.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            //if (model.Code.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            //if (model.OrderDate.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            //if (model.Seller.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            //if (model.Buyer.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            //#endregion
+
+            #region [-Task-]
+            var putOrderHeader = new OrderHeader
+            {
+                Id = model.Id,
+
+            };
+            if (putOrderHeader == null) return new Response<object>(MessageResource.Error_FailToFindObject);
+            var putResult = await _headerRepository.UpdateAsync(putOrderHeader);
+            #endregion
+
+            #region [-Result-] 
+            if (!putResult.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
+            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, putResult, HttpStatusCode.OK);
+            #endregion
+        }
+        #endregion
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        #region [- Task<IResponse<object>> DeleteOrderDetailAsync(List<DeleteOrderDetailsAppDto> model) -]
+        public async Task<IResponse<object>> DeleteOrderDetailAsync(List<DeleteOrderDetailAppDto> model)
+        {
+            var details = model;
+            var finalList = new List<DeleteOrderDetailAppDto>();
+            if (details.Count == 0) return new Response<object>(MessageResource.Error_TheParameterIsNull);
+            foreach (var detail in details)
+            {
+                if (detail.Id.Equals(null)) return new Response<object>(MessageResource.Error_TheParameterIsNull);
+                var findDetail = await _detailRepository.FindById(detail.Id);
+                if (!findDetail.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
+
+
+                var orderDetailList = await FindOrderDetailsByHeaderId(findDetail.Result.OrderHeaderId);
+                if (orderDetailList.Result.Count == 1 && orderDetailList.Result.First().DetailId == detail.Id)
+                    return new Response<object>(MessageResource.Finalobject);
+
+                var result = await _detailRepository.DeleteByIdAsync(detail.Id);
+                if (!result.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
+                finalList.Add(detail);
+                await SaveChanges();
+
+            }
+            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, finalList, HttpStatusCode.OK);
+        }
+        #endregion
+
+        #region [-Task<IResponse<object>> DeleteAsync(Guid id)-]
         public async Task<IResponse<object>> DeleteAsync(Guid id)
         {
             if (id.Equals(null))
             {
                 return new Response<object>(MessageResource.Error_TheParameterIsNull);
             }
-            var deleteOrderHeader = _headerRepository.FindById(id);
-            if (deleteOrderHeader == null)
+            using (_context.Database.BeginTransaction())
             {
-                return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+                try
+                {
+                    var orderHeader = await FindOrderHeaderById(id);
+                    if (!orderHeader.IsSuccessful)
+                    {
+                        return new Response<object>(MessageResource.Error_FailProcess);
+                    }
+                    var detailsOrderHeader = await FindOrderDetailsByHeaderId(orderHeader.Result.HeaderId);
+                    if (detailsOrderHeader != null)
+                    {
+                        foreach (var detail in detailsOrderHeader.Result)
+                        {
+                            var orderDetailDeleteResult = await _detailRepository.DeleteByIdAsync(detail.DetailId);
+                            if (!orderDetailDeleteResult.IsSuccessful)
+                            {
+                                return new Response<object>(MessageResource.Error_FailProcess);
+                            }
+                        }
+                        var orderHeaderDeleteResult = await _headerRepository.DeleteByIdAsync(orderHeader.Result.HeaderId);
+                        if (!orderHeaderDeleteResult.IsSuccessful)
+                        {
+                            return new Response<object>(MessageResource.Error_FailProcess);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    return new Response<object>(MessageResource.Error_FailProcess);
+
+                }
+                return new Response<object>((true, MessageResource.Info_SuccessfullProcess, string.Empty, string.Empty, HttpStatusCode.OK));
             }
-            var resultDelete = await _headerRepository.DeleteAsync(id);
-            if (!resultDelete.IsSuccessful)
-            {
-                return new Response<object>(MessageResource.Error_FailProcess);
-            }
-            return new Response<object>((true, MessageResource.Info_SuccessfullProcess, string.Empty, resultDelete, HttpStatusCode.OK));
         }
         #endregion
 
-        #region [-Task<IResponse<object>> DeleteAsync(DeleteOrderHeaderAppDtos model)-]
-        public async Task<IResponse<object>> DeleteAsync(DeleteOrderHeaderAppDtos model)
+        #region [-Task<IResponse<object>> DeleteAsync(DeleteOrderDetailAppDtos model)-]
+        public async Task<IResponse<object>> DeleteAsync(DeleteOrderDetailAppDtos model)
         {
-            if (model == null) return new Response<object>(MessageResource.Error_ModelNull);
-            var deleteOrderHeader = new OrderHeader
-            {
-                Id = model.Id,
 
-            };
-            if (deleteOrderHeader == null)
+            if (model.Id.Equals(null))
             {
-                return new Response<object>(MessageResource.Error_FailToFindObject);
+                return new Response<object>(MessageResource.Error_TheParameterIsNull);
             }
-            var resultDelete = await _headerRepository.DeleteAsync(deleteOrderHeader);
-            if (!resultDelete.IsSuccessful)
-                return new Response<object>(MessageResource.Error_FailProcess);
-            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, deleteOrderHeader, HttpStatusCode.OK);
-        }
+            var orderHeader = await FindOrderHeaderById(model.Id);
+            if (!orderHeader.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
 
-        public Task<IResponse<object>> DeleteAsync(string id)
-        {
-            throw new NotImplementedException();
+            using (_context.Database.BeginTransaction())
+            {
+                try
+                {
+                    var detailsOrderHeader = await FindOrderDetailsByHeaderId(orderHeader.Result.HeaderId);
+                    if (detailsOrderHeader != null)
+                    {
+                        foreach (var detail in detailsOrderHeader.Result)
+                        {
+                            var orderDetailDeleteResult = await _detailRepository.DeleteByIdAsync(detail.DetailId);
+                            if (!orderDetailDeleteResult.IsSuccessful)
+                            {
+                                return new Response<object>(MessageResource.Error_FailProcess);
+                            }
+                        }
+                        var orderHeaderDeleteResult = await _headerRepository.DeleteByIdAsync(orderHeader.Result.HeaderId);
+                        if (!orderHeaderDeleteResult.IsSuccessful)
+                        {
+                            return new Response<object>(MessageResource.Error_FailProcess);
+                        }
+                    }
+                    _context.SaveChanges();
+                    _context.Database.CommitTransaction();
+                }
+                catch (Exception)
+                {
+                    _context.Database.RollbackTransaction();
+                    return new Response<object>(MessageResource.Error_FailProcess);
+                }
+                return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, string.Empty, HttpStatusCode.OK);
+            }
         }
         #endregion
 
         #region [-Task<IResponse<GetOrderHeaderAppDto>> FindById(Guid id)-]
-        public async Task<IResponse<GetOrderHeaderAppDto>> FindById(Guid id)
+        public async Task<IResponse<GetOrdersAppDto>> FindById(Guid id)
+        {
+            #region [-Validation-]
+            if (id.Equals(null)) return new Response<GetOrdersAppDto>(MessageResource.Error_ThisFieldIsMandatory);
+            #endregion
+
+            #region [-Task-]
+            var find = await _headerRepository.FindById(id);
+            if (!find.IsSuccessful)
+                return new Response<GetOrdersAppDto>(MessageResource.Error_FailToFindObject);
+            var findResult = find.Result;
+            var getOrderHeader = new GetOrderHeaderAppDto()
+            {
+                HeaderId = findResult.Id,
+                Code = findResult.Code,
+                SellerId = findResult.SellerId,
+                BuyerId = findResult.BuyerId,
+                Title = findResult.Title,
+                DateCreatedLatin = findResult.DateCreatedLatin,
+                DateCreatedPersian = findResult.DateCreatedPersian,
+                DateModifiedLatin = findResult.DateModifiedLatin,
+                DateModifiedPersian = findResult.DateModifiedPersian,
+                DateSoftDeletedLatin = findResult.DateSoftDeletedLatin,
+                DateSoftDeletedPersian = findResult.DateSoftDeletedPersian,
+                EntityDescription = findResult.EntityDescription,
+                IsActive = findResult.IsActive,
+                IsDeleted = findResult.IsDeleted,
+                IsModified = findResult.IsModified
+            };
+
+            var details = await _detailRepository.Select();
+            if (!details.IsSuccessful)
+                return new Response<GetOrdersAppDto>(MessageResource.Error_FailProcess);
+            var detailResult = details.Result;
+            var getOrderDetailList = detailResult.Where(item => item.OrderHeaderId == id).Select(item => new GetOrderDetailAppDto()
+            {
+                Code = item.Code,
+                DateCreatedLatin = item.DateCreatedLatin,
+                DateCreatedPersian = item.DateCreatedPersian,
+                DateModifiedLatin = item.DateModifiedLatin,
+                DateModifiedPersian = item.DateModifiedPersian,
+                DateSoftDeletedLatin = item.DateSoftDeletedLatin,
+                DateSoftDeletedPersian = item.DateSoftDeletedPersian,
+                DetailId = item.Id,
+                EntityDescription = item.EntityDescription,
+                IsActive = item.IsActive,
+                IsDeleted = item.IsDeleted,
+                IsModified = item.IsModified,
+                ProductId = item.ProductId,
+                Quantity = item.Quantity,
+                Title = item.Title,
+                UnitPrice = item.UnitPrice
+            }).ToList();
+
+            var finalOrder = new GetOrdersAppDto()
+            {
+                OrderDetails = getOrderDetailList,
+                OrderHeader = getOrderHeader
+            };
+            #endregion
+
+            #region [-Result-]
+            return new Response<GetOrdersAppDto>(true, MessageResource.Info_SuccessfullProcess, string.Empty, finalOrder, HttpStatusCode.OK);
+            #endregion
+        }
+        #endregion
+
+        #region [- Task<IResponse<List<GetOrdersAppDto>>> GetAsync() -]
+        public async Task<IResponse<List<GetOrdersAppDto>>> GetAsync()
+        {
+            var headerList = await _headerRepository.Select();
+            var orderFinalList = new List<GetOrdersAppDto>();
+            var detailsDto = new GetOrdersAppDto().OrderDetails;
+            if (headerList != null)
+                foreach (var header in headerList.Result)
+                {
+                    
+                    var detailList = await FindOrderDetailsByHeaderId(header.Id);
+                    if (detailList != null)
+                    {
+                        
+                        var detailDtoList = detailList.Result.Select(detail => new GetOrderDetailAppDto
+                        {
+                            HeaderId = header.Id,
+                            DetailId = detail.DetailId,
+                            Code = detail.Code,
+                            Title = detail.Title,
+                            IsActive = detail.IsActive,
+                            IsDeleted = detail.IsDeleted,
+                            IsModified = detail.IsModified,
+                            DateCreatedLatin = detail.DateCreatedLatin,
+                            DateCreatedPersian = detail.DateCreatedPersian,
+                            DateModifiedLatin = detail.DateModifiedLatin,
+                            DateModifiedPersian = detail.DateModifiedPersian,
+                            DateSoftDeletedLatin = detail.DateSoftDeletedLatin,
+                            DateSoftDeletedPersian = detail.DateSoftDeletedPersian,
+                            EntityDescription = detail.EntityDescription,
+                            Price = detail.UnitPrice * detail.Quantity
+
+                        }).ToList();
+                        var totalPriceOrderHeader = detailDtoList.Sum(p => p.Price);
+                        var headerDto = new GetOrderHeaderAppDto()
+                        {
+                            HeaderId = header.Id,
+                            BuyerId = header.BuyerId,
+                            SellerId = header.SellerId,
+                            Code = header.Code,
+                            Title = header.Title,
+                            DateCreatedLatin = header.DateCreatedLatin,
+                            DateCreatedPersian = header.DateCreatedPersian,
+                            DateModifiedLatin = header.DateModifiedLatin,
+                            DateModifiedPersian = header.DateModifiedPersian,
+                            DateSoftDeletedPersian = header.DateSoftDeletedPersian,
+                            DateSoftDeletedLatin = header.DateSoftDeletedLatin,
+                            IsActive = header.IsActive,
+                            IsDeleted = header.IsDeleted,
+                            IsModified = header.IsModified,
+                            EntityDescription = header.EntityDescription,
+                            TotalPrice = totalPriceOrderHeader
+                        };
+                        var orderFinal = new GetOrdersAppDto()
+                        {
+                            OrderDetails = detailDtoList,
+                            OrderHeader = headerDto
+                        };
+                        orderFinalList.Add(orderFinal);
+                    }
+                }
+
+            return new Response<List<GetOrdersAppDto>>(true, MessageResource.Info_SuccessfullProcess, string.Empty, orderFinalList, HttpStatusCode.OK);
+        }
+        #endregion
+
+        #region [-Task<IResponse<GetOrderHeaderAppDto>> FindOrderHeaderById(Guid id)-]
+        public async Task<IResponse<GetOrderHeaderAppDto>> FindOrderHeaderById(Guid id)
         {
             #region [-Validation-]
             if (id.Equals(null)) return new Response<GetOrderHeaderAppDto>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
 
             #region [-Task-]
-            var findResult = await _headerRepository.FindById(id);
-            var findOrderHeader = new GetOrderHeaderAppDto()
+            var find = await _headerRepository.FindById(id);
+            if (!find.IsSuccessful)
+                return new Response<GetOrderHeaderAppDto>(MessageResource.Error_FailToFindObject);
+            var findResult = find.Result;
+            var orderHeader = new GetOrderHeaderAppDto()
             {
-                Id = findResult.Result.Id,
-                Code = findResult.Result.Code,
-                //OrderDate = findResult.Result.OrderDate,
-                SellerId = findResult.Result.SellerId,
-                BuyerId = findResult.Result.BuyerId,
+                HeaderId = findResult.Id,
+                Code = findResult.Code,
+                SellerId = findResult.SellerId,
+                BuyerId = findResult.BuyerId,
+                Title = findResult.Title,
+                DateCreatedLatin = findResult.DateCreatedLatin,
+                DateCreatedPersian = findResult.DateCreatedPersian,
+                DateModifiedLatin = findResult.DateModifiedLatin,
+                DateModifiedPersian = findResult.DateModifiedPersian,
+                DateSoftDeletedLatin = findResult.DateSoftDeletedLatin,
+                DateSoftDeletedPersian = findResult.DateSoftDeletedPersian,
+                EntityDescription = findResult.EntityDescription,
+                IsActive = findResult.IsActive,
+                IsDeleted = findResult.IsDeleted,
+                IsModified = findResult.IsModified
             };
             #endregion
 
             #region [-Result-]
-            if (!findResult.IsSuccessful) return new Response<GetOrderHeaderAppDto>(MessageResource.Error_FailProcess);
-            return new Response<GetOrderHeaderAppDto>(true, MessageResource.Info_SuccessfullProcess, string.Empty, findOrderHeader, HttpStatusCode.OK);
+            return new Response<GetOrderHeaderAppDto>(true, MessageResource.Info_SuccessfullProcess, string.Empty, orderHeader, HttpStatusCode.OK);
             #endregion
         }
         #endregion
 
-        #region [- Task<IResponse<List<GetOrderHeaderAppDto>>> GetAsync() -]
-        public async Task<IResponse<List<GetOrderHeaderAppDto>>> GetAsync()
+        #region [-Task<IResponse<List<GetOrderDetailAppDto>>> FindOrderDetailsByHeaderId(Guid id)-]
+        public async Task<IResponse<List<GetOrderDetailAppDto>>> FindOrderDetailsByHeaderId(Guid id)
         {
-            var getResult = await _headerRepository.Select();
-            if (!getResult.IsSuccessful) return new Response<List<GetOrderHeaderAppDto>>(MessageResource.Error_FailProcess);
-            var getOrderHeaderList = new List<GetOrderHeaderAppDto>();
-            var getrderHeaders = getResult.Result.Select(item => new GetOrderHeaderAppDto()
+            #region [-Validation-]
+            if (id.Equals(null)) return new Response<List<GetOrderDetailAppDto>>(MessageResource.Error_ThisFieldIsMandatory);
+            #endregion
+            #region [-Task-]
+            var orderDeatilFinal = new List<GetOrderDetailAppDto>();
+            var findHeaderResult = await _headerRepository.FindById(id);
+            var getOrderDetailList = new List<GetOrderDetailAppDto>();
+            if (findHeaderResult.Result == null || findHeaderResult == null)
             {
-                Id = item.Id,
+                return new Response<List<GetOrderDetailAppDto>>(MessageResource.Error_FailProcess);
+            }
+            var details = await _detailRepository.Select();
+            if (!details.IsSuccessful)
+                return new Response<List<GetOrderDetailAppDto>>(MessageResource.Error_FailProcess);
+            var detailResult = details.Result;
+            getOrderDetailList = detailResult.Where(item => item.OrderHeaderId == id).Select(item => new GetOrderDetailAppDto()
+            {
                 Code = item.Code,
-                //OrderDate = item.OrderDate,
-                SellerId = item.SellerId,
-                BuyerId = item.BuyerId,
+                DateCreatedLatin = item.DateCreatedLatin,
+                DateCreatedPersian = item.DateCreatedPersian,
+                DateModifiedLatin = item.DateModifiedLatin,
+                DateModifiedPersian = item.DateModifiedPersian,
+                DateSoftDeletedLatin = item.DateSoftDeletedLatin,
+                DateSoftDeletedPersian = item.DateSoftDeletedPersian,
+                DetailId = item.Id,
+                EntityDescription = item.EntityDescription,
+                IsActive = item.IsActive,
+                IsDeleted = item.IsDeleted,
+                IsModified = item.IsModified,
+                ProductId = item.ProductId,
+                Quantity = item.Quantity,
+                Title = item.Title,
+                UnitPrice = item.UnitPrice
             }).ToList();
-
-            return new Response<List<GetOrderHeaderAppDto>>(true, MessageResource.Info_SuccessfullProcess, string.Empty, getrderHeaders, HttpStatusCode.OK);
+            //getOrderDetailList = detailResult.Select(item => new GetOrderDetailAppDto()
+            //{
+            //    Code = item.Code,
+            //    DateCreatedLatin = item.DateCreatedLatin,
+            //    DateCreatedPersian = item.DateCreatedPersian,
+            //    DateModifiedLatin = item.DateModifiedLatin,
+            //    DateModifiedPersian = item.DateModifiedPersian,
+            //    DateSoftDeletedLatin = item.DateSoftDeletedLatin,
+            //    DateSoftDeletedPersian = item.DateSoftDeletedPersian,
+            //    DetailId = item.Id,
+            //    EntityDescription = item.EntityDescription,
+            //    IsActive = item.IsActive,
+            //    IsDeleted = item.IsDeleted,
+            //    IsModified = item.IsModified,
+            //    ProductId = item.ProductId,
+            //    Quantity = item.Quantity,
+            //    Title = item.Title,
+            //    UnitPrice = item.UnitPrice
+            //}).Where(p => p.HeaderId == id).ToList();
+            #endregion
+            #region [ - Result - ]
+            return new Response<List<GetOrderDetailAppDto>>(true, MessageResource.Info_SuccessfullProcess, string.Empty, getOrderDetailList, HttpStatusCode.OK);
+            #endregion
         }
         #endregion
 
-        public async Task<IResponse<List<>GetOrdersAppDto>> GetOrdersAsync()
-        {
-
-        }
-
-        #region [-Task<IResponse<object>> PostAsync(PostOrderHeaderAppDto model) -]
+        #region [-Task<IResponse<object>> PostAsync(PostOrder model) -]
         public async Task<IResponse<object>> PostAsync(PostOrder model)
         {
-            // header validation
-            //if (model.PostOrders.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            //var product = await _productRepository.FindById(model.PostOrders.ProductId)
+
             //if (product == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             //if (model.Code.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             //if (model.SellerId.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
@@ -184,8 +474,8 @@ namespace OnlineShop.Application.Services.SaleServices
                         detail.Id = new Guid();
                         detail.OrderHeaderId = postResult.Result.Id;
                         detail.Quantity = dto.Quantity;
-                        detail.Code = dto.Code; 
-                        detail.Title = dto.Title; 
+                        detail.Code = dto.Code;
+                        detail.Title = dto.Title;
                         detail.ProductId = product.Id;
                         detail.UnitPrice = product.UnitPrice;
                         detail.EntityDescription = dto.EntityDescription;
@@ -210,46 +500,9 @@ namespace OnlineShop.Application.Services.SaleServices
             }
 
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, header, HttpStatusCode.OK);
-        
-        }
 
-
-        #region [- Task<IResponse<object>> PutAsync(PutOrderHeaderAppDto model) -]
-        public async Task<IResponse<object>> PutAsync(PutOrderHeaderAppDto model)
-        {
-            #region [- Validation -]
-            if (model == null) return new Response<object>(MessageResource.Error_FailToFindObject);
-            if (model.Id.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.Code.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.OrderDate.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.Seller.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.Buyer.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            #endregion
-
-            #region [-Task-]
-            var putOrderHeader = new OrderHeader
-            {
-                Id = model.Id,
-                Code = model.Code,
-                //OrderDate = model.OrderDate,
-                SellerId = model.Seller,
-                BuyerId = model.Buyer,
-            };
-            if (putOrderHeader == null) return new Response<object>(MessageResource.Error_FailToFindObject);
-            var putResult = await _headerRepository.UpdateAsync(putOrderHeader);
-            #endregion
-
-            #region [-Result-] 
-            if (!putResult.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
-            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, putResult, HttpStatusCode.OK);
-            #endregion
-        }
-
-        public Task SaveChanges()
-        {
-            throw new NotImplementedException();
         }
         #endregion
+
     }
 }
-#endregion

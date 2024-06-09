@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Frameworks\Contracs\UserManagementContracts\**" />
+    <EmbeddedResource Remove="Frameworks\Contracs\UserManagementContracts\**" />
+    <None Remove="Frameworks\Contracs\UserManagementContracts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
@@ -20,10 +26,6 @@
     <ProjectReference Include="..\OnlineShopDomain\OnlineShopDomain.csproj" />
     <ProjectReference Include="..\PublicTools\PublicTools.csproj" />
     <ProjectReference Include="..\ResponseFramework\ResponseFramework.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Frameworks\Contracs\UserManagementContracts\" />
   </ItemGroup>
 
 

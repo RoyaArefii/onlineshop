@@ -16,9 +16,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderHeaderController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderController",
     "Method": "Put",
-    "RelativePath": "api/BackOfficeOrderHeader",
+    "RelativePath": "api/BackOfficeOrder",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -32,9 +32,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderHeaderController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderController",
     "Method": "Post",
-    "RelativePath": "api/BackOfficeOrderHeader",
+    "RelativePath": "api/BackOfficeOrder",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -48,29 +48,45 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderHeaderController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderController",
     "Method": "Delete",
-    "RelativePath": "api/BackOfficeOrderHeader",
+    "RelativePath": "api/BackOfficeOrder",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos.DeleteOrderHeaderAppDtos",
+        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos.DeleteOrderDetailAppDtos",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderHeaderController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderController",
     "Method": "GetAll",
-    "RelativePath": "api/BackOfficeOrderHeader",
+    "RelativePath": "api/BackOfficeOrder",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderController",
+    "Method": "DeleteOrderDetail",
+    "RelativePath": "api/BackOfficeOrder/DeleteOrderDetailAsync",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "System.Collections.Generic.List\u00601[[OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos.DeleteOrderDetailAppDto, OnlineShop.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

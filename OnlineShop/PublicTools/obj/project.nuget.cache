@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3P1qNX94LOGjsHhqjQk5+uymF5oy+939SVVKQ90pmqHdBc5OqUwM+R/3tgHBn3oiFnz0FVfZnu3MY9bH2Hg1Nw==",
+  "dgSpecHash": "1PikUPYDq7XWPe8D5OFVWAvY8R9BtwTD6p4mCroL7u2jKKqgcAiDTzzquJfdpBjuCtGaxiEkepslF1nd55Y5cQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\PublicTools\\PublicTools.csproj",
+  "projectFilePath": "D:\\Projects\\NewWebProject\\OnlineShop\\PublicTools\\PublicTools.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.2\\microsoft.entityframeworkcore.8.0.2.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.2\\microsoft.entityframeworkcore.abstractions.8.0.2.nupkg.sha512",

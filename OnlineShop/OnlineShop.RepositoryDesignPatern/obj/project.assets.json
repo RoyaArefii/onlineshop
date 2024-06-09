@@ -4308,11 +4308,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\OnlineShop.RepositoryDesignPatern.csproj",
+      "projectUniqueName": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\OnlineShop.RepositoryDesignPatern.csproj",
       "projectName": "OnlineShop.RepositoryDesignPatern",
-      "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\OnlineShop.RepositoryDesignPatern.csproj",
+      "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\OnlineShop.RepositoryDesignPatern.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\obj\\",
+      "outputPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.RepositoryDesignPatern\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4334,17 +4334,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {
-              "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj"
+            "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {
+              "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj"
             },
-            "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
-              "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj"
+            "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
+              "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj"
             },
-            "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\PublicTools\\PublicTools.csproj": {
-              "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\PublicTools\\PublicTools.csproj"
+            "D:\\Projects\\NewWebProject\\OnlineShop\\PublicTools\\PublicTools.csproj": {
+              "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\PublicTools\\PublicTools.csproj"
             },
-            "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj": {
-              "projectPath": "C:\\Users\\USER\\Desktop\\OnlineShop_WebProject_FinalGit\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj"
+            "D:\\Projects\\NewWebProject\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj": {
+              "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\ResponseFramework\\ResponseFramework.csproj"
             }
           }
         }

@@ -33,7 +33,8 @@ namespace OnlineShop.Application.Services.SaleServices
             {
                 return new Response<object>(MessageResource.Error_FailToFindObject);
             }
-            var resultDelete = await _repository.DeleteAsync(id);
+            var resultDelete = await _repository.DeleteByIdAsync(id);
+            await _repository.SaveChanges();
             if (resultDelete.IsSuccessful)
                 return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, deleteProduct, HttpStatusCode.OK);
             return new Response<object>(MessageResource.Error_FailProcess);
@@ -54,6 +55,7 @@ namespace OnlineShop.Application.Services.SaleServices
                 return new Response<object>(MessageResource.Error_FailToFindObject);
             }
             var resultDelete = await _repository.DeleteAsync(deleteProduct);
+            await _repository.SaveChanges();
             if (!resultDelete.IsSuccessful)
                 return new Response<object>(MessageResource.Error_FailProcess);
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, deleteProduct, HttpStatusCode.OK);
@@ -61,24 +63,12 @@ namespace OnlineShop.Application.Services.SaleServices
 
         #endregion
 
-        #region [-Task<IResponse<List<GetProductAppDto>>> GetAsync()-????????????????????????????]
+        #region [-Task<IResponse<List<GetProductAppDto>>> GetAsync()-]
         public async Task<IResponse<List<GetProductAppDto>>> GetAsync()
         {
             var getResult = await _repository.Select();
             if (!getResult.IsSuccessful) return new Response<List<GetProductAppDto>>(MessageResource.Error_FailProcess);
             var getproductList = new List<GetProductAppDto>();
-            //foreach (var product in getResult.Result)
-            //{
-            //    var getProducts = new GetProductAppDto
-            //    {
-            //        Id = product.Id,
-            //        Title = product.Title,
-            //        ProductCategoryId = product.ProductCategoryId,
-            //        Code = product.Code,
-            //        UnitPrice = product.UnitPrice,
-            //    };
-            //    getproductList.Add(getProducts);
-            //}
             var getProducts = getResult.Result.Select(item => new GetProductAppDto()
             {
                 Id = item.Id,

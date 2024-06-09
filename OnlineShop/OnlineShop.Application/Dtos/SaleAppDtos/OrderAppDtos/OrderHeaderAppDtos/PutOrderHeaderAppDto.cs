@@ -9,9 +9,7 @@ namespace OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDto
     public class PutOrderHeaderAppDto
     {
         public Guid Id { get; set; }
-        public string Code { get; set; }
-        public DateTime OrderDate { get; set; }
-        public string Seller { get; set; }
-        public string Buyer { get; set; }
+        public string EntityDescription { get; set; }
+        public bool IsActive { get; set; }
     }
 }

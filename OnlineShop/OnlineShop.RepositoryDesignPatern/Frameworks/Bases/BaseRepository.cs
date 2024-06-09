@@ -5,7 +5,6 @@ using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 using OnlineShopDomain.Aggregates.UserManagement;
 using ResponseFramework;
 using PublicTools.Resources;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace onlineshop.repositorydesignpatern.frameworks.bases
 {
@@ -55,12 +54,12 @@ namespace onlineshop.repositorydesignpatern.frameworks.bases
         #endregion
        
         #region [-DeleteAsync(TPrimaryKey id)-]
-        public async Task<IResponse<object>> DeleteAsync(TPrimaryKey id)
+        public async Task<IResponse<object>> DeleteByIdAsync(TPrimaryKey id)
         {
             var deleteEntity = await dbSet.FindAsync(id);
-            if (deleteEntity != null) return new Response<object>(MessageResource.Error_FailToFindObject);
+            if (deleteEntity ==null) return new Response<object>(MessageResource.Error_FailToFindObject);
             dbSet.Remove(deleteEntity);
-            await SaveChanges();
+            //await SaveChanges();
             return new Response<object>(deleteEntity);//چرا اینجا entity برگردوندیم؟ به نظرم باید message  برگردونیم
         }
         #endregion
