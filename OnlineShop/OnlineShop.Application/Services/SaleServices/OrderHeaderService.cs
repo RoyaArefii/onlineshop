@@ -10,6 +10,9 @@ using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using OnlineShopDomain.Aggregates.UserManagement;
 
 
 namespace OnlineShop.Application.Services.SaleServices
@@ -117,6 +120,8 @@ namespace OnlineShop.Application.Services.SaleServices
                     {
                         foreach (var detail in detailsOrderHeader.Result)
                         {
+                            if (detailsOrderHeader.Result.Count == 1 && detailsOrderHeader.Result.First().DetailId == detail.DetailId)
+                                return new Response<object>(MessageResource.Finalobject);
                             var orderDetailDeleteResult = await _detailRepository.DeleteByIdAsync(detail.DetailId);
                             if (!orderDetailDeleteResult.IsSuccessful)
                             {
@@ -394,25 +399,6 @@ namespace OnlineShop.Application.Services.SaleServices
                 Title = item.Title,
                 UnitPrice = item.UnitPrice
             }).ToList();
-            //getOrderDetailList = detailResult.Select(item => new GetOrderDetailAppDto()
-            //{
-            //    Code = item.Code,
-            //    DateCreatedLatin = item.DateCreatedLatin,
-            //    DateCreatedPersian = item.DateCreatedPersian,
-            //    DateModifiedLatin = item.DateModifiedLatin,
-            //    DateModifiedPersian = item.DateModifiedPersian,
-            //    DateSoftDeletedLatin = item.DateSoftDeletedLatin,
-            //    DateSoftDeletedPersian = item.DateSoftDeletedPersian,
-            //    DetailId = item.Id,
-            //    EntityDescription = item.EntityDescription,
-            //    IsActive = item.IsActive,
-            //    IsDeleted = item.IsDeleted,
-            //    IsModified = item.IsModified,
-            //    ProductId = item.ProductId,
-            //    Quantity = item.Quantity,
-            //    Title = item.Title,
-            //    UnitPrice = item.UnitPrice
-            //}).Where(p => p.HeaderId == id).ToList();
             #endregion
             #region [ - Result - ]
             return new Response<List<GetOrderDetailAppDto>>(true, MessageResource.Info_SuccessfullProcess, string.Empty, getOrderDetailList, HttpStatusCode.OK);
@@ -444,7 +430,7 @@ namespace OnlineShop.Application.Services.SaleServices
                     var orderHeaderDto = model.OrderHeader;
                     header = new OrderHeader()
                     {
-                        Id = new Guid(),
+                        //Id = new Guid(),
                         Code = orderHeaderDto.Code, //generate shavad ,
                         Title = orderHeaderDto.Title,
                         DateCreatedLatin = DateTime.Now,
@@ -457,6 +443,7 @@ namespace OnlineShop.Application.Services.SaleServices
                         EntityDescription = orderHeaderDto.EntityDescription
                     };
                     var postResult = await _headerRepository.InsertAsync(header);
+                    var user = ClaimTypes.GivenName.ToLower();
                     //_context.SaveChanges();
                     //if (!postResult.IsSuccessful)
                     //{
@@ -498,9 +485,7 @@ namespace OnlineShop.Application.Services.SaleServices
 
                 }
             }
-
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, header, HttpStatusCode.OK);
-
         }
         #endregion
 

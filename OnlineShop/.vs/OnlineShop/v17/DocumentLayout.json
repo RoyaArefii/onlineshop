@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "D:\\Projects\\NewWebProject\\OnlineShop\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|d:\\projects\\newwebproject\\onlineshop\\onlineshop.application\\services\\saleservices\\orderheaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|solutionrelative:onlineshop.application\\services\\saleservices\\orderheaderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B9604605-38CF-45E2-8A6A-E1B424459959}|OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj|d:\\projects\\newwebproject\\onlineshop\\onlineshop.backoffice.webapiendpoint\\controllers\\backofficeusermanagement\\backofficeusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9604605-38CF-45E2-8A6A-E1B424459959}|OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj|solutionrelative:onlineshop.backoffice.webapiendpoint\\controllers\\backofficeusermanagement\\backofficeusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|d:\\projects\\newwebproject\\onlineshop\\onlineshop.application\\dtos\\saleappdtos\\orderappdtos\\orderdetailappdtos\\putorderdetailappdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|solutionrelative:onlineshop.application\\dtos\\saleappdtos\\orderappdtos\\orderdetailappdtos\\putorderdetailappdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D35642EC-9A10-4C6E-B718-3F11041B46F8}|ResponseFramework\\ResponseFramework.csproj|d:\\projects\\newwebproject\\onlineshop\\responseframework\\response.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D35642EC-9A10-4C6E-B718-3F11041B46F8}|ResponseFramework\\ResponseFramework.csproj|solutionrelative:responseframework\\response.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|d:\\projects\\newwebproject\\onlineshop\\onlineshop.application\\services\\usermanagmentservices\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|solutionrelative:onlineshop.application\\services\\usermanagmentservices\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,14 +27,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "PutOrderDetailAppDto.cs",
-              "DocumentMoniker": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Application\\Dtos\\SaleAppDtos\\OrderAppDtos\\OrderDetailAppDtos\\PutOrderDetailAppDto.cs",
-              "RelativeDocumentMoniker": "OnlineShop.Application\\Dtos\\SaleAppDtos\\OrderAppDtos\\OrderDetailAppDtos\\PutOrderDetailAppDto.cs",
-              "ToolTip": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Application\\Dtos\\SaleAppDtos\\OrderAppDtos\\OrderDetailAppDtos\\PutOrderDetailAppDto.cs",
-              "RelativeToolTip": "OnlineShop.Application\\Dtos\\SaleAppDtos\\OrderAppDtos\\OrderDetailAppDtos\\PutOrderDetailAppDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAqAAAA",
+              "Title": "Response.cs",
+              "DocumentMoniker": "D:\\Projects\\NewWebProject\\OnlineShop\\ResponseFramework\\Response.cs",
+              "RelativeDocumentMoniker": "ResponseFramework\\Response.cs",
+              "ToolTip": "D:\\Projects\\NewWebProject\\OnlineShop\\ResponseFramework\\Response.cs",
+              "RelativeToolTip": "ResponseFramework\\Response.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACIAAACBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-07T12:58:13.408Z",
+              "WhenOpened": "2024-06-13T08:05:53.378Z",
               "EditorCaption": ""
             },
             {
@@ -40,14 +44,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "OrderHeaderService.cs",
-              "DocumentMoniker": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Application\\Services\\SaleServices\\OrderHeaderService.cs",
-              "RelativeDocumentMoniker": "OnlineShop.Application\\Services\\SaleServices\\OrderHeaderService.cs",
-              "ToolTip": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Application\\Services\\SaleServices\\OrderHeaderService.cs",
-              "RelativeToolTip": "OnlineShop.Application\\Services\\SaleServices\\OrderHeaderService.cs",
-              "ViewState": "AQIAADoAAAAAAAAAAAAQwBMAAAArAAAA",
+              "Title": "BackOfficeUserController.cs",
+              "DocumentMoniker": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeUserManagement\\BackOfficeUserController.cs",
+              "RelativeDocumentMoniker": "OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeUserManagement\\BackOfficeUserController.cs",
+              "ToolTip": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeUserManagement\\BackOfficeUserController.cs",
+              "RelativeToolTip": "OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeUserManagement\\BackOfficeUserController.cs",
+              "ViewState": "AQIAAGEAAAAAAAAAAAAmwG0AAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T06:11:31.698Z",
+              "WhenOpened": "2024-06-12T19:08:57.448Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Application\\Services\\UserManagmentServices\\UserService.cs",
+              "RelativeDocumentMoniker": "OnlineShop.Application\\Services\\UserManagmentServices\\UserService.cs",
+              "ToolTip": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Application\\Services\\UserManagmentServices\\UserService.cs",
+              "RelativeToolTip": "OnlineShop.Application\\Services\\UserManagmentServices\\UserService.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAIwDEAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-12T14:05:14.868Z",
               "EditorCaption": ""
             }
           ]

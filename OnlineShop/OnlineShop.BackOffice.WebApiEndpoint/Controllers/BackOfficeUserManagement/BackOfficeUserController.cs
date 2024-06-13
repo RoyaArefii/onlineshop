@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using JWT.Builder;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos;
 using OnlineShop.Application.Services.UserManagmentServices;
+using OnlineShopDomain.Aggregates.UserManagement;
 using PublicTools.Resources;
 using ResponseFramework;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Claims;
 
 namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement
 {
@@ -17,17 +21,17 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
 
         public BackOfficeUserController(UserService appUserService)
         {
-            _userService = appUserService;           
+            _userService = appUserService;
         }
 
         private static JsonResult Guard(PutUserAppDto model)
         {
-            if (model == null) return new JsonResult (new Response<object>(MessageResource.Error_FailToFindObject));
+            if (model == null) return new JsonResult(new Response<object>(MessageResource.Error_FailToFindObject));
             if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.FirstName.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.LastName.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.Cellphone.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            return (model.IsActive.Equals(null)) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)): new JsonResult(null);
+            return (model.IsActive.Equals(null)) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
 
         private static JsonResult Guard(PostUserAppDto model)
@@ -37,8 +41,16 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
             if (model.LastName.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.Password.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.ConfirmPassword.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            return (model.Cellphone.Equals(null)) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)):new JsonResult(null);
-       }
+            return (model.Cellphone.Equals(null)) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
+        }
+        private static JsonResult Guard(ResetPassDto model)
+        {
+            if (model == null) return new JsonResult(new Response<object>(MessageResource.Error_FailToFindObject));
+            if (model.Password.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            if (model.ConfirmPassword.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            //if (model.Token.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            return (model.UserName.Equals(null)) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
+        }
 
         [HttpPut(Name = "PutUser")]
         public async Task<IActionResult> Put(PutUserAppDto model)
@@ -65,12 +77,50 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
         }
 
         [HttpGet(Name = "GetUser")]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
         [Authorize()]
         public async Task<IActionResult> GetAll()
         {
             var getresult = await _userService.GetAsync();
+            //var user2 = GetCurrentUser2();
+            var user = GetCurrentUser();
             return new JsonResult(getresult);
         }
+        [HttpPost("ResetPassword", Name = "ResetPassword")]
+        [Authorize()]
+        public async Task<IActionResult> ResetPassword(ResetPassDto model)
+        {
+            Guard(model);
+            var result = await _userService.ResetPassword(model);
+            return new JsonResult(result);
+        }
+
+        private string GetCurrentUser()
+        {
+            var identity2 = User.Claims.ToList<Claim>();
+            foreach (var claim in identity2)
+            {
+                if (claim.Type == "name")
+                return claim.Value;
+            }
+
+
+            return null;
+        }
+        //[HttpGet("profile")]
+        //private async Task<IActionResult> GetCurrentUser2()
+        //{
+        //    var identity = HttpContext.User.Identity as ClaimsIdentity;
+        //    if (identity != null)
+        //    {
+        //        var user = new AppUser
+        //        {
+        //            Id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
+        //            UserName = User.FindFirst(ClaimTypes.Name)?.Value
+        //        };
+        //        var result = await _userService.FindById(user.Id);
+        //        return new JsonResult(result);
+        //    }
+        //    return null;
+        //}
     }
 }

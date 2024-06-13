@@ -54,7 +54,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             if (passwordIsCorrect == true)
             {
                 var jwtBuilder = JwtBuilder.Create();
-                jwtBuilder.AddClaim("name", user.UserName);
+                jwtBuilder.AddClaim("Name", user.UserName);
                 jwtBuilder.AddClaim("age", "80")
                     .WithAlgorithm(new HMACSHA256Algorithm())
                     //.WithSecret(_configuration.GetSection("JWT:Secret").Value);

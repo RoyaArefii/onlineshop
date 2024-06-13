@@ -18,6 +18,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         private readonly RoleManager<AppRole> _roleService;
         private readonly OnlineShopDbContext _context;
 
+
         #region [-Ctor-]
         public UserService(UserManager<AppUser> userRepository , RoleManager<AppRole> roleRepository , OnlineShopDbContext onlineShopDbContext)
         {
@@ -164,20 +165,29 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             #region [Transaction]
             using (_context.Database.BeginTransaction())
             {
-                postResult = await _userService.CreateAsync(postAppUser, postAppUser.PasswordHash);
-                if (!postResult.Succeeded) return new Response<object>(MessageResource.Error_FailProcess);
-
-                var newUser = await _userService.FindByNameAsync(postAppUser.UserName);
-                var defaultRole = _roleService.FindByNameAsync(DefaultRoles.NormalName);
-                var asignUserRoleAppDto = new AsignUserRoleAppDto
+                try
                 {
-                    UserId = newUser.Id,
-                    RoleId = DefaultRoles.NormalId
-                };
-                var userRole = AsignUserToRole(asignUserRoleAppDto);
-                //await _userService.AddToRoleAsync(newUser, DefaultRoles.NormalName);
-                if (userRole.Result == null) return new Response<object>(MessageResource.Error_FailedToAssignRoleToUser);
-                _context.Database.CommitTransaction();  
+                    postResult = await _userService.CreateAsync(postAppUser, postAppUser.PasswordHash);
+                    if (!postResult.Succeeded) return new Response<object>(MessageResource.Error_FailProcess);
+
+                    var newUser = await _userService.FindByNameAsync(postAppUser.UserName);
+                    var defaultRole = await _roleService.FindByNameAsync(DefaultRoles.NormalName);
+                    var asignUserRoleAppDto = new AsignUserRoleAppDto
+                    {
+                        UserId = newUser.Id,
+                        RoleId = DefaultRoles.NormalId
+                    };
+                    var userRole = AsignUserToRole(asignUserRoleAppDto);
+                    //await _userService.AddToRoleAsync(newUser, DefaultRoles.NormalName);
+                    if (userRole.Result == null) return new Response<object>(MessageResource.Error_FailedToAssignRoleToUser);
+                    _context.Database.CommitTransaction();
+                }
+                catch (Exception ex)
+                {
+
+                    _context.Database.RollbackTransaction();
+                    return new Response<object>(MessageResource.Error_FailProcess);
+                }
             }
              #endregion
             #endregion
@@ -228,13 +238,6 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         }
         #endregion
 
-        //#region [-async Task SaveChanges()-]?????????????
-        //public Task SaveChanges()
-        //{
-        //    throw new NotImplementedException();
-        //}
-        //#endregion
-
         #region [- Task<IResponse<object>> AsignUserToRole(AsignUserRoleAppDto model) -]
         public async Task<IResponse<object>> AsignUserToRole(AsignUserRoleAppDto model)
         {
@@ -272,11 +275,41 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         }
         #endregion
 
+        #region [-Other Methodes-]
+
+        #region [-Task<bool> HasUserRole(string userId, string roleName)-]
         public async Task<bool> HasUserRole(string userId, string roleName)
         {
             var appUser = await _userService.FindByIdAsync(userId);
             return roleName != null && appUser != null && !await _userService.IsInRoleAsync(appUser, roleName) ? false : true;
         }
+        #endregion
+
+        #region [-Task<IResponse<object>> ResetPassword(ResetPassDto resetPassDto)-]
+        public async Task<IResponse<object>> ResetPassword(ResetPassDto model)
+        {
+
+            #region [- Validation -]
+            if (model == null) return new Response<object>(MessageResource.Error_ModelNull);
+            if (model.Password == null || model.ConfirmPassword == null || model.UserName == null) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            #endregion
+
+            #region [-Task-]
+            var user = await _userService.FindByNameAsync(model.UserName);
+            var token = await _userService.GeneratePasswordResetTokenAsync(user);
+            if (user == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            var result = await _userService.ResetPasswordAsync(user, token, model.Password);
+            #endregion
+
+            #region [-Result-]
+            if (!result.Succeeded) return new Response<object>(MessageResource.Error_ModelNull);
+            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, result, HttpStatusCode.OK); 
+            #endregion
+        } 
+        #endregion
+
+        #endregion
+        
         //خروجی نهایی باید یک متد کوتاه شود و مثلا ok , 
         //و جاهایی که خطا داریم object  خالی است و نباید خروخی object  داشته باشیم 
     }

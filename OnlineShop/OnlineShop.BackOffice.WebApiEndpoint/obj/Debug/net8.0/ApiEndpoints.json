@@ -322,6 +322,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/BackOfficeUser/ResetPassword",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos.ResetPassDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserRoleController",
     "Method": "Post",
     "RelativePath": "api/BackOfficeUserRole",
