@@ -25,7 +25,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos.PutOrderHeaderAppDto",
+        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.PutOrderAppDto",
         "IsRequired": true
       }
     ],
@@ -41,7 +41,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.PostOrder",
+        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.PostOrderControllerDto",
         "IsRequired": true
       }
     ],

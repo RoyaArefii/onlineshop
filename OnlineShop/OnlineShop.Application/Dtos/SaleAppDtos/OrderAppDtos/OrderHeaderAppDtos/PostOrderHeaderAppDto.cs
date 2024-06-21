@@ -13,14 +13,14 @@ namespace OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDto
         public string Title { get; set; }
         //public DateTime OrderDate { get; set; }
         public string SellerId { get; set; }
-        public string BuyerId { get; set; }
+        //public string BuyerId { get; set; }
         //public List<OrderDetail> ? OrderDetails { get; set; }
 
         /// <summary>
         /// prop for detail
         /// </summary>
         public string? EntityDescription { get; set; }
-        public decimal Quantity { get; set; }
+        //public decimal Quantity { get; set; }
        // public Guid ProductId { get; set; }
 
     }

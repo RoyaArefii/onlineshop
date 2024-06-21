@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using OnlineShop.Application.Contracts.SaleContracts;
-using OnlineShop.Application.Dtos.SaleAppDtos;
+using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos;
 using OnlineShopDomain.Aggregates.UserManagement;
@@ -31,18 +32,18 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
         //    //return model.OrderDate.Equals(null) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         //}
 
-        private static JsonResult Guard(PostOrder model)
+        private static JsonResult Guard(PostOrderAppDto model)
         {
 
             //if (model.ProductId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.OrderHeader.SellerId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            if (model.OrderHeader.BuyerId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            if (model.OrderHeader.Quantity.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            //if (model.OrderHeader.BuyerId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            //if (model.OrderHeader.Quantity.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             return model.OrderHeader.Code.Equals(null) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
 
         [HttpPut(Name = "PutOrderHeader")]
-        public async Task<IActionResult> Put(PutOrderHeaderAppDto model)
+        public async Task<IActionResult> Put(PutOrderAppDto model)
         {
             //Guard(model);
             var putResult = await _appOrderHeaderlService.PutAsync(model);
@@ -50,11 +51,19 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
         }
 
         [HttpPost(Name = "PostOrderHeader")]
-        public async Task<IActionResult> Post(PostOrder model)
+        [Authorize]
+        public async Task<IActionResult> Post(PostOrderControllerDto model)
         {
-            Guard(model);
-            var postResult = await _appOrderHeaderlService.PostAsync(model);
-            return new JsonResult(postResult);
+            var user = GetCurrentUser();
+            //Guard(model);
+            var postModel = new PostOrderAppDto
+            {
+                OrderDetails = model.OrderDetails,
+                OrderHeader = model.OrderHeader,
+                UserName = user.ToString() 
+            };
+            var postResult = await _appOrderHeaderlService.PostAsync(postModel); 
+            return new JsonResult(postModel);
         }
 
         [HttpDelete(Name = "DeleteOrder")]
@@ -77,6 +86,16 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
         {
             var getresult = await _appOrderHeaderlService.GetAsync();
             return new JsonResult(getresult);
+        }
+        private async Task<IActionResult> GetCurrentUser()
+        {
+            var identity2 = User.Claims.ToList<Claim>();
+            foreach (var claim in identity2)
+            {
+                if (claim.Type == "name")
+                    return new JsonResult(claim.Value);
+            }
+            return new JsonResult(null);
         }
     }
 }

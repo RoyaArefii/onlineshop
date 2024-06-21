@@ -48,7 +48,7 @@ namespace onlineshop.repositorydesignpatern.frameworks.bases
         {
             dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
-            await SaveChanges();
+            //await SaveChanges();
             return new Response<object>(entity);
         }
         #endregion

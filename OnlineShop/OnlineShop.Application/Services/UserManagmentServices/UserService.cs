@@ -8,6 +8,7 @@ using PublicTools.Resources;
 using PublicTools.Tools;
 using ResponseFramework;
 using System.Net;
+using System.Security.Claims;
 using static PublicTools.Constants.DatabaseConstants;
 
 namespace OnlineShop.Application.Services.UserManagmentServices
@@ -33,7 +34,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         {
             if (id == null)
             {
-                return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+                return new Response<object>(MessageResource.Error_ModelNull);
             }
             var userDelete = await _userService.FindByIdAsync(id);
             if (userDelete == null)
@@ -284,23 +285,23 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             return roleName != null && appUser != null && !await _userService.IsInRoleAsync(appUser, roleName) ? false : true;
         }
         #endregion
-
+       
         #region [-Task<IResponse<object>> ResetPassword(ResetPassDto resetPassDto)-]
         public async Task<IResponse<object>> ResetPassword(ResetPassDto model)
         {
-
-            #region [- Validation -]
+           
+            #region[- Validation -]
             if (model == null) return new Response<object>(MessageResource.Error_ModelNull);
             if (model.Password == null || model.ConfirmPassword == null || model.UserName == null) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
-
+            
             #region [-Task-]
             var user = await _userService.FindByNameAsync(model.UserName);
             var token = await _userService.GeneratePasswordResetTokenAsync(user);
             if (user == null) return new Response<object>(MessageResource.Error_UserNotFound);
             var result = await _userService.ResetPasswordAsync(user, token, model.Password);
             #endregion
-
+           
             #region [-Result-]
             if (!result.Succeeded) return new Response<object>(MessageResource.Error_ModelNull);
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, result, HttpStatusCode.OK); 
@@ -309,8 +310,5 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         #endregion
 
         #endregion
-        
-        //خروجی نهایی باید یک متد کوتاه شود و مثلا ok , 
-        //و جاهایی که خطا داریم object  خالی است و نباید خروخی object  داشته باشیم 
     }
 }

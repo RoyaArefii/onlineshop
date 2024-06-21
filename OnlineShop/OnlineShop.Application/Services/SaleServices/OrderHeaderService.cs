@@ -5,14 +5,10 @@ using System.Net;
 using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 using PublicTools.Tools;
 using OnlineShop.EFCore;
-using OnlineShop.Application.Dtos.SaleAppDtos;
 using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using OnlineShopDomain.Aggregates.UserManagement;
 
 
 namespace OnlineShop.Application.Services.SaleServices
@@ -24,13 +20,14 @@ namespace OnlineShop.Application.Services.SaleServices
         private readonly IRepository<Product, Guid> _productRepository;
         private readonly OnlineShopDbContext _context;
 
+
         #region [-Ctor-]
-        public OrderHeaderService(IRepository<OrderHeader, Guid> headerRepository, OnlineShopDbContext context, IRepository<OrderDetail, Guid> detailRepository, IRepository<Product, Guid> productRepository)
+        public OrderHeaderService(IRepository<OrderHeader, Guid> headerRepository, IRepository<OrderDetail, Guid> detailRepository, IRepository<Product, Guid> productRepository, OnlineShopDbContext context)
         {
             _headerRepository = headerRepository;
             _detailRepository = detailRepository;
-            _context = context;
             _productRepository = productRepository;
+            _context = context;
         }
         #endregion
 
@@ -42,7 +39,7 @@ namespace OnlineShop.Application.Services.SaleServices
         #endregion
 
         #region [- Task<IResponse<object>> PutAsync(PutOrderHeaderAppDto model) -]
-        public async Task<IResponse<object>> PutAsync(PutOrderHeaderAppDto model)
+        public async Task<IResponse<object>> PutAsync(PutOrderAppDto model)
         {
             //#region [- Validation -]
             //if (model == null) return new Response<object>(MessageResource.Error_FailToFindObject);
@@ -51,29 +48,109 @@ namespace OnlineShop.Application.Services.SaleServices
             //if (model.OrderDate.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             //if (model.Seller.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             //if (model.Buyer.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            //var productResponse = await _productRepository.FindById(dto.ProductId);مهههههههههههههههههم باید باشه 
             //#endregion
 
-            #region [-Task-]
-            var putOrderHeader = new OrderHeader
+            #region [-Task-]          
+            var modelHeader = model.orderHeader;
+            var orderHeader = await _headerRepository.FindById(modelHeader.Id);
+            var putHeader = orderHeader.Result;
+            var findDetails = await FindOrderDetailsByHeaderId(modelHeader.Id);
+            var orderDetailList = findDetails.Result;
+            var modelOrderDetail = model.orderDetails;
+            var detailsToDelete = orderDetailList.Where(od => !modelOrderDetail.Any(dto => dto.Id == od.DetailId)).ToList();
+            var detailsToAdd = modelOrderDetail.Where(dto => !orderDetailList.Any(od => od.DetailId == dto.Id)).ToList();
+            var detailsToUpdate = orderDetailList.Where(od => modelOrderDetail.Any(dto => dto.Id == od.DetailId)).ToList();
+            if (!orderHeader.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
+            try
             {
-                Id = model.Id,
+                #region [-OrfderHeader-]
+                putHeader.Id = modelHeader.Id;
+                putHeader.EntityDescription = modelHeader.EntityDescription;
+                putHeader.IsActive = modelHeader.IsActive;
+                putHeader.DateModifiedPersian = Helpers.ConvertToPersianDate(DateTime.Now);
+                putHeader.DateModifiedLatin = DateTime.Now;
+                var putHeaderResult = await _headerRepository.UpdateAsync(putHeader);
+                #endregion
 
-            };
-            if (putOrderHeader == null) return new Response<object>(MessageResource.Error_FailToFindObject);
-            var putResult = await _headerRepository.UpdateAsync(putOrderHeader);
+                #region [Update_OrderDetails_Task]
+                foreach (var dto in detailsToUpdate)
+                {
+                    var findDetail = await _detailRepository.FindById(dto.DetailId);
+                    var putModel = modelOrderDetail.Where(p => p.Id == dto.DetailId).First();
+                    var detail = findDetail.Result;
+                    detail.Id = dto.DetailId;
+                    detail.OrderHeaderId = orderHeader.Result.Id;
+                    detail.Quantity = putModel.Quantity;
+                    detail.Code = putModel.Code;
+                    detail.Title = putModel.Title;
+                    detail.ProductId = putModel.ProductId;
+                    detail.UnitPrice = putModel.UnitPrice;
+                    detail.EntityDescription = putModel.EntityDescription;
+                    detail.IsModified = true;
+                    detail.IsActive = putModel.IsActive;
+                    detail.DateModifiedLatin = DateTime.Now;
+                    detail.DateModifiedPersian = Helpers.ConvertToPersianDate(DateTime.Now);
+                    var putUpdateResult = await _detailRepository.UpdateAsync(detail);
+                    if (!putUpdateResult.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
+                }
+                #endregion
+
+                #region [-Add_OrderDetail_Task-]
+                foreach (var dto in detailsToAdd)
+                {
+                    var addDetail = new OrderDetail();
+                    //detail.Id = new Guid();
+                    addDetail.OrderHeaderId = orderHeader.Result.Id;
+                    addDetail.Quantity = dto.Quantity;
+                    addDetail.Code = dto.Code;
+                    addDetail.Title = dto.Title;
+                    addDetail.ProductId = dto.ProductId;
+                    addDetail.UnitPrice = dto.UnitPrice;
+                    addDetail.EntityDescription = dto.EntityDescription;
+                    addDetail.IsDeleted = false;
+                    addDetail.IsModified = false;
+                    addDetail.IsActive = dto.IsActive;
+                    addDetail.DateCreatedLatin = DateTime.Now;
+                    addDetail.DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now);
+                    var putAddResult = await _detailRepository.InsertAsync(addDetail);
+                    if (!putAddResult.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
+                }
+                #endregion
+
+                #region [-Delete_OrderDetail_Task-]
+                foreach (var dto in detailsToDelete)
+                {
+                    var putDeleteResult = await _detailRepository.DeleteByIdAsync(dto.DetailId);
+                    if (!putDeleteResult.IsSuccessful) new Response<object>(MessageResource.Error_FailProcess);
+                }
+                #endregion
+
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return new Response<object>(MessageResource.Error_FailProcess);
+            }
+
+
+            //var putHeaderFinal = putHeaderResult.Result;
+            //var putorderResult = new PutOrderAppDto
+            //  {
+
+            //     orderDetails= resultDetailList
+
+            //}
             #endregion
 
-            #region [-Result-] 
-            if (!putResult.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
-            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, putResult, HttpStatusCode.OK);
-            #endregion
+            #region [-Result-]
+            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, null, HttpStatusCode.OK);
+            #endregion        }
         }
         #endregion
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         #region [- Task<IResponse<object>> DeleteOrderDetailAsync(List<DeleteOrderDetailsAppDto> model) -]
-        public async Task<IResponse<object>> DeleteOrderDetailAsync(List<DeleteOrderDetailAppDto> model)
+            public async Task<IResponse<object>> DeleteOrderDetailAsync(List<DeleteOrderDetailAppDto> model)
         {
             var details = model;
             var finalList = new List<DeleteOrderDetailAppDto>();
@@ -267,17 +344,17 @@ namespace OnlineShop.Application.Services.SaleServices
             if (headerList != null)
                 foreach (var header in headerList.Result)
                 {
-                    
+
                     var detailList = await FindOrderDetailsByHeaderId(header.Id);
                     if (detailList != null)
                     {
-                        
                         var detailDtoList = detailList.Result.Select(detail => new GetOrderDetailAppDto
                         {
                             HeaderId = header.Id,
                             DetailId = detail.DetailId,
                             Code = detail.Code,
                             Title = detail.Title,
+                            ProductId = detail.ProductId,
                             IsActive = detail.IsActive,
                             IsDeleted = detail.IsDeleted,
                             IsModified = detail.IsModified,
@@ -288,8 +365,9 @@ namespace OnlineShop.Application.Services.SaleServices
                             DateSoftDeletedLatin = detail.DateSoftDeletedLatin,
                             DateSoftDeletedPersian = detail.DateSoftDeletedPersian,
                             EntityDescription = detail.EntityDescription,
-                            Price = detail.UnitPrice * detail.Quantity
-
+                            Price = detail.UnitPrice * detail.Quantity,
+                            Quantity = detail.Quantity,
+                            UnitPrice = detail.UnitPrice
                         }).ToList();
                         var totalPriceOrderHeader = detailDtoList.Sum(p => p.Price);
                         var headerDto = new GetOrderHeaderAppDto()
@@ -407,7 +485,7 @@ namespace OnlineShop.Application.Services.SaleServices
         #endregion
 
         #region [-Task<IResponse<object>> PostAsync(PostOrder model) -]
-        public async Task<IResponse<object>> PostAsync(PostOrder model)
+        public async Task<IResponse<object>> PostAsync(PostOrderAppDto model)
         {
 
             //if (product == null) return new Response<object>(MessageResource.Error_FailToFindObject);
@@ -439,11 +517,10 @@ namespace OnlineShop.Application.Services.SaleServices
                         IsDeleted = false,
                         IsModified = false,
                         SellerId = orderHeaderDto.SellerId,//in bayad ba login generatte shavad 
-                        BuyerId = orderHeaderDto.BuyerId,
+                        BuyerId = model.UserName,//orderHeaderDto.BuyerId,
                         EntityDescription = orderHeaderDto.EntityDescription
                     };
                     var postResult = await _headerRepository.InsertAsync(header);
-                    var user = ClaimTypes.GivenName.ToLower();
                     //_context.SaveChanges();
                     //if (!postResult.IsSuccessful)
                     //{
@@ -464,7 +541,7 @@ namespace OnlineShop.Application.Services.SaleServices
                         detail.Code = dto.Code;
                         detail.Title = dto.Title;
                         detail.ProductId = product.Id;
-                        detail.UnitPrice = product.UnitPrice;
+                        detail.UnitPrice = dto.UnitPrice;
                         detail.EntityDescription = dto.EntityDescription;
                         detail.IsDeleted = false;
                         detail.IsModified = false;

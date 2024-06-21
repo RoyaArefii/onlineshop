@@ -25,7 +25,9 @@ namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
                             DateCreatedLatin = DateTime.Now,
                             DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now),
                             IsDeleted = false,
-                            IsModified = false
+                            IsModified = false,
+                            NormalizedUserName = DatabaseConstants.GodAdminUsers.ArefiCellPhone.ToString(),
+                            LockoutEnabled = true
                         });
 
             //    builder.ToTable(table => table.HasCheckConstraint(
@@ -49,11 +51,11 @@ namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
             builder.Property(p => p.Cellphone).IsUnicode();
 
             builder.Property(p => p.IsActive).IsRequired().HasDefaultValue(true);
-            builder.Property(p => p.DateCreatedLatin).IsRequired().HasDefaultValue(DateTime.Now);
-
             builder.Property(p => p.IsModified).HasDefaultValue(false);
             builder.Property(p => p.IsDeleted).HasDefaultValue(false);
 
+            builder.Property(p => p.DateCreatedLatin).IsRequired().HasDefaultValue(DateTime.Now);
+            builder.Property(p => p.DateCreatedPersian).IsRequired().HasDefaultValue(Helpers.ConvertToPersianDate(DateTime.Now));
         }
     }
 }
