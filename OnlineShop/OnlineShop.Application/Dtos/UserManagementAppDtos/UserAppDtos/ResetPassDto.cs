@@ -20,5 +20,6 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; } 
+        public string UserNameAuthorized { get; set; } 
     }
 }

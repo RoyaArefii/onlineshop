@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos
+namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.ControllerDtos.UserManagementDtos
 {
-    public class PutUserAppDto
+    public class PutUserControllerDto
     {
         [Required]
         public string Id { get; set; }
@@ -21,7 +16,5 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos
         public string? Location { get; set; }
         [Required]
         public bool IsActive { get; set; }
-        public string UserName { get; set; }
-
     }
 }

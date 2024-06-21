@@ -9,5 +9,6 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos
     public class DeleteUserAppDto
     {
         public string Id  { get; set; }
+        public string UserName  { get; set; }
     }
 }

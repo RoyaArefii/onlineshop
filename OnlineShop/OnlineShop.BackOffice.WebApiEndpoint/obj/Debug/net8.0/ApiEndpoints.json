@@ -265,22 +265,6 @@
   },
   {
     "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserController",
-    "Method": "Put",
-    "RelativePath": "api/BackOfficeUser",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos.PutUserAppDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserController",
     "Method": "Post",
     "RelativePath": "api/BackOfficeUser",
     "HttpMethod": "POST",
@@ -289,7 +273,23 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos.PostUserAppDto",
+        "Type": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.ControllerDtos.UserManagementDtos.PostUserControllerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserController",
+    "Method": "Put",
+    "RelativePath": "api/BackOfficeUser",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.ControllerDtos.UserManagementDtos.PutUserControllerDto",
         "IsRequired": true
       }
     ],
@@ -305,7 +305,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos.DeleteUserAppDto",
+        "Type": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.ControllerDtos.UserManagementDtos.DeleteUserControllerDto",
         "IsRequired": true
       }
     ],
@@ -331,7 +331,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos.ResetPassDto",
+        "Type": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.ControllerDtos.UserManagementDtos.ResetPasswordControllerDto",
         "IsRequired": true
       }
     ],
