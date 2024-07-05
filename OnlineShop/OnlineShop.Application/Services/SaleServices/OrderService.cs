@@ -13,16 +13,17 @@ using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos;
 
 namespace OnlineShop.Application.Services.SaleServices
 {
-    public class OrderHeaderService : IAppOrderHeaderService<DeleteOrderDetailAppDto>
+    public class OrderService : IAppOrderHeaderService<DeleteOrderDetailAppDto>
     {
+        #region [-     OK     -]
+        #region [-Ctor & Fields-]
         private readonly IRepository<OrderHeader, Guid> _headerRepository;
         private readonly IRepository<OrderDetail, Guid> _detailRepository;
         private readonly IRepository<Product, Guid> _productRepository;
         private readonly OnlineShopDbContext _context;
 
 
-        #region [-Ctor-]
-        public OrderHeaderService(IRepository<OrderHeader, Guid> headerRepository, IRepository<OrderDetail, Guid> detailRepository, IRepository<Product, Guid> productRepository, OnlineShopDbContext context)
+        public OrderService(IRepository<OrderHeader, Guid> headerRepository, IRepository<OrderDetail, Guid> detailRepository, IRepository<Product, Guid> productRepository, OnlineShopDbContext context)
         {
             _headerRepository = headerRepository;
             _detailRepository = detailRepository;
@@ -36,6 +37,7 @@ namespace OnlineShop.Application.Services.SaleServices
         {
             _context.SaveChanges();
         }
+        #endregion 
         #endregion
 
         #region [- Task<IResponse<object>> PutAsync(PutOrderHeaderAppDto model) -]

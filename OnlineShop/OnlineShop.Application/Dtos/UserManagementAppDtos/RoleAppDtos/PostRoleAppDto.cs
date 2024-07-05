@@ -11,5 +11,6 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.RoleAppDtos
     {
         public string Name { get; set; }
         public string? EntityDescription { get; set; }        
+        public string UserName { get; set; }        
     }
 }

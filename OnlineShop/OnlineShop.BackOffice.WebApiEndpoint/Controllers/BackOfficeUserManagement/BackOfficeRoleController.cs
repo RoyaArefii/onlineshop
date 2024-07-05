@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using OnlineShop.Application.Dtos.UserManagementAppDtos.RoleAppDtos;
-using OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos;
 using OnlineShop.Application.Services.UserManagmentServices;
+using OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.RoleControllerDtos;
 using PublicTools.Resources;
+using PublicTools.Tools;
 using ResponseFramework;
-using System.Reflection.Metadata.Ecma335;
+using System.Security.Claims;
 
 namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement
 {
@@ -14,55 +14,119 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
     [ApiController]
     public class BackOfficeRoleController : ControllerBase
     {
+        #region [- Ctor -]
         private readonly RoleService _roleService;
 
         public BackOfficeRoleController(RoleService roleService)
         {
             _roleService = roleService;
-        }
-        private static JsonResult Guard(PutRoleAppDto model)
-        {
-            if (model == null) return new JsonResult(new Response<object>(MessageResource.Error_FailToFindObject));
-            if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            return (model.Name.Equals(null))?  new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null) ;
-        }
+        } 
+        #endregion
 
-        private static JsonResult Guard(PostRoleAppDto model)
+        #region [- Guard -]
+        private static JsonResult Guard(PostRoleControllerDto model)
         {
             if (model == null) return new JsonResult(new Response<object>(MessageResource.Error_FailToFindObject));
             return (model.Name.Equals(null)) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
-        
-        [HttpDelete(Name = "DeleteRole")]
-        public async Task<IActionResult> Delete(DeleteRoleAppDto model)
+        private static JsonResult Guard(PutRoleControllerDto model)
         {
+            if (model == null) return new JsonResult(new Response<object>(MessageResource.Error_FailToFindObject));
             if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            var postResult = await _roleService.DeleteAsync(model.Id);
-            return new JsonResult(postResult);
+            if (model.IsActive.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            return (model.Name.Equals(null)) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
-        
+        #endregion
+
+        #region [- CRUD -]
+        #region [- Post -]
         [HttpPost(Name = "PostRole")]
-        public async Task<IActionResult> Post(PostRoleAppDto model)
+        [Authorize(Roles = "GodAdmin")]
+        public async Task<IActionResult> Post(PostRoleControllerDto model)
         {
             Guard(model);
-            var postResult = await _roleService.PostAsync(model);
+            var userName = GetCurrentUser().Value.ToString();
+            if (userName == null) return new JsonResult(new Response<object>(MessageResource.Error_UserNotFound));
+            var postModel = new PostRoleAppDto()
+            {
+                Name = model.Name,
+                EntityDescription = model.EntityDescription,
+                UserName = userName
+            };
+            var postResult = await _roleService.PostAsync(postModel);
             return new JsonResult(postResult);
         }
-        
-        [HttpGet(Name = "GetRole")]
+        #endregion
+
+        #region [- Put -]
+        [HttpPut(Name = "PutRole")]
+        [Authorize (Roles ="GodAdmin")]
+        public async Task<IActionResult> Put(PutRoleControllerDto model)
+        {
+            Guard(model);
+            var userName = GetCurrentUser().Value.ToString();
+            if (userName == null) return new JsonResult(new Response<object>(MessageResource.Error_UserNotFound));
+            var putModel = new PutRoleAppDto()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                IsActive = model.IsActive,
+                EntityDescription=model.EntityDescription,
+                UserName = userName
+            };
+            var putRole = await _roleService.PutAsync(putModel);
+            return new JsonResult(putRole);
+        }
+        #endregion
+
+        #region [-Delete-]
+        [HttpDelete(Name = "DeleteRole")]
+        [Authorize(Roles = "GodAdmin")]
+        public async Task<IActionResult> Delete(DeleteRoleControllerDto model)
+        {
+            if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            var userName = GetCurrentUser().Value.ToString();
+            var deleteModel = new DeleteRoleAppDto()
+            {
+                Id = model.Id,
+                UserName = userName
+            };
+            if (userName == null) return new JsonResult(new Response<object>(MessageResource.Error_UserNotFound));
+
+            var postResult = await _roleService.DeleteAsync(deleteModel);
+            return new JsonResult(new Response<object>(postResult.ErrorMessage));
+        }
+        #endregion
+
+        #region [GetAll]
+        [HttpGet(Name = "GetAllRoles")]
+        [Authorize(Roles = "GodAdmin")]
         public async Task<IActionResult> GetAll()
         {
             var getresult = await _roleService.GetAsync();
             return new JsonResult(getresult);
         }
+        #endregion
 
-        [HttpPut (Name= "putRole")]
-        public async Task<IActionResult> Put(PutRoleAppDto model)
+        #endregion
+
+        #region [- Other -]        
+        #region [-JsonResult GetCurrentUser()-]
+        private JsonResult GetCurrentUser()
         {
-            Guard(model);
-            var putRole = await _roleService.PutAsync(model);
-            return new JsonResult(putRole); 
-        }
+            var claims = User.Claims.ToList<Claim>();
+            foreach (var claim in claims)
+            {
+                if (claim.Type == "Name")
+                {
+                    string user = claim.Value;
+                    return new JsonResult(user);
+                }
+            }
+            return new JsonResult(null);
+        }  
+        #endregion
+        #endregion
     }
 
 }

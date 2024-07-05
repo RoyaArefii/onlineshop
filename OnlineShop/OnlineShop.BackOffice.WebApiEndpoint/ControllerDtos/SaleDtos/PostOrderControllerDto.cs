@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos
+namespace OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.SaleDtos
 {
     public class PostOrderControllerDto
     {

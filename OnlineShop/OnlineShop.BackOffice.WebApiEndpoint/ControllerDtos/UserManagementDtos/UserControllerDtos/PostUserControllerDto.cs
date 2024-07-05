@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.ControllerDtos.UserManagementDtos
+namespace OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos
 {
     public class PostUserControllerDto
     {

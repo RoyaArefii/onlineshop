@@ -13,5 +13,6 @@ namespace OnlineShop.Application.Dtos.SaleAppDtos.ProductAppDtos
         public string Code { get; set; }
         public decimal UnitPrice { get; set; }
         public string EntityDescription { get; set; } 
+        public string UserName { get; set; } 
     }
 }

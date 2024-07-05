@@ -1,26 +1,34 @@
-﻿
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using Microsoft.IdentityModel.Tokens;
 using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.ProductCategory;
 using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 using OnlineShopDomain.Aggregates.Sale;
+using OnlineShopDomain.Aggregates.UserManagement;
 using PublicTools.Resources;
 using ResponseFramework;
 using System.Net;
 
 namespace OnlineShop.Application.Services.SaleServices
 {
-    public class ProductCategoryService :IAppProductCategoryService
+    public class ProductCategoryService : IAppProductCategoryService
     {
-        private readonly IRepository<ProductCategory, Guid> _repository;
 
-        #region [-Ctor-]
-        public ProductCategoryService(IRepository<ProductCategory, Guid> repository)
+        #region [-Ctor & Fields-]
+        private readonly IRepository<ProductCategory, Guid> _repository;
+        private readonly ProductService _productService;
+        private readonly UserManager<AppUser> _userService;
+        public ProductCategoryService(IRepository<ProductCategory, Guid> repository, ProductService productService, UserManager<AppUser> userService)
         {
             _repository = repository;
+            _productService = productService;
+            _userService = userService;
+
         }
         #endregion
 
+        #region [-    Ok     -]
         #region [- DeleteAsync(string id) -]
         public async Task<IResponse<object>> DeleteAsync(Guid id)
         {
@@ -28,6 +36,12 @@ namespace OnlineShop.Application.Services.SaleServices
             if (deleteProductCategory == null)
             {
                 return new Response<object>(MessageResource.Error_FailToFindObject);
+            }
+            var productList = await _productService.GetAsync();
+            if (productList.IsSuccessful && productList.Result.Any(x => x.ProductCategoryId == id && x.IsDeleted != false))
+            {
+                return new Response<object>(MessageResource.Error_DataWasUsed);
+
             }
             var resultDelete = await _repository.DeleteByIdAsync(id);
             await _repository.SaveChanges();
@@ -40,20 +54,33 @@ namespace OnlineShop.Application.Services.SaleServices
         #region [- DeleteAsync(DeleteProductCategoryAppDto model) -]
         public async Task<IResponse<object>> DeleteAsync(DeleteProductCategoryAppDto model)
         {
-            if (model == null) return new Response<object>(MessageResource.Error_ModelNull);
-            var deleteProductCategory = new ProductCategory
+            #region [-Validation-]
+            if (model == null || model.Id == null) return new Response<object>(MessageResource.Error_ModelNull);
+            var userLogin = await _userService.FindByNameAsync(model.UserName);
+            if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            if (!(await _userService.IsInRoleAsync(userLogin, "GodAdmin") || await _userService.IsInRoleAsync(userLogin, "Admin")))
+                return new Response<object>(MessageResource.Error_Accessdenied);
+            #endregion
+
+            #region [- Task -]
+            var productcategory = await _repository.FindById(model.Id);
+            if (productcategory == null) return new Response<object>(MessageResource.Error_ModelNull);
+            var productList = await _productService.GetAsync();
+            if (productList.IsSuccessful && (productList.Result.Any(x => x.ProductCategoryId == productcategory.Result.Id && x.IsDeleted != true)))
             {
-                Id = model.Id
-            };
-            if (deleteProductCategory == null)
-            {
-                return new Response<object>(MessageResource.Error_FailToFindObject);
+                return new Response<object>(MessageResource.Error_DataWasUsed);
+
             }
-            var resultDelete = await _repository.DeleteAsync(deleteProductCategory);
-            await _repository.SaveChanges();  
+            var productcategoryResult = productcategory.Result;
+            var resultDelete = await _repository.DeleteAsync(productcategoryResult);
+            await _repository.SaveChanges();
+            #endregion
+
+            #region [- Result -]
             if (!resultDelete.IsSuccessful)
                 return new Response<object>(MessageResource.Error_FailProcess);
-            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, deleteProductCategory, HttpStatusCode.OK);
+            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, productcategoryResult, HttpStatusCode.OK);
+            #endregion
         }
 
         #endregion
@@ -78,17 +105,29 @@ namespace OnlineShop.Application.Services.SaleServices
         }
         #endregion
 
+        #region [-SaveChanges()-]
+        public async Task SaveChanges()
+        {
+            await _repository.SaveChanges();
+        }
+        #endregion
+
         #region [-PutAsync(PutProductCategoryAppDto model)-]
         public async Task<IResponse<object>> PutAsync(PutProductCategoryAppDto model)
         {
             #region [- Validation -]
+            var userLogin = await _userService.FindByNameAsync(model.UserName);
+            if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            if (!(await _userService.IsInRoleAsync(userLogin, "GodAdmin") || await _userService.IsInRoleAsync(userLogin, "Admin")))
+                return new Response<object>(MessageResource.Error_Accessdenied);
+
             if (model == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             if (model.Id.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.Title.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            if (model.Title.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             var productCategory = await _repository.FindById(model.Id);
             if (productCategory == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             #endregion
-   
+
             #region [-Task-]
 
             //var putProductCategory = new ProductCategory
@@ -109,7 +148,7 @@ namespace OnlineShop.Application.Services.SaleServices
             //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(InternalEntityEntry entry)
             //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.
 
-            var putProductCategory=  productCategory.Result;
+            var putProductCategory = productCategory.Result;
             putProductCategory.ParentId = model.ParentId;
             putProductCategory.IsActive = model.IsActive;
             putProductCategory.Title = model.Title;
@@ -117,6 +156,7 @@ namespace OnlineShop.Application.Services.SaleServices
             putProductCategory.EntityDescription = model.EntityDescription;
             if (putProductCategory == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             var putResult = await _repository.UpdateAsync(putProductCategory);
+            await SaveChanges();
             #endregion
 
             #region [-Result-] 
@@ -130,19 +170,22 @@ namespace OnlineShop.Application.Services.SaleServices
         public async Task<IResponse<object>> PostAsync(PostProductCategoryAppDto model)
         {
             #region [-Validation-]
-          
-            if (model.Title.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (model.IsActive.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            var userLogin = await _userService.FindByNameAsync(model.UserName);
+            if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            if (!(await _userService.IsInRoleAsync(userLogin, "GodAdmin") || await _userService.IsInRoleAsync(userLogin, "Admin")))
+                return new Response<object>(MessageResource.Error_Accessdenied);
+
+            if (model.Title.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
 
             #region [-Task-]
             var postProductCategory = new ProductCategory()
             {
-                Id = new Guid(),
+                //Id = new Guid(),
                 ParentId = model.ParentId,
-                IsActive = model.IsActive,
+                IsActive = true,
                 Title = model.Title,
-                EntityDescription = model.EntityDescription,
+                EntityDescription = model.EntityDescription
             };
             var postResult = await _repository.InsertAsync(postProductCategory);
             await SaveChanges();
@@ -172,7 +215,7 @@ namespace OnlineShop.Application.Services.SaleServices
                 ParentId = findResult.Result.ParentId,
                 IsActive = findResult.Result.IsActive,
                 Title = findResult.Result.Title,
-                EntityDescription=findResult.Result.EntityDescription
+                EntityDescription = findResult.Result.EntityDescription
             };
             #endregion
 
@@ -183,11 +226,7 @@ namespace OnlineShop.Application.Services.SaleServices
         }
         #endregion
 
-        #region [-SaveChanges()-]
-        public async Task SaveChanges()
-        {
-            await _repository.SaveChanges();
-        }
         #endregion
+
     }
 }

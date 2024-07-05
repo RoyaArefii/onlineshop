@@ -10,11 +10,11 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BackOfficeLoginController : ControllerBase
+    public class BackOfficeAccountController : ControllerBase
     {
         private readonly AccountService _accountService;
 
-        public BackOfficeLoginController(AccountService accountService)
+        public BackOfficeAccountController(AccountService accountService)
         {
             _accountService = accountService;
         }
@@ -30,7 +30,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
 
 
             var result = await _accountService.Login(loginDto);
-            return (!result.IsSuccessful) ? new JsonResult(new Response<object>(MessageResource.Error_FailProcess)): 
+            return (!result.IsSuccessful) ? new JsonResult(new Response<object>(result.ErrorMessage)): 
                                             new JsonResult(result.Result);
         }
     }

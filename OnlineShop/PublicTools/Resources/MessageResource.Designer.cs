@@ -61,7 +61,34 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TheModelIsEmpty.
+        ///   Looks up a localized string similar to You do not have permission.
+        /// </summary>
+        public static string Error_Accessdenied {
+            get {
+                return ResourceManager.GetString("Error_Accessdenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can not assignee godadmin role.
+        /// </summary>
+        public static string Error_AddGodAdminRole {
+            get {
+                return ResourceManager.GetString("Error_AddGodAdminRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This record is used, Please Inactive it.
+        /// </summary>
+        public static string Error_DataWasUsed {
+            get {
+                return ResourceManager.GetString("Error_DataWasUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The model is empty.
         /// </summary>
         public static string Error_EmptyList {
             get {
@@ -70,7 +97,7 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry  Assign Role To Role Was  Failed.
+        ///   Looks up a localized string similar to Sorry  assign role to role was  failed.
         /// </summary>
         public static string Error_FailedToAssignRoleToUser {
             get {
@@ -88,7 +115,7 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Object Was Not Found.
+        ///   Looks up a localized string similar to Object was not found.
         /// </summary>
         public static string Error_FailToFindObject {
             get {
@@ -97,7 +124,25 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Model Is null .
+        ///   Looks up a localized string similar to You ca not delete Godadmin role!.
+        /// </summary>
+        public static string Error_GodAdminRole {
+            get {
+                return ResourceManager.GetString("Error_GodAdminRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can not delete GodAdmin user.
+        /// </summary>
+        public static string Error_GodAdminUser {
+            get {
+                return ResourceManager.GetString("Error_GodAdminUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The model is null .
         /// </summary>
         public static string Error_ModelNull {
             get {
@@ -106,7 +151,7 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Role Not Found!.
+        ///   Looks up a localized string similar to Role not found!.
         /// </summary>
         public static string Error_RoleNotFound {
             get {
@@ -115,7 +160,7 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Parameter is null.
+        ///   Looks up a localized string similar to The parameter is null.
         /// </summary>
         public static string Error_TheParameterIsNull {
             get {
@@ -133,7 +178,16 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UserHasThisRole!.
+        ///   Looks up a localized string similar to UserName is duplicate.
+        /// </summary>
+        public static string Error_UserDuplicate {
+            get {
+                return ResourceManager.GetString("Error_UserDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User has this role!.
         /// </summary>
         public static string Error_UserInRole {
             get {
@@ -142,7 +196,7 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User Not Found!.
+        ///   Looks up a localized string similar to User not found!.
         /// </summary>
         public static string Error_UserNotFound {
             get {
@@ -151,7 +205,16 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Password Is Not Correct.
+        ///   Looks up a localized string similar to User has not any role.
+        /// </summary>
+        public static string Error_UserWithoutRole {
+            get {
+                return ResourceManager.GetString("Error_UserWithoutRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password Is not correct.
         /// </summary>
         public static string Error_WrongPassword {
             get {
@@ -160,7 +223,7 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This Object Is Final, You Can&apos;t Delete It.
+        ///   Looks up a localized string similar to This object is final, you can&apos;t delete it.
         /// </summary>
         public static string Finalobject {
             get {
@@ -174,6 +237,15 @@ namespace PublicTools.Resources {
         public static string Info_SuccessfullProcess {
             get {
                 return ResourceManager.GetString("Info_SuccessfullProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User is uniq.
+        /// </summary>
+        public static string Info_UniqUser {
+            get {
+                return ResourceManager.GetString("Info_UniqUser", resourceCulture);
             }
         }
     }

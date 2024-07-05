@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Application.Contracts.UserManagementContracts
 {
-    public interface IAppUserRoleServiceI:IApplicationService<AppUserRole , PutUserRoleAppDto , GetUserRoleAppDto , AsignUserRoleAppDto , DeleteUserRoleAppDto, string>
+    public interface IAppUserRoleServiceI:IApplicationService<AppUserRole , PutUserRoleAppDto , GetUserRolesAppDto , AsignUserRoleAppDto , DeleteUserRoleAppDto, string>
     {
     }
 }

@@ -9,6 +9,7 @@ namespace OnlineShop.Application.Dtos.SaleAppDtos.ProductAppDtos
     public class DeleteProductAppDto
     {
         public Guid Id { get; set; }
+        public string UserName { get; set; }    
 
     }
 }

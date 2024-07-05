@@ -10,8 +10,8 @@ namespace OnlineShop.Application.Dtos.SaleAppDtos.ProductCategory
     {
         public string Title { get; set; }
         public Guid? ParentId { get; set; }
-        public Boolean IsActive { get; set; }
         public string EntityDescription { get; set; }
+        public string UserName { get; set; }
 
     }
 }

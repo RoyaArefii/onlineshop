@@ -12,5 +12,6 @@ namespace OnlineShop.Application.Contracts.SaleContracts
     public interface IAppProductService :IApplicationService<Product , PutProductAppDto , GetProductAppDto , PostProductAppDto , DeleteProductAppDto, Guid>
     {
 
+
     }
 }

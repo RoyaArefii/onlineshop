@@ -15,5 +15,6 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.RoleAppDtos
         public bool IsModified { get; set; }
         public DateTime? DateModifiedLatin { get; set; }
         public string? DateModifiedPersian { get; set; }
+        public string UserName { get; set; }
     }
 }

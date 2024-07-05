@@ -11,5 +11,7 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.UserRoleAppDto
     {
         public string UserId { get; set; }
         public string RoleId { get; set; }
+
+        public string UserName { get; set; }    
     }
 }

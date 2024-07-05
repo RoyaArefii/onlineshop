@@ -6,29 +6,105 @@ using OnlineShop.Application.Dtos.UserManagementAppDtos.AccountDtos;
 using OnlineShopDomain.Aggregates.UserManagement;
 using PublicTools.Resources;
 using ResponseFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineShop.Application.Services.UserManagmentServices
 {
     public class AccountService : IdentityUserLogin<string>
     {
+        #region [- Ctor & Fields -]
         private readonly UserManager<AppUser> _userManager;
         private readonly IConfiguration _configuration;
 
-        //private readonly SignInManager<AppUser> _signInManager;
-
-        public AccountService(UserManager<AppUser> userManager /*, SignInManager<AppUser> signInManager*/, IConfiguration configuration)
+        public AccountService(UserManager<AppUser> userManager, IConfiguration configuration /*,IdentityUserClaim<string> userClaim*/)
         {
             _userManager = userManager;
             _configuration = configuration;
-            //_signInManager = signInManager; 
-        }
+            // _userClaim = userClaim;
+        } 
+        #endregion
+
+        #region [Ok]
+        public async Task<IResponse<object>> Login(LoginDto model)
+        {
+            var user = await _userManager.FindByNameAsync(model.UserName);
+            if (user == null || user.IsActive == false || user.IsDeleted == true) return new Response<object>(MessageResource.Error_UserNotFound);
+            var roles = await _userManager.GetRolesAsync(user);
+            if (roles.Count == 0) return new Response<object>(MessageResource.Error_RoleNotFound);
+            var password = model.Password;
+            var passwordIsCorrect = await _userManager.CheckPasswordAsync(user, password);
+
+            if (passwordIsCorrect == true)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var jwtBuilder = JwtBuilder.Create();
+                jwtBuilder.AddClaim("Name", user.UserName)
+                //jwtBuilder.AddClaim("Roles", userRoles)
+                //jwtBuilder.AddClaim("age", "80")
+                    .WithAlgorithm(new HMACSHA256Algorithm())
+                    //.WithSecret(_configuration.GetSection("JWT:Secret").Value);
+                    .WithSecret(_configuration["JWT:Secret"]);
+
+
+
+                foreach (var userrole in userRoles)
+                {
+                    jwtBuilder.AddClaim("roles", userrole);
+                }
+
+                var str = jwtBuilder.Encode();
+
+                return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, str, HttpStatusCode.OK);
+            }
+            //if (passwordIsCorrect == true)
+            //{
+            //    var claims = new List<Claim>()
+            //    {
+            //        new Claim(ClaimTypes.Name,user.UserName)
+            //    };
+
+            //    //claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+            //    //var c = (roles.Select(role => new Claim(ClaimTypes.Role, role))).ToList();
+
+            //    //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+            //    //var creds = new SigningCredentials(key , SecurityAlgorithms.HmacSha256);
+            //    //var token = new JwtSecurityToken(
+            //    //    issuer: _configuration["JWT:Issuer"],
+            //    //    audience: _configuration["JWT:Audience"],
+            //    //    claims: claims,
+            //    //    expires: DateTime.Now.AddMinutes(30),
+            //    //    signingCredentials: creds
+            //    //    );
+            //    //var tokenString =new JwtSecurityTokenHandler().WriteToken(token);
+
+            //    var jwtBuilder = JwtBuilder.Create();
+            //    jwtBuilder.AddClaim("Name", user.UserName);
+            //    //jwtBuilder.AddClaim("age", "80")
+            //     //jwtBuilder.AddClaim("Role", string.Join(",", roles))
+            //    jwtBuilder.AddClaim("Role", claims)
+            //    .WithAlgorithm(new HMACSHA256Algorithm())
+            //    .WithSecret(_configuration.GetSection("JWT:Secret").Value)
+            //    .WithSecret(_configuration["JWT:Secret"]);
+
+            //    foreach (var role in roles)
+            //    {
+            //        jwtBuilder.AddClaim("Role", role);
+            //        //jwtBuilder.AddClaim(claim.Type, claim.Value);
+            //    }
+            //    var str = jwtBuilder.Encode();
+            //    return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, str, HttpStatusCode.OK);
+            //}
+
+            return new Response<object>(false, string.Empty, MessageResource.Error_FailProcess, null, HttpStatusCode.OK);
+
+        } 
+        #endregion
+
+        //private readonly UserRoleService _roleService;
+
+        //private readonly SignInManager<AppUser> _signInManager;
+
+
 
         // برای حالت کوکی
         //public async Task<IResponse<object>> Login(LoginDto model)
@@ -45,35 +121,51 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         //    return new Response<object>(true , MessageResource.Info_SuccessfullProcess , string.Empty , resultLogin , HttpStatusCode.OK);              
         //}
 
-        public async Task<IResponse<string>> Login(LoginDto model)
-        {
-            var user = await _userManager.FindByNameAsync(model.UserName);
-            var password = model.Password;
-            var passwordIsCorrect = await _userManager.CheckPasswordAsync(user, password);
 
-            if (passwordIsCorrect == true)
-            {
-                var jwtBuilder = JwtBuilder.Create();
-                jwtBuilder.AddClaim("Name", user.UserName);
-                jwtBuilder.AddClaim("age", "80")
-                    .WithAlgorithm(new HMACSHA256Algorithm())
-                    //.WithSecret(_configuration.GetSection("JWT:Secret").Value);
-                    .WithSecret(_configuration["JWT:Secret"]);
+        //public async Task<IResponse<object>> Login(LoginDto model)
+        //{
 
-                var userRoles = await _userManager.GetRolesAsync(user);
+        //    var user = await _userManager.FindByNameAsync(model.UserName);
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        //        new Claim(JwtRegisteredClaimNames.Name, user.UserName),
+        //    };
 
-                foreach (var userRole in userRoles)
-                {
-                    jwtBuilder.AddClaim(ClaimTypes.Role, userRole);
-                }
+        //    var userRoles = await _userManager.GetRolesAsync(user);
 
-                var str = jwtBuilder.Encode();
+        //    foreach (var userRole in userRoles)
+        //    {
 
-               return new Response<string>(true , MessageResource.Info_SuccessfullProcess , string.Empty , str , HttpStatusCode.OK);              
-            }
+        //        claims.Add(new Claim("role", userRole));
 
-            return new Response<string>(false, string.Empty, MessageResource.Error_FailProcess, null, HttpStatusCode.OK);
+        //        var role = await _roleManager.FindByNameAsync(userRole);
 
-        }
+        //        if (role == null)
+        //        {
+        //            return new Response<object>(MessageResource.Error_RoleNotFound);
+        //        }
+
+        //        var roleClaims = await _roleManager.GetClaimsAsync(role);
+
+        //        foreach (Claim roleClaim in roleClaims)
+        //        {
+        //            claims.Add(roleClaim);
+        //        }
+        //    }
+
+        //   // var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+        //    //var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        //    var token = new JwtSecurityToken(issuer: _configuration["Jwt:Issuer"],
+        //        audience: _configuration["Jwt:Issuer"],
+        //        claims: claims,
+        //        expires: DateTime.Now.AddMinutes(30)
+        //        //signingCredentials: creds
+        //    );
+        //    var jwtBuilder = new JwtBuilder();
+        //    var str = jwtBuilder.Encode();
+        //    return new Response<object>(str);   
+        //}
     }
 }

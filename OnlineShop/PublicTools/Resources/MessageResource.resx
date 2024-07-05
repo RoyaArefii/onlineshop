@@ -117,43 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Error_Accessdenied" xml:space="preserve">
+    <value>You do not have permission</value>
+  </data>
+  <data name="Error_AddGodAdminRole" xml:space="preserve">
+    <value>You can not assignee godadmin role</value>
+  </data>
+  <data name="Error_DataWasUsed" xml:space="preserve">
+    <value>This record is used, Please Inactive it</value>
+  </data>
   <data name="Error_EmptyList" xml:space="preserve">
-    <value>TheModelIsEmpty</value>
+    <value>The model is empty</value>
   </data>
   <data name="Error_FailedToAssignRoleToUser" xml:space="preserve">
-    <value>Sorry  Assign Role To Role Was  Failed</value>
+    <value>Sorry  assign role to role was  failed</value>
   </data>
   <data name="Error_FailProcess" xml:space="preserve">
     <value>Process was failed.</value>
   </data>
   <data name="Error_FailToFindObject" xml:space="preserve">
-    <value>Object Was Not Found</value>
+    <value>Object was not found</value>
+  </data>
+  <data name="Error_GodAdminRole" xml:space="preserve">
+    <value>You ca not delete Godadmin role!</value>
+  </data>
+  <data name="Error_GodAdminUser" xml:space="preserve">
+    <value>You can not delete GodAdmin user</value>
   </data>
   <data name="Error_ModelNull" xml:space="preserve">
-    <value>The Model Is null </value>
+    <value>The model is null </value>
   </data>
   <data name="Error_RoleNotFound" xml:space="preserve">
-    <value>Role Not Found!</value>
+    <value>Role not found!</value>
   </data>
   <data name="Error_TheParameterIsNull" xml:space="preserve">
-    <value>The Parameter is null</value>
+    <value>The parameter is null</value>
   </data>
   <data name="Error_ThisFieldIsMandatory" xml:space="preserve">
     <value>This field is mandatory</value>
   </data>
+  <data name="Error_UserDuplicate" xml:space="preserve">
+    <value>UserName is duplicate</value>
+  </data>
   <data name="Error_UserInRole" xml:space="preserve">
-    <value>UserHasThisRole!</value>
+    <value>User has this role!</value>
   </data>
   <data name="Error_UserNotFound" xml:space="preserve">
-    <value>User Not Found!</value>
+    <value>User not found!</value>
+  </data>
+  <data name="Error_UserWithoutRole" xml:space="preserve">
+    <value>User has not any role</value>
   </data>
   <data name="Error_WrongPassword" xml:space="preserve">
-    <value>The Password Is Not Correct</value>
+    <value>The password Is not correct</value>
   </data>
   <data name="Finalobject" xml:space="preserve">
-    <value>This Object Is Final, You Can't Delete It</value>
+    <value>This object is final, you can't delete it</value>
   </data>
   <data name="Info_SuccessfullProcess" xml:space="preserve">
     <value>Process was Successfull</value>
+  </data>
+  <data name="Info_UniqUser" xml:space="preserve">
+    <value>User is uniq</value>
   </data>
 </root>

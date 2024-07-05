@@ -5,6 +5,7 @@ using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos;
+using OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.SaleDtos;
 using OnlineShopDomain.Aggregates.UserManagement;
 using PublicTools.Resources;
 using ResponseFramework;
