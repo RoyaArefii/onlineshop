@@ -15,13 +15,14 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
     [ApiController]
     public class BackOfficeProductController : ControllerBase
     {
+        #region [- Ctor & Fields -]
         private readonly IAppProductService _appProductService;
 
         public BackOfficeProductController(IAppProductService appProductService)
         {
             _appProductService = appProductService;
-        }
-
+        } 
+        #endregion
 
         #region [- Guard -]
         private static JsonResult Guard(PutProductControllerDto model)

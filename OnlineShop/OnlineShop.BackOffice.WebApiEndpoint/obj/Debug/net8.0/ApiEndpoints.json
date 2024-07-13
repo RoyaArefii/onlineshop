@@ -1,6 +1,6 @@
 [
   {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeAccountController",
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeAccount.BackOfficeAccountController",
     "Method": "Login",
     "RelativePath": "api/BackOfficeAccount",
     "HttpMethod": "POST",
@@ -25,7 +25,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.PutOrderAppDto",
+        "Type": "OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.SaleDtos.Order.PutOrderControllerDto",
         "IsRequired": true
       }
     ],
@@ -41,7 +41,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.SaleDtos.PostOrderControllerDto",
+        "Type": "OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.SaleDtos.Order.PostOrderControllerDto",
         "IsRequired": true
       }
     ],
@@ -57,7 +57,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderHeaderAppDtos.DeleteOrderDetailAppDtos",
+        "Type": "OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.SaleDtos.Order.DeleteOrderDetailControllerDtos",
         "IsRequired": true
       }
     ],
@@ -71,22 +71,6 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeOrderController",
-    "Method": "DeleteOrderDetail",
-    "RelativePath": "api/BackOfficeOrder/DeleteOrderDetailAsync",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "model",
-        "Type": "System.Collections.Generic.List\u00601[[OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos.DeleteOrderDetailAppDto, OnlineShop.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "IsRequired": true
-      }
-    ],
     "ReturnTypes": []
   },
   {
@@ -347,7 +331,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.ResetPasswordControllerDto",
+        "Type": "OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.AccountDtos.ResetPasswordControllerDto",
         "IsRequired": true
       }
     ],

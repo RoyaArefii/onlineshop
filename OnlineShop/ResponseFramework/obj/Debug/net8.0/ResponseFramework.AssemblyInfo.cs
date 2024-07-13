@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ResponseFramework")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b336b8a8105526c6c2b05652eab0bfbb6ec82e42")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c44200c04ad22ababdb8a150eae6f8c99aa7086")]
 [assembly: System.Reflection.AssemblyProductAttribute("ResponseFramework")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ResponseFramework")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

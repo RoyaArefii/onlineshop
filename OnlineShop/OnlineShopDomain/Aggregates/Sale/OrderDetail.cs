@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OnlineShopDomain.Aggregates.Sale
@@ -14,7 +15,8 @@ namespace OnlineShopDomain.Aggregates.Sale
         public Product Product { get; set; }
         //forign Key
         public Guid OrderHeaderId { get; set; }
-        //Navigation Property 
+        //Navigation Property
+       [JsonIgnore]
         public OrderHeader OrderHeader { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Quantity { get; set; }

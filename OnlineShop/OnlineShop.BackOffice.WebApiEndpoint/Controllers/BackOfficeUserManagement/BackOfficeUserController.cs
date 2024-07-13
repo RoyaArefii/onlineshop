@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos;
 using OnlineShop.Application.Services.UserManagmentServices;
-using OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos;
+using OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.AccountDtos;
 using OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos;
 using PublicTools.Resources;
 using ResponseFramework;

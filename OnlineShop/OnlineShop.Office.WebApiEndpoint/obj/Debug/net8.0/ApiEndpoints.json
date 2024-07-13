@@ -1,0 +1,154 @@
+[
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeAccount.OfficeAccountController",
+    "Method": "Login",
+    "RelativePath": "api/OfficeAccount",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDto",
+        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.AccountDtos.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale.OfficeProductController",
+    "Method": "GetAll",
+    "RelativePath": "api/OfficeProduct",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale.OfficeProductController",
+    "Method": "GetProduct",
+    "RelativePath": "api/OfficeProduct/GetProduct",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.SaleDtos.GetProductByIdControllerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale.OfficeProductCategoryController",
+    "Method": "GetAll",
+    "RelativePath": "api/OfficeProductCategory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeUserManagement.OfficeUserController",
+    "Method": "Post",
+    "RelativePath": "api/OfficeUser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos.PostUserAppDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeUserManagement.OfficeUserController",
+    "Method": "Put",
+    "RelativePath": "api/OfficeUser",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.PutUserControllerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeUserManagement.OfficeUserController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/OfficeUser/ResetPassword",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.AccountDtos.ResetPasswordControllerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeUserManagement.OfficeUserController",
+    "Method": "GetUser",
+    "RelativePath": "api/OfficeUser/ShowAccount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.GetUserByIdControllerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeUserManagement.OfficeUserController",
+    "Method": "Delete",
+    "RelativePath": "api/OfficeUser/SoftDelete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.DeleteUserControllerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[OnlineShop.Office.WebApiEndpoint.WeatherForecast, OnlineShop.Office.WebApiEndpoint, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]

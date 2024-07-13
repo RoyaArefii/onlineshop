@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "00auY/N57i9CeShby25+OK2c32Oxc64cui0TibEIX70=",
+  "Source": "OnlineShop.Office.WebApiEndpoint",
+  "BasePath": "_content/OnlineShop.Office.WebApiEndpoint",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

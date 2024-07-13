@@ -7,6 +7,6 @@ namespace OnlineShopDomain.Aggregates.Sale
         //public DateTime OrderDate{ get; set; }
         public string SellerId{ get; set; }
         public string BuyerId{ get; set; }
-        List<OrderDetail>? OrderDetails { get; set;}// name convenshion is ok for this prop ?
+        public List<OrderDetail>? OrderDetails { get; set; } // name convenshion is ok for this prop ?
     }
 }

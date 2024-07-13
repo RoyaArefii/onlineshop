@@ -10,14 +10,12 @@ using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 using onlineshop.repositorydesignpatern.frameworks.bases;
 using OnlineShopDomain.Aggregates.Sale;
 using OnlineShop.Application.Services.UserManagmentServices;
-using PublicTools.Tools;
-using Microsoft.AspNetCore.Authentication.BearerToken;
-using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos;
+using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos;
+using OnlineShop.Application.Services.Account;
 
 
 
@@ -90,13 +88,13 @@ builder.Services.AddScoped<IOrderHeaderRepository, OrderHeaderRepository>();
 builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
 builder.Services.AddScoped<IAppProductCategoryService, ProductCategoryService>();
 builder.Services.AddScoped<IAppProductService, ProductService>();
-builder.Services.AddScoped<IAppOrderHeaderService<DeleteOrderDetailAppDto>, OrderService>();
+builder.Services.AddScoped<IAppOrderService< GetAllOrderAppDto, GetOrdersAppDto>, OrderService>();
 //builder.Services.AddScoped<IAppOrderDetailService, OrderDdetailService>();
 builder.Services.AddScoped<IRepository<Product, Guid>, BaseRepository<OnlineShopDbContext, Product, Guid>>();
 builder.Services.AddScoped<IRepository<ProductCategory, Guid>, BaseRepository<OnlineShopDbContext, ProductCategory, Guid>>();
 builder.Services.AddScoped<IRepository<OrderHeader, Guid>, BaseRepository<OnlineShopDbContext, OrderHeader, Guid>>();
 builder.Services.AddScoped<IRepository<OrderDetail, Guid>, BaseRepository<OnlineShopDbContext, OrderDetail, Guid>>();
-builder.Services.AddScoped< ProductService>();
+builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<OrderService>();
 
 builder.Services.AddScoped<UserService>();

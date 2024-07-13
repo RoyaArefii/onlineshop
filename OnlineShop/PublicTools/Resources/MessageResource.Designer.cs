@@ -97,6 +97,15 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Was Not Found!.
+        /// </summary>
+        public static string Error_FaildToFindProduct {
+            get {
+                return ResourceManager.GetString("Error_FaildToFindProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry  assign role to role was  failed.
         /// </summary>
         public static string Error_FailedToAssignRoleToUser {
@@ -151,11 +160,38 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order has not any details!.
+        /// </summary>
+        public static string Error_OrderNoDetails {
+            get {
+                return ResourceManager.GetString("Error_OrderNoDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some of products are duplicate!.
+        /// </summary>
+        public static string Error_ProductDuplicate {
+            get {
+                return ResourceManager.GetString("Error_ProductDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role not found!.
         /// </summary>
         public static string Error_RoleNotFound {
             get {
                 return ResourceManager.GetString("Error_RoleNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Seller and The buyer can not be same person.
+        /// </summary>
+        public static string Error_SameSelleAndBuyer {
+            get {
+                return ResourceManager.GetString("Error_SameSelleAndBuyer", resourceCulture);
             }
         }
         

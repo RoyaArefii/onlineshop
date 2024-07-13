@@ -42,7 +42,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
 
             //var users = _userService.Users.ToList().Any(p => p.Cellphone == model.Cellphone);
             //if (users) return new Response<object>(MessageResource.Error_UserDuplicate);
-            if (!UniqUser(model.Cellphone)) return new Response<object>(MessageResource.Error_UserDuplicate);
+            if (!UniqUser(model.Cellphone).Result) return new Response<object>(MessageResource.Error_UserDuplicate);
             #endregion
 
             #region [-Task-]
@@ -236,7 +236,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             foreach (var role in roles)
             {
 
-                if ( await _userService.IsInRoleAsync(userLogin, "GodAdmin"))
+                if ( await _userService.IsInRoleAsync(userLogin, "GodAdmin") || model.Id == userLogin.Id)
 
                     accessFlag = true;
             }
@@ -280,7 +280,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             if (model.LastName.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Cellphone.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.IsActive.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            if (!UniqUser(model.Cellphone)) return new Response<object>(MessageResource.Error_UserDuplicate);
+            if (!UniqUser(model.Cellphone).Result) return new Response<object>(MessageResource.Error_UserDuplicate);
             var userLogin = await _userService.FindByNameAsync(model.UserName);
             if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
 
@@ -288,7 +288,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             var accessFlag = false;
             foreach (var role in roles)
             {
-                if(await _userService.IsInRoleAsync(userLogin, "GodAdmin"))
+                if(await _userService.IsInRoleAsync(userLogin, "GodAdmin")|| model.Id == userLogin.Id)
 
                     accessFlag = true;
             }
@@ -318,7 +318,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
              
             #region [-Result-] 
             if (!putResult.Succeeded) return new Response<object>(MessageResource.Error_FailProcess);
-            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, putResult, HttpStatusCode.OK);
+            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, putAppUser, HttpStatusCode.OK);
             #endregion
         }
         #endregion
@@ -334,7 +334,6 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             if (model.UserName.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Password.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.ConfirmPassword.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-
             var findUser = await _userService.FindByNameAsync(model.UserName);
             if (findUser == null) return new Response<object>(MessageResource.Error_FailProcess);
 
@@ -368,9 +367,10 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         #endregion
 
         #region [-UniqUser(string userName)-]
-        private bool UniqUser(string userName)
+        private async Task<bool> UniqUser(string userName)
         {
-            var users = _userService.Users.ToList().Any(p => p.Cellphone == userName);
+            var user = await _userService.FindByNameAsync(userName);    
+            var users =  _userService.Users.ToList().Any(p => p.Cellphone == userName && p.Id!= user.Id);
             if (users) return false;
             else return true;
 

@@ -58,7 +58,7 @@ namespace OnlineShop.Application.Services.SaleServices
             return new Response<object>(MessageResource.Error_FailProcess);
         }
         #endregion  
-        
+              
         #region [- DeleteAsync(DeleteProductAppDto model) -]
         public async Task<IResponse<object>> DeleteAsync(DeleteProductAppDto model)
         {
@@ -90,7 +90,7 @@ namespace OnlineShop.Application.Services.SaleServices
                 return new Response<object>(MessageResource.Error_FailProcess);
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, deleteProduct, HttpStatusCode.OK);
         }
-        #endregion
+        #endregion       
         
         #region [-Task<IResponse<List<GetProductAppDto>>> GetAsync()-]
         public async Task<IResponse<List<GetProductAppDto>>> GetAsync()
@@ -120,10 +120,11 @@ namespace OnlineShop.Application.Services.SaleServices
             return new Response<List<GetProductAppDto>>(true, MessageResource.Info_SuccessfullProcess, string.Empty, getProducts, HttpStatusCode.OK);
         }
         #endregion
-        
+                
         #region [-PutAsync(PutProductAppDto model)-]
         public async Task<IResponse<object>> PutAsync(PutProductAppDto model)
         {
+            
             #region [- Validation -]
             var userLogin = await _userManager.FindByNameAsync(model.UserName);
             if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
@@ -138,7 +139,7 @@ namespace OnlineShop.Application.Services.SaleServices
             if (model.UnitPrice.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.IsActive.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
-
+           
             #region [-Task-]
             var product = await _productRepository.FindById(model.Id);
             if (product == null) return new Response<object>(MessageResource.Error_FailToFindObject);
@@ -160,7 +161,7 @@ namespace OnlineShop.Application.Services.SaleServices
             var putResult = await _productRepository.UpdateAsync(putProduct);
             await SaveChanges();
             #endregion
-
+            
             #region [-Result-] 
             if (!putResult.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, putResult, HttpStatusCode.OK);
@@ -174,7 +175,7 @@ namespace OnlineShop.Application.Services.SaleServices
             await _productRepository.SaveChanges();
         }
         #endregion
-
+        
         #region [-PostAsync(PutProductAppDto model)-]
         public async Task<IResponse<object>> PostAsync(PostProductAppDto model)
         {
@@ -217,7 +218,7 @@ namespace OnlineShop.Application.Services.SaleServices
 
         }
         #endregion
-        
+                
         #region [-FindById(string id)-]
         public async Task<IResponse<GetProductAppDto>> FindById(Guid id)
         {
