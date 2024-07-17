@@ -17,7 +17,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeAccount
             _accountService = accountService;
         }
 
-        [HttpPost(Name = "Login")]
+        [HttpPost("Login" , Name = "Login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             if (loginDto == null) return new JsonResult(new Response<object>(MessageResource.Error_ModelNull));
@@ -30,6 +30,13 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeAccount
             var result = await _accountService.Login(loginDto);
             return !result.IsSuccessful ? new JsonResult(new Response<object>(result.ErrorMessage)) :
                                             new JsonResult(result.Result);
+
+        }
+        [HttpPost("Logout_Alaki" , Name = "Logout_Alaki")]
+        public async Task<IActionResult> RemoveToken(LoginDto loginDto)
+        {
+            return new JsonResult("Logout Was Successful");
+                //Response.Headers.Remove("Authorization"));
         }
     }
 }

@@ -20,7 +20,7 @@ namespace OnlineShop.Office.WebApiEndpoint.Controllers.OfficeAccount
         #endregion
         
         #region [- Login -]
-        [HttpPost(Name = "Login")]
+        [HttpPost("Login",Name = "Login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             if (loginDto == null) return new JsonResult(new Response<object>(MessageResource.Error_ModelNull));

@@ -51,6 +51,10 @@ namespace OnlineShop.Application.Services.SaleServices
             if (modelHeader.Code.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (modelHeader.Title.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (modelHeader.SellerId.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            var seller = await _userManager.FindByIdAsync(modelHeader.SellerId);
+            if (seller==null ) return new Response<object>(MessageResource.Error_FailToFindObject);
+            var hasSellerRole = await _userManager.IsInRoleAsync(seller, "Seller");
+            if (!hasSellerRole) return new Response<object>(MessageResource.Error_IncorrectSellerId);
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (model.OrderHeader.SellerId == user.Id)
             {
@@ -202,6 +206,7 @@ namespace OnlineShop.Application.Services.SaleServices
             #region [-Validation-]
             if (id.Equals(null)) return new Response<List<GetOrderDetailAppDto>>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
+            
             #region [-Task-]
             var orderDeatilFinal = new List<GetOrderDetailAppDto>();
             var findHeaderResult = await _headerRepository.FindById(id);
@@ -234,6 +239,7 @@ namespace OnlineShop.Application.Services.SaleServices
                 UnitPrice = item.UnitPrice
             }).ToList();
             #endregion
+           
             #region [ - Result - ]
             return new Response<List<GetOrderDetailAppDto>>(true, MessageResource.Info_SuccessfullProcess, string.Empty, getOrderDetailList, HttpStatusCode.OK);
             #endregion
@@ -513,6 +519,10 @@ namespace OnlineShop.Application.Services.SaleServices
             if (modelHeader.Id.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             var orderHeader = await _headerRepository.FindById(modelHeader.Id);
             if (!orderHeader.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
+            var seller = await _userManager.FindByIdAsync(modelHeader.SellerId);
+            if (seller == null) return new Response<object>(MessageResource.Error_IncorrectSellerId);
+            var hasSellerRole = await _userManager.IsInRoleAsync(seller, "Seller");
+            if (!hasSellerRole) return new Response<object>(MessageResource.Error_IncorrectSellerId);
             var putHeader = orderHeader.Result;
 
             if (!orderHeader.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
@@ -524,7 +534,10 @@ namespace OnlineShop.Application.Services.SaleServices
             foreach (var detail in modelDetails)
             {
                 if (detail == null) return new Response<object>(MessageResource.Error_OrderNoDetails);
-                if (detail.Id.Equals(null)) return new Response<object>(MessageResource.Error_FailToFindObject);
+                //if (detail.Id.Equals(null)) return new Response<object>(MessageResource.Error_FailToFindObject);به خاطر وجود اردر جدید کامنت شد
+                var productResponse = await _productRepository.FindById(detail.ProductId);
+                if (productResponse.Result == null) return new Response<object>(MessageResource.Error_FaildToFindProduct);
+                var product = productResponse.Result;
                 //تـــــــــــــــستـــــــــــــ شود 
                 //if (detail.Code.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
                 //if (detail.Title.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
@@ -556,6 +569,7 @@ namespace OnlineShop.Application.Services.SaleServices
             {
                 #region [-OrderHeader-]
                 putHeader.Id = modelHeader.Id;
+                putHeader.SellerId = modelHeader.SellerId;
                 putHeader.EntityDescription = modelHeader.EntityDescription;
                 putHeader.IsActive = modelHeader.IsActive;
                 putHeader.DateModifiedPersian = Helpers.ConvertToPersianDate(DateTime.Now);
@@ -566,6 +580,8 @@ namespace OnlineShop.Application.Services.SaleServices
                 #region [Update_OrderDetails_Task]
                 foreach (var dto in detailsToUpdate)
                 {
+                   if (dto.DetailId.Equals(null)) return new Response<object>(MessageResource.Error_FailToFindObject);
+
                     var findDetail = await _detailRepository.FindById(dto.DetailId);
                     var putModel = modelDetails.Where(p => p.Id == dto.DetailId).First();
                     var detail = findDetail.Result;
@@ -614,6 +630,7 @@ namespace OnlineShop.Application.Services.SaleServices
                 #region [-Delete_OrderDetail_Task-]
                 foreach (var dto in detailsToDelete)
                 {
+                    if (dto.DetailId.Equals(null)) return new Response<object>(MessageResource.Error_FailToFindObject);
                     var putDeleteResult = await _detailRepository.DeleteByIdAsync(dto.DetailId);
                     if (!putDeleteResult.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
                 }

@@ -71,16 +71,12 @@ namespace OnlineShop.Application.Services.UserManagmentServices
                 accessFlag = true;
             if (!accessFlag) return new Response<object>(MessageResource.Error_Accessdenied);
             #endregion
-           
+
             #region [-Task-]
-            var roleDelete = new AppRole()
-            {
-                Id = appRole.Id,
-                IsDeleted = true,
-                DateSoftDeletedLatin = DateTime.UtcNow,
-                DateSoftDeletedPersian = Helpers.ConvertToPersianDate(DateTime.Now),
-            };
-            var resultDelete = await _roleRepository.UpdateAsync(roleDelete);
+            appRole.IsDeleted = true;
+            appRole.DateSoftDeletedLatin = DateTime.UtcNow;
+            appRole.DateSoftDeletedPersian = Helpers.ConvertToPersianDate(DateTime.Now);
+            var resultDelete = await _roleRepository.UpdateAsync(appRole);
             //await _roleRepository.DeleteAsync(appRole);            
             #endregion
             
@@ -95,6 +91,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         #region [-Task<IResponse<object>> PostAsync(PostRoleAppDto model)-]
         public async Task<IResponse<object>> PostAsync(PostRoleAppDto model)
         {
+            
             #region [- Validation -]
             if (model == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             if (model.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
@@ -106,7 +103,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
                 accessFlag = true;
             if (!accessFlag) return new Response<object>(MessageResource.Error_Accessdenied);
             #endregion 
-
+            
             #region [-Task-]
             var postAppRole = new AppRole
             {
@@ -120,10 +117,10 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             if (postAppRole == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             var postResult = await _roleRepository.CreateAsync(postAppRole);
             #endregion
-
+           
             #region [-Result-] 
             if (!postResult.Succeeded) return new Response<object>(postResult.Errors);
-            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, postResult, HttpStatusCode.OK);
+            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, postAppRole, HttpStatusCode.OK);
             #endregion
         }
         #endregion
@@ -159,6 +156,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         #region [-Task<IResponse<object>> PutAsync(PutUserAppDto model)-]
         public async Task<IResponse<object>> PutAsync(PutRoleAppDto model)
         {
+            
             #region [- Validation -]
             if (model == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             if (model.Id.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
@@ -176,7 +174,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
                 accessFlag = true;
             if (!accessFlag) return new Response<object>(MessageResource.Error_Accessdenied);
             #endregion
-
+            
             #region [-Task-]
             var putAppRole = role;
 
@@ -192,14 +190,14 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             if (putAppRole == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             var putResult = await _roleRepository.UpdateAsync(putAppRole);
             #endregion
-
+            
             #region [-Result-] 
             if (!putResult.Succeeded) return new Response<object>(putResult.Errors);
-            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, putResult, HttpStatusCode.OK);
+            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, putAppRole, HttpStatusCode.OK);
             #endregion
         }
         #endregion
-        
+                
         #region [-Task<IResponse<GetRoleAppDto>> FindById(string id)-]
         public async Task<IResponse<GetRoleAppDto>> FindById(GetRoleAppDto model)
         {

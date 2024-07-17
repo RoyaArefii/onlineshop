@@ -10,6 +10,7 @@ using ResponseFramework;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace OnlineShop.Application.Services.Account
@@ -40,25 +41,25 @@ namespace OnlineShop.Application.Services.Account
 
             if (passwordIsCorrect == true)
             {
-                var userRoles = await _userManager.GetRolesAsync(user);
-                var jwtBuilder = JwtBuilder.Create();
-                jwtBuilder.AddClaim("Name", user.UserName)
-                //jwtBuilder.AddClaim("Roles", userRoles)
-                //jwtBuilder.AddClaim("age", "80")
-                    .WithAlgorithm(new HMACSHA256Algorithm())
-                    //.WithSecret(_configuration.GetSection("JWT:Secret").Value);
-                    .WithSecret(_configuration["JWT:Secret"]);
+                var token = GenerateJwtToken(user.UserName, roles);
+                var refreshToken = GenerateRefreshToken();
+                ///old
+                //var jwtBuilder = JwtBuilder.Create();
+                //jwtBuilder.AddClaim("Name", user.UserName)
+                ////jwtBuilder.AddClaim("Roles", userRoles)
+                ////jwtBuilder.AddClaim("age", "80")
+                //    .WithAlgorithm(new HMACSHA256Algorithm())
+                //    .WithSecret(_configuration["JWT:Secret"])
+                //    .AddClaim("exp", DateTimeOffset.UtcNow.AddMinutes(15).ToUnixTimeSeconds());
 
+                //foreach (var userRole in roles)
+                //{
+                //    jwtBuilder.AddClaim("roles", userRole);
+                //}
 
+                //var token = jwtBuilder.Encode();
 
-                foreach (var userrole in userRoles)
-                {
-                    jwtBuilder.AddClaim("roles", userrole);
-                }
-
-                var token = jwtBuilder.Encode();
-
-                return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, token, HttpStatusCode.OK);
+                return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, new { token, refreshToken }, HttpStatusCode.OK);
             }
             #region [-Hediye ghadimi-]
             //if (passwordIsCorrect == true)
@@ -131,27 +132,46 @@ namespace OnlineShop.Application.Services.Account
 
             return new Response<object>(false, string.Empty, MessageResource.Error_FailProcess, null, HttpStatusCode.OK);
         }
-
         #endregion
-        private JwtSecurityToken GenerateToken(List<Claim> authClaims)
+        private string GenerateJwtToken (string userName , IList<string> roles)
         {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+            var jwtBuilder = JwtBuilder.Create();
+            jwtBuilder.AddClaim("Name", userName)
+                //jwtBuilder.AddClaim("Roles", userRoles)
+                //jwtBuilder.AddClaim("age", "80")
+                .WithAlgorithm(new HMACSHA256Algorithm())
+                .WithSecret(_configuration["JWT:Secret"])
+                .AddClaim("exp", DateTimeOffset.UtcNow.AddMinutes(15).ToUnixTimeSeconds());
 
-            var token = new JwtSecurityToken(
-                expires: DateTime.Now.AddHours(3),
-                claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-            );
-            return token;
+            foreach (var userRole in roles)
+            {
+                jwtBuilder.AddClaim("roles", userRole);
+            }
+            return jwtBuilder.Encode();             
+        }
+        private string GenerateRefreshToken()
+        {
+            var rndNumbeer = new byte[32];
+            var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(rndNumbeer);
+            return Convert.ToBase64String(rndNumbeer);
+        }
+
+        public async Task<IResponse<object>> RefreshToken(string refreshToken)
+        {
+            var newJwtToken = GenerateJwtToken("username",new List<string> { "role"});
+
+            return new Response<object>(false, string.Empty, MessageResource.Error_FailProcess, newJwtToken, HttpStatusCode.OK);
+
         }
         #region [- Logout -]
         public async Task<IResponse<object>> LogOut(LoginDto model)
         {
 
-           
+
             return new Response<object>(false, string.Empty, MessageResource.Error_FailProcess, null, HttpStatusCode.OK);
 
-        } 
+        }
         #endregion
 
         //private readonly UserRoleService _roleService;

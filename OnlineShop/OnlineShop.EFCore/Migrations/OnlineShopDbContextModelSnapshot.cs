@@ -144,7 +144,6 @@ namespace OnlineShop.EFCore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EntityDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -215,7 +214,6 @@ namespace OnlineShop.EFCore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EntityDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -270,7 +268,6 @@ namespace OnlineShop.EFCore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EntityDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -386,42 +383,46 @@ namespace OnlineShop.EFCore.Migrations
                         new
                         {
                             Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbo",
-                            DateCreatedLatin = new DateTime(2024, 6, 3, 11, 11, 56, 57, DateTimeKind.Local).AddTicks(1505),
-                            DateCreatedPersian = "1403/3/14",
+                            DateCreatedLatin = new DateTime(2024, 7, 16, 20, 9, 40, 92, DateTimeKind.Local).AddTicks(9154),
+                            DateCreatedPersian = "1403/4/26",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
-                            Name = "GodAdmin"
+                            Name = "GodAdmin",
+                            NormalizedName = "GODADMIN"
                         },
                         new
                         {
                             Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbl",
-                            DateCreatedLatin = new DateTime(2024, 6, 3, 11, 11, 56, 57, DateTimeKind.Local).AddTicks(3575),
-                            DateCreatedPersian = "1403/3/14",
+                            DateCreatedLatin = new DateTime(2024, 7, 16, 20, 9, 40, 93, DateTimeKind.Local).AddTicks(1899),
+                            DateCreatedPersian = "1403/4/26",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
-                            Name = "Admin"
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbp",
-                            DateCreatedLatin = new DateTime(2024, 6, 3, 11, 11, 56, 57, DateTimeKind.Local).AddTicks(5538),
-                            DateCreatedPersian = "1403/3/14",
+                            DateCreatedLatin = new DateTime(2024, 7, 16, 20, 9, 40, 93, DateTimeKind.Local).AddTicks(3583),
+                            DateCreatedPersian = "1403/4/26",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
-                            Name = "Support"
+                            Name = "Support",
+                            NormalizedName = "SUPPORT"
                         },
                         new
                         {
                             Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbmm",
-                            DateCreatedLatin = new DateTime(2024, 6, 3, 11, 11, 56, 57, DateTimeKind.Local).AddTicks(7543),
-                            DateCreatedPersian = "1403/3/14",
+                            DateCreatedLatin = new DateTime(2024, 7, 16, 20, 9, 40, 93, DateTimeKind.Local).AddTicks(5073),
+                            DateCreatedPersian = "1403/4/26",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
-                            Name = "Normal"
+                            Name = "Normal",
+                            NormalizedName = "NORMAL"
                         });
                 });
 
@@ -445,11 +446,13 @@ namespace OnlineShop.EFCore.Migrations
                     b.Property<DateTime>("DateCreatedLatin")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 3, 11, 11, 56, 58, DateTimeKind.Local).AddTicks(4527));
+                        .HasDefaultValue(new DateTime(2024, 7, 16, 20, 9, 40, 94, DateTimeKind.Local).AddTicks(903));
 
                     b.Property<string>("DateCreatedPersian")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("1403/4/26");
 
                     b.Property<DateTime?>("DateModifiedLatin")
                         .HasColumnType("datetime2");
@@ -550,19 +553,20 @@ namespace OnlineShop.EFCore.Migrations
                             Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbn",
                             AccessFailedCount = 0,
                             Cellphone = "09378748824",
-                            ConcurrencyStamp = "6bb3357b-e928-4674-9520-ff5cd1cc2a84",
-                            DateCreatedLatin = new DateTime(2024, 6, 3, 11, 11, 56, 58, DateTimeKind.Local).AddTicks(1600),
-                            DateCreatedPersian = "1403/3/14",
+                            ConcurrencyStamp = "7e9ec4ea-76dc-4efd-a5dc-6f846de5b373",
+                            DateCreatedLatin = new DateTime(2024, 7, 16, 20, 9, 40, 93, DateTimeKind.Local).AddTicks(8353),
+                            DateCreatedPersian = "1403/4/26",
                             EmailConfirmed = false,
                             FirstName = "Roya",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
                             LastName = "Arefi",
-                            LockoutEnabled = false,
-                            PasswordHash = "1435565942",
+                            LockoutEnabled = true,
+                            NormalizedUserName = "09378748824",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEA9Xu3Vqw19qGPCF+O/kiEMRnmVmS8D5bLILKtlYkiuzjIWlSa9c+qvrr1qnJdQdg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dc9f656d-968a-4961-8d02-34d81a35d516",
+                            SecurityStamp = "092749b4-633c-4947-b3f6-093b10ca9986",
                             TwoFactorEnabled = false,
                             UserName = "09378748824"
                         });
@@ -719,7 +723,7 @@ namespace OnlineShop.EFCore.Migrations
             modelBuilder.Entity("OnlineShopDomain.Aggregates.Sale.OrderDetail", b =>
                 {
                     b.HasOne("OnlineShopDomain.Aggregates.Sale.OrderHeader", "OrderHeader")
-                        .WithMany()
+                        .WithMany("OrderDetails")
                         .HasForeignKey("OrderHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -770,6 +774,11 @@ namespace OnlineShop.EFCore.Migrations
                         .IsRequired();
 
                     b.Navigation("AppUserRole");
+                });
+
+            modelBuilder.Entity("OnlineShopDomain.Aggregates.Sale.OrderHeader", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
         }

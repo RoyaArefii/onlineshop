@@ -2,7 +2,23 @@
   {
     "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeAccount.BackOfficeAccountController",
     "Method": "Login",
-    "RelativePath": "api/BackOfficeAccount",
+    "RelativePath": "api/BackOfficeAccount/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDto",
+        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.AccountDtos.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeAccount.BackOfficeAccountController",
+    "Method": "RemoveToken",
+    "RelativePath": "api/BackOfficeAccount/Logout_Alaki",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -135,7 +151,7 @@
     "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales.BackOfficeProductController",
     "Method": "GetProduct",
     "RelativePath": "api/BackOfficeProduct/GetProduct",
-    "HttpMethod": "GET",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [

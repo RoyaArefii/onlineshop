@@ -2,7 +2,7 @@
   {
     "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeAccount.OfficeAccountController",
     "Method": "Login",
-    "RelativePath": "api/OfficeAccount",
+    "RelativePath": "api/OfficeAccount/Login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -29,7 +29,7 @@
     "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale.OfficeProductController",
     "Method": "GetProduct",
     "RelativePath": "api/OfficeProduct/GetProduct",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -85,6 +85,22 @@
   },
   {
     "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeUserManagement.OfficeUserController",
+    "Method": "Delete",
+    "RelativePath": "api/OfficeUser",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.DeleteUserControllerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeUserManagement.OfficeUserController",
     "Method": "ResetPassword",
     "RelativePath": "api/OfficeUser/ResetPassword",
     "HttpMethod": "POST",
@@ -110,22 +126,6 @@
       {
         "Name": "model",
         "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.GetUserByIdControllerDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeUserManagement.OfficeUserController",
-    "Method": "Delete",
-    "RelativePath": "api/OfficeUser/SoftDelete",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "model",
-        "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.DeleteUserControllerDto",
         "IsRequired": true
       }
     ],

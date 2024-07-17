@@ -36,7 +36,7 @@ namespace OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale
         /// <summary>
         /// خطا داد که 	TypeError: Failed to execute 'fetch' on 'Window': Request with GET/HEAD method cannot have body.
         /// </summary>
-        [HttpPost("GetProduct", Name = "GetProduct")]
+        [HttpGet("GetProduct", Name = "GetProduct")]
         public async Task<IActionResult> GetProduct(GetProductByIdControllerDto model)
         {
             if (model == null) return new JsonResult(new Response<object>(MessageResource.Error_FailToFindObject));

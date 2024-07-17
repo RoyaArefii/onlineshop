@@ -40,8 +40,10 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
             if (model.UnitPrice.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.Code.IsNullOrEmpty()) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             return model.ProductCategoryId.Equals(null) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
-        } 
+        }
         #endregion
+        
+        #region [- CRUD -]
 
         #region [- Put -]
         [HttpPut(Name = "PutProduct")]
@@ -101,14 +103,32 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
             return new JsonResult(postResult);
         }
         #endregion
-       
+
         #region [- GetAll -]
         [HttpGet(Name = "GetAllProduct")]
         public async Task<IActionResult> GetAll()
         {
             var getresult = await _appProductService.GetAsync();
             return new JsonResult(getresult);
-        } 
+        }
+        #endregion
+
+        #region [GetProduct]
+        [HttpPost("GetProduct", Name = "GetProduct")]
+        public async Task<IActionResult> GetProduct(GetProductByIdControllerDto model)
+        {
+            if (model == null) return new JsonResult(new Response<object>(MessageResource.Error_FailToFindObject));
+            if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            var getProduct = new GetProductByIdAppDto()
+            {
+                Id = model.Id
+            };
+            var result = await _appProductService.FindById(getProduct.Id);
+            if (!result.IsSuccessful) return new JsonResult(new Response<object>(result.ErrorMessage));
+            return new JsonResult(result);
+        }
+        #endregion 
+
         #endregion
 
         #region [- JsonResult GetCurrentUser() -]
@@ -127,20 +147,5 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
         }
         #endregion
 
-        #region [GetProduct]
-        [HttpGet("GetProduct", Name = "GetProduct")]
-        public async Task<IActionResult> GetProduct(GetProductByIdControllerDto model)
-        {
-            if (model == null) return new JsonResult(new Response<object>(MessageResource.Error_FailToFindObject));
-            if (model.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            var getProduct = new GetProductByIdAppDto()
-            {
-                Id = model.Id
-            };
-            var result = await _appProductService.FindById(getProduct.Id);
-            if (!result.IsSuccessful) return new JsonResult(new Response<object>(result.ErrorMessage));
-            return new JsonResult(result);
-        }
-        #endregion
     }
 }

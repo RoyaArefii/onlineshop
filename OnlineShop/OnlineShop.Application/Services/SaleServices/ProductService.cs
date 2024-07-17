@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.ProductAppDtos;
-using OnlineShop.Application.Services.UserManagmentServices;
 using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 using OnlineShopDomain.Aggregates.Sale;
 using OnlineShopDomain.Aggregates.UserManagement;
-
 using PublicTools.Resources;
 using PublicTools.Tools;
 using ResponseFramework;
@@ -18,14 +16,16 @@ namespace OnlineShop.Application.Services.SaleServices
         #region [- Ctor & Fields -]
         private readonly IRepository<Product, Guid> _productRepository;
         private readonly IRepository<OrderDetail, Guid> _detailRepository;
+        private readonly IRepository<ProductCategory, Guid> _productCategoryRepository;
         private readonly UserManager<AppUser> _userManager;
 
 
-        public ProductService(IRepository<Product, Guid> repository, UserManager<AppUser> userManager, IRepository<OrderDetail, Guid> detailRepository  /*, OrderService orderService */)
+        public ProductService(IRepository<Product, Guid> repository, UserManager<AppUser> userManager, IRepository<OrderDetail, Guid> detailRepository , IRepository<ProductCategory, Guid> catrgoryRepository /*, OrderService orderService */)
         {
             _productRepository = repository;
             _userManager = userManager;
-            _detailRepository = detailRepository;  
+            _detailRepository = detailRepository;
+            _productCategoryRepository = catrgoryRepository;
 
         }
         #endregion
@@ -179,6 +179,7 @@ namespace OnlineShop.Application.Services.SaleServices
         #region [-PostAsync(PutProductAppDto model)-]
         public async Task<IResponse<object>> PostAsync(PostProductAppDto model)
         {
+            
             #region [- Validation -]
             var userLogin = await _userManager.FindByNameAsync(model.UserName);
             if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
@@ -190,8 +191,10 @@ namespace OnlineShop.Application.Services.SaleServices
             if (model.Title.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Code.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.UnitPrice.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            var productCategory =await _productCategoryRepository.FindById(model.ProductCategoryId);
+            if(!productCategory.IsSuccessful) return new Response<object>(MessageResource.Error_ProductCategoryNotFound);
             #endregion
-
+            
             #region [-Task-]
             var postProduct = new Product()
             {
@@ -210,7 +213,7 @@ namespace OnlineShop.Application.Services.SaleServices
             var postResult = await _productRepository.InsertAsync(postProduct);
             await SaveChanges();
             #endregion
-
+            
             #region [-Result-]
             if (!postResult.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, postResult, HttpStatusCode.OK);
@@ -222,10 +225,11 @@ namespace OnlineShop.Application.Services.SaleServices
         #region [-FindById(string id)-]
         public async Task<IResponse<GetProductAppDto>> FindById(Guid id)
         {
+            
             #region [-Validation-]
             if (id.Equals(null)) return new Response<GetProductAppDto>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
-
+            
             #region [-Task-]
 
             var findResult = await _productRepository.FindById(id);
@@ -239,7 +243,7 @@ namespace OnlineShop.Application.Services.SaleServices
                 ProductCategoryId = findResult.Result.ProductCategoryId,
             };
             #endregion
-
+          
             #region [-Result-]
             if (findProduct==null ) return new Response<GetProductAppDto>(MessageResource.Error_FailProcess);
             return new Response<GetProductAppDto>(true, MessageResource.Info_SuccessfullProcess, string.Empty, findProduct, HttpStatusCode.OK);

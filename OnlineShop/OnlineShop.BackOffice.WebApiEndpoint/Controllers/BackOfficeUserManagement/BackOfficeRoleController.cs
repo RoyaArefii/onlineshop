@@ -93,8 +93,8 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
             };
             if (userName == null) return new JsonResult(new Response<object>(MessageResource.Error_UserNotFound));
 
-            var postResult = await _roleService.DeleteAsync(deleteModel);
-            return new JsonResult(new Response<object>(postResult.ErrorMessage));
+            var result = await _roleService.DeleteAsync(deleteModel);
+            return new JsonResult(result);
         }
         #endregion
 

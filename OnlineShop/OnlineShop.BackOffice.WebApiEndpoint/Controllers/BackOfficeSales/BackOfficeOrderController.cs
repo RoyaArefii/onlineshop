@@ -32,7 +32,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
             var header = model.orderHeader;
             foreach (var detail in details)
             {
-                if (detail.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+                //if (detail.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
                 if (detail.Code.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
                 if (detail.IsActive.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
                 if (detail.ProductId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
@@ -41,6 +41,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
                 if (detail.UnitPrice.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             }
             if (header.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            if (header.SellerId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             return header.IsActive.Equals(null) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
         private static JsonResult Guard(PostOrderControllerDto model)
@@ -63,15 +64,18 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
 
         #region [- Put -]
         [HttpPut(Name = "PutOrderHeader")]
+        [Authorize]
         public async Task<IActionResult> Put(PutOrderControllerDto model)
         {
             Guard(model);
-            var DetailModel = new PutOrderDetailAppDto();
+            var test = Response.Headers;
+            
             var orderDetails = new List<PutOrderDetailAppDto>();
             var headerModel = model.orderHeader;
             foreach (var detail in model.orderDetails)
             {
-                DetailModel.Id = detail.Id;
+                var DetailModel = new PutOrderDetailAppDto();
+                DetailModel.Id =  detail.Id;
                 DetailModel.ProductId = detail.ProductId;
                 DetailModel.Code = detail.Code;
                 DetailModel.Title = detail.Title;
@@ -85,6 +89,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
             {
                 Id = headerModel.Id,
                 EntityDescription = headerModel.EntityDescription,
+                SellerId = headerModel.SellerId,
                 IsActive = headerModel.IsActive
             };
             var newModel = new PutOrderAppDto()
@@ -100,7 +105,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
 
         #region [- Post -]
         [HttpPost(Name = "PostOrderHeader")]
-        [Authorize(Roles = "Buyer")]
+        [Authorize(Roles = "Admin, GodAdmin")]
         public async Task<IActionResult> Post(PostOrderControllerDto model)
         {
 
@@ -162,7 +167,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
             var identity = User.Claims.ToList<Claim>();
             foreach (var claim in identity)
             {
-                if (claim.Type == "name")
+                if (claim.Type == "Name")
                 {
                     string user = claim.Value;
                     return new JsonResult(user);

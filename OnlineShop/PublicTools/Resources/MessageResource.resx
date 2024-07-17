@@ -147,11 +147,17 @@
   <data name="Error_GodAdminUser" xml:space="preserve">
     <value>You can not delete GodAdmin user</value>
   </data>
+  <data name="Error_IncorrectSellerId" xml:space="preserve">
+    <value>Please enter a valid sellerId</value>
+  </data>
   <data name="Error_ModelNull" xml:space="preserve">
     <value>The model is null </value>
   </data>
   <data name="Error_OrderNoDetails" xml:space="preserve">
     <value>Order has not any details!</value>
+  </data>
+  <data name="Error_ProductCategoryNotFound" xml:space="preserve">
+    <value>Please enter a valid productcategory</value>
   </data>
   <data name="Error_ProductDuplicate" xml:space="preserve">
     <value>Some of products are duplicate!</value>

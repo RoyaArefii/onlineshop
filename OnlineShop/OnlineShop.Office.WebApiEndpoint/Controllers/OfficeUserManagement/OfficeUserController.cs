@@ -89,7 +89,7 @@ namespace OnlineShop.Office.WebApiEndpoint.Controllers.OfficeUserManagement
         #endregion
 
         #region [- Delete -]
-        [HttpDelete("SoftDelete", Name = "SoftDeleteUser")]
+        [HttpDelete(Name = "DeleteUser")]
         [Authorize]
         public async Task<IActionResult> Delete(DeleteUserControllerDto model)
         {

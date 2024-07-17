@@ -61,7 +61,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
 
         #region [- Post -]
         [HttpPost(Name = "PostUser")]
-        [Authorize(Roles = "GodAdmin")]
+        //[Authorize(Roles = "GodAdmin")]
         public async Task<IActionResult> Post(PostUserAppDto model)
         {
             Guard(model);

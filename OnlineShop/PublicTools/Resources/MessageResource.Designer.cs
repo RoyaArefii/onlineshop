@@ -151,6 +151,15 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid sellerId.
+        /// </summary>
+        public static string Error_IncorrectSellerId {
+            get {
+                return ResourceManager.GetString("Error_IncorrectSellerId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The model is null .
         /// </summary>
         public static string Error_ModelNull {
@@ -165,6 +174,15 @@ namespace PublicTools.Resources {
         public static string Error_OrderNoDetails {
             get {
                 return ResourceManager.GetString("Error_OrderNoDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid productcategory.
+        /// </summary>
+        public static string Error_ProductCategoryNotFound {
+            get {
+                return ResourceManager.GetString("Error_ProductCategoryNotFound", resourceCulture);
             }
         }
         

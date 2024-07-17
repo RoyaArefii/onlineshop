@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "D:\\Projects\\NewWebProject\\OnlineShop\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B9604605-38CF-45E2-8A6A-E1B424459959}|OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj|d:\\projects\\newwebproject\\onlineshop\\onlineshop.backoffice.webapiendpoint\\controllers\\backofficesales\\backofficeordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9604605-38CF-45E2-8A6A-E1B424459959}|OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj|solutionrelative:onlineshop.backoffice.webapiendpoint\\controllers\\backofficesales\\backofficeordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|d:\\projects\\newwebproject\\onlineshop\\onlineshop.application\\services\\account\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|solutionrelative:onlineshop.application\\services\\account\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|d:\\projects\\newwebproject\\onlineshop\\onlineshop.application\\services\\usermanagmentservices\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{516467E3-860A-4050-8A23-3C620F6E1B98}|OnlineShop.Application\\OnlineShop.Application.csproj|solutionrelative:onlineshop.application\\services\\usermanagmentservices\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,27 +23,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "BackOfficeOrderController.cs",
-              "DocumentMoniker": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeSales\\BackOfficeOrderController.cs",
-              "RelativeDocumentMoniker": "OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeSales\\BackOfficeOrderController.cs",
-              "ToolTip": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeSales\\BackOfficeOrderController.cs*",
-              "RelativeToolTip": "OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeSales\\BackOfficeOrderController.cs*",
-              "ViewState": "AQIAAGAAAAAAAAAAAAAUwKQAAAAkAAAA",
+              "Title": "UserService.cs",
+              "DocumentMoniker": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Application\\Services\\UserManagmentServices\\UserService.cs",
+              "RelativeDocumentMoniker": "OnlineShop.Application\\Services\\UserManagmentServices\\UserService.cs",
+              "ToolTip": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Application\\Services\\UserManagmentServices\\UserService.cs",
+              "RelativeToolTip": "OnlineShop.Application\\Services\\UserManagmentServices\\UserService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-13T15:57:33.145Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AccountService.cs",
-              "DocumentMoniker": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Application\\Services\\Account\\AccountService.cs",
-              "RelativeDocumentMoniker": "OnlineShop.Application\\Services\\Account\\AccountService.cs",
-              "ToolTip": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Application\\Services\\Account\\AccountService.cs",
-              "RelativeToolTip": "OnlineShop.Application\\Services\\Account\\AccountService.cs",
-              "ViewState": "AQIAADkAAAAAAAAAAAAYwEAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-12T15:04:49.194Z",
+              "WhenOpened": "2024-07-16T16:03:08.701Z",
               "EditorCaption": ""
             }
           ]

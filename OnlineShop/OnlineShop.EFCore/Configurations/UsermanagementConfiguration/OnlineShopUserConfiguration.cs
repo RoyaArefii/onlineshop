@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnlineShopDomain.Aggregates.UserManagement;
 using PublicTools.Constants;
@@ -10,6 +11,7 @@ namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
     public class OnlineShopUserConfiguration : IEntityTypeConfiguration<AppUser>
     {
         ///*************************************    Questionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+        #region [-Configuration-]
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
             builder.ToTable(nameof(AppUser)).HasData(
@@ -20,7 +22,9 @@ namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
                             LastName = DatabaseConstants.GodAdminUsers.ArefiLastName,
                             Cellphone = DatabaseConstants.GodAdminUsers.ArefiCellPhone,
                             UserName = DatabaseConstants.GodAdminUsers.ArefiCellPhone,
-                            PasswordHash = DatabaseConstants.GodAdminUsers.ArefiPassword.GetHashCode().ToString(),
+                            PasswordHash = "AQAAAAIAAYagAAAAEEA9Xu3Vqw19qGPCF+O/kiEMRnmVmS8D5bLILKtlYkiuzjIWlSa9c+qvrr1qnJdQdg==",
+                            //Password :!QAZ1qaz
+                            //DatabaseConstants.GodAdminUsers.ArefiPassword.GetHashCode().ToString(),
                             IsActive = true,
                             DateCreatedLatin = DateTime.Now,
                             DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now),
@@ -56,6 +60,8 @@ namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
 
             builder.Property(p => p.DateCreatedLatin).IsRequired().HasDefaultValue(DateTime.Now);
             builder.Property(p => p.DateCreatedPersian).IsRequired().HasDefaultValue(Helpers.ConvertToPersianDate(DateTime.Now));
-        }
+        } 
+        #endregion
+
     }
 }
