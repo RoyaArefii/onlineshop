@@ -10,7 +10,6 @@ namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
 {
     public class OnlineShopUserConfiguration : IEntityTypeConfiguration<AppUser>
     {
-        ///*************************************    Questionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
         #region [-Configuration-]
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
@@ -33,20 +32,6 @@ namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
                             NormalizedUserName = DatabaseConstants.GodAdminUsers.ArefiCellPhone.ToString(),
                             LockoutEnabled = true
                         });
-
-            //    builder.ToTable(table => table.HasCheckConstraint(
-            //DatabaseConstants.CheckConstraints.CellphoneOnlyNumericalTitle,
-            //DatabaseConstants.CheckConstraints.CellphoneOnlyNumerical));
-            //    builder.ToTable(table => table.HasCheckConstraint(
-            //        DatabaseConstants.CheckConstraints.NationalIdOnlyNumericalTitle,
-            //        DatabaseConstants.CheckConstraints.NationalIdOnlyNumerical));
-            //    builder.ToTable(table => table.HasCheckConstraint(
-            //        DatabaseConstants.CheckConstraints.CellphoneOnlyNumericalTitle,
-            //        DatabaseConstants.CheckConstraints.CellphoneOnlyNumerical));
-
-            //    builder.ToTable(table => table.HasCheckConstraint(
-            //        DatabaseConstants.CheckConstraints.NationalIdCharacterNumberTitle,
-            //        DatabaseConstants.CheckConstraints.NationalIdCharacterNumber));
 
             builder.Property(p => p.FirstName).IsRequired();
             builder.Property(p => p.LastName).IsRequired();

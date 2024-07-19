@@ -23,7 +23,7 @@ namespace OnlineShop.Office.WebApiEndpoint.Controllers.OfficeUserManagement
         #endregion
 
         #region [- Guards -]
-        private static JsonResult Guard(PostUserAppDto model)
+        private static JsonResult Guard(PostUserControllerDto model)
         {
             if (model == null) return new JsonResult(new Response<object>(MessageResource.Error_FailToFindObject));
             if (model.FirstName.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
@@ -54,11 +54,21 @@ namespace OnlineShop.Office.WebApiEndpoint.Controllers.OfficeUserManagement
 
         #region [- Post -]
         [HttpPost(Name = "PostUser")]
-        //[Authorize]
-        public async Task<IActionResult> Post(PostUserAppDto model)
+        public async Task<IActionResult> Post(PostUserControllerDto model)
         {
             Guard(model);
-            var postResult = await _userService.PostAsync(model);
+            var postModel = new PostUserAppDto()
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Password = model.Password,
+                Cellphone = model.Cellphone,
+                ConfirmPassword = model.ConfirmPassword,
+                Location = model.Location,
+                Picture = model.Picture,
+                Endpoint = "Office"
+            };
+            var postResult = await _userService.PostAsync(postModel);
             return new JsonResult(postResult);
         }
         #endregion

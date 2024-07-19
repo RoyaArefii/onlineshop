@@ -18,5 +18,6 @@ namespace OnlineShop.Application.Contracts
         Task<IResponse<List<TGet>>> GetAsync();
         Task<IResponse<TGet>> FindById(TKey id);
         Task SaveChanges();
+
     }
 }

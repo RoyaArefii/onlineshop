@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace OnlineShopDomain.Aggregates.UserManagement
 {
-    public class AppUserRole : IdentityUserRole<string>//, IActiveEntity
+    public class AppUserRole : IdentityUserRole<string>
     {
-        //public string Id { get; set; }
-        //public bool IsActive { get ; set ; }
+
     }
 }

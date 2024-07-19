@@ -17,5 +17,14 @@ namespace PublicTools.Tools
             PersianCalendar persianCalendar = new PersianCalendar();
             return string.Format(@"{0}/{1}/{2}",persianCalendar.GetYear(dateTime), persianCalendar.GetMonth(dateTime),persianCalendar.GetDayOfMonth(dateTime));
         }
+
+        public static bool IsDeleted(object entity)
+        {
+            if (entity == null) return true;
+            var deleteProperty = entity.GetType().GetProperty(nameof(IsDeleted));
+            //if (deleteProperty != null ) return false;
+            var isDeletedValue = deleteProperty.GetValue(entity);
+            return IsDeleted != null && (bool)isDeletedValue;
+        }
     }
 }

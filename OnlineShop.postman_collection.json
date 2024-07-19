@@ -1,0 +1,1614 @@
+{
+	"info": {
+		"_postman_id": "13cb5edc-eef3-4a0e-b56e-b85eaabcf62e",
+		"name": "OnlineShop",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28556835"
+	},
+	"item": [
+		{
+			"name": "Backoffice",
+			"item": [
+				{
+					"name": "Account",
+					"item": [
+						{
+							"name": "Signin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"firstName\": \"Roya\",\r\n  \"lastName\": \"Arefi\",\r\n  \"password\": \"!QAZ1qaz\",\r\n  \"confirmPassword\": \"!QAZ1qaz\",\r\n  \"cellphone\": \"09121212121\",\r\n  \"picture\": null,\r\n  \"location\": \"Tehran\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeAccount/Signin",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeAccount",
+										"Signin"
+									]
+								},
+								"description": "نیاز به Authorize ندارد\n\nاطلاعات کاربر جدید وارد میشود و پس از ارسال ربکوئست ابتدا کاربری با اطلاعات وارد شده ایجاد میشود و سپس به صورت خودکار لاگین انجام شده و خروجی یک توکن می باشد."
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"userName\": \"09121212121\",\r\n  \"password\": \"!QAZ1qaz\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeAccount/Login",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeAccount",
+										"Login"
+									]
+								},
+								"description": "ورودی یوزر نیم و پسورد و خروجی یک توکن میباشد\n\nتوکن دارای تاریخ انقضا میباشد و پس از یک ساعت منقضی میشود."
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJleHAiOjE3MjEzMTk3ODYsInJvbGVzIjoiTm9ybWFsIn0.tiUX75Y-fKdW6r92w41P0A2Nxxn_VE6aitkFmjU8aYo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeAccount/Logout",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeAccount",
+										"Logout"
+									]
+								},
+								"description": "توکن مربوطه در قسمت Authorization در Bearer token وارد شده و Send میشود\n\nبا انجام عملیات Logout توکن مربوطه در Blacklist قرار میگیرد و دیگر قابلیت استفاده ندارد."
+							},
+							"response": []
+						},
+						{
+							"name": "Signout",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDkxMjExMTExMTEiLCJleHAiOjE3MjEzMjAyMzEsInJvbGVzIjoiTm9ybWFsIn0.nLpNDqoke-PBH_DqfN6zjg0cAvSm1225C8097h8SHPI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeAccount/Signout",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeAccount",
+										"Signout"
+									]
+								},
+								"description": "با فراخوانی این سرویس ابتدا توکن مورد نظر به Blacklist رفته و سپس کاربر مربوطه Soft delete میشود و به نوعی کاربری مربوطه غیر فعال میشود."
+							},
+							"response": []
+						},
+						{
+							"name": "User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"firstName\": \"Roya\",\r\n  \"lastName\": \"Arefi\",\r\n  \"password\": \"!QAZ1qaz\",\r\n  \"confirmPassword\": \"!QAZ1qaz\",\r\n  \"cellphone\": \"09121212121\",\r\n  \"picture\": null,\r\n  \"location\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeUser",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeUser"
+									]
+								},
+								"description": "جهت ثبت یک کاربر جدید استفاده میشود Cellphone به منزله نام کاربری میباشد و لذا باید Unique باشد\n\nپسورد حداقل 6 کاراکتر و شامل حروف کوچک، حروف بزرگ، کاراکتر و عدد میباشد."
+							},
+							"response": []
+						},
+						{
+							"name": "User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJyb2xlcyI6Ik5vcm1hbCJ9.nLAYmDe4KfolIO1oWvkxicKrDBOMG517MvZf1StbK_o",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"f1150174-8bfb-4943-a21e-1558c4a053ee\",\r\n  \"firstName\": \"Ameneh\",\r\n  \"lastName\": \"YazdiKhosroshahi\",\r\n  \"cellphone\": \"09921808441\",\r\n  \"picture\": null,\r\n  \"location\": \"Tehran\",\r\n  \"isActive\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeUser",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeUser"
+									]
+								},
+								"description": "ویرایش اطلاعات کاربر نیاز به Authorize دارد و توسط خود کاربر مربوطه یا Godadmin قابل فراخوانی است."
+							},
+							"response": []
+						},
+						{
+							"name": "User",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJyb2xlcyI6Ik5vcm1hbCJ9.nLAYmDe4KfolIO1oWvkxicKrDBOMG517MvZf1StbK_o",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"f1150174-8bfb-4943-a21e-1558c4a053ee\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeUser/GetUser",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeUser",
+										"GetUser"
+									]
+								},
+								"description": "مشاهده اطلاعات هر کاربر نیاز به Authorize دارد و توسط خود کاربر مربوطه یا Godadmin قابل فراخوانی است."
+							},
+							"response": []
+						},
+						{
+							"name": "Users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJyb2xlcyI6IkdvZEFkbWluIn0.RNPZJP6t1PRzX6utIMB1PyKxes2qK58OYkIWLxBcRcM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeUser",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeUser"
+									]
+								},
+								"description": "مشاهده لیست و اطلاعات تمامی کاربران نیاز به Authorize دارد و تنها توسط Godadmin قابلیت فراخوانی دارد."
+							},
+							"response": []
+						},
+						{
+							"name": "User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDkzNTI1Nzc1MzIiLCJyb2xlcyI6Ik5vcm1hbCJ9.l9oJMPBjEbrwYfhiZIaN8SiiQ-tWNxCAAftrFfJXEXs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"9771af38-c002-490d-91ab-972804c96738\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeUser/SoftDelete",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeUser",
+										"SoftDelete"
+									]
+								},
+								"description": "غیر فعال کردن یا به نوعی Soft delete هر کاربر نیاز به Authorize دارد و توسط خود کاربر مربوطه یا Godadmin قابل انجام است."
+							},
+							"response": []
+						},
+						{
+							"name": "ResetPassword",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MTc4MDUxOTgiLCJyb2xlcyI6IkFkbWluIn0.tZHBRdFpOqCKxeeX19wp9CSVjCMAEtlnWlzsFEmox7o",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"userName\": \"09121212121\",\r\n  \"password\": \"@WSX2wsx\",\r\n  \"confirmPassword\": \"@WSX2wsx\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeUser/ResetPassword",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeUser",
+										"ResetPassword"
+									]
+								},
+								"description": "تغییر پسورد هر کاربر نیاز به Authorize دارد و توسط خود کاربر مربوطه یا Godadmin قابل انجام است."
+							},
+							"response": []
+						},
+						{
+							"name": "Role",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJyb2xlcyI6IkdvZEFkbWluIn0.RNPZJP6t1PRzX6utIMB1PyKxes2qK58OYkIWLxBcRcM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Seller\",\r\n  \"entityDescription\": \"Role For Seller Users\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeRole",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeRole"
+									]
+								},
+								"description": "افزودن یک نقش جدید نیاز به Authorize دارد و تنها با نقش Godadmin امکان پذیر میباشد."
+							},
+							"response": []
+						},
+						{
+							"name": "Role",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJyb2xlcyI6IkdvZEFkbWluIn0.RNPZJP6t1PRzX6utIMB1PyKxes2qK58OYkIWLxBcRcM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"a322f12a-8882-432c-aa0d-2c40e736727c\",\r\n  \"name\": \"Buyer\",\r\n  \"isActive\": true,\r\n  \"entityDescription\": \"Role For Buyer Users\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeRole",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeRole"
+									]
+								},
+								"description": "ویرایش یک نقش نیاز به Authorize دارد و تنها با نقش Godadmin امکان پذیر میباشد."
+							},
+							"response": []
+						},
+						{
+							"name": "Roles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJyb2xlcyI6IkdvZEFkbWluIn0.RNPZJP6t1PRzX6utIMB1PyKxes2qK58OYkIWLxBcRcM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeRole",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeRole"
+									]
+								},
+								"description": "حذف یک نقش نیاز به Authorize دارد و تنها با نقش Godadmin امکان پذیر میباشد.\n\nخود نقش Godadmin را نمیتوان حذف کرد."
+							},
+							"response": []
+						},
+						{
+							"name": "Role",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJyb2xlcyI6IkdvZEFkbWluIn0.RNPZJP6t1PRzX6utIMB1PyKxes2qK58OYkIWLxBcRcM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"09c9dfb7-4619-4314-b362-9b28e5ef0a57\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeRole",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeRole"
+									]
+								},
+								"description": "مشاهده لیست نقش های موجود نیاز به Authorize دارد و تنها با نقش Godadmin امکان پذیر میباشد."
+							},
+							"response": []
+						},
+						{
+							"name": "AssignRoleToUser",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJyb2xlcyI6IkdvZEFkbWluIn0.RNPZJP6t1PRzX6utIMB1PyKxes2qK58OYkIWLxBcRcM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"userId\": \"fea790bd-6651-4b21-8807-68b28850cf26\",\r\n  \"roleId\": \"7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbl\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeUserRole",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeUserRole"
+									]
+								},
+								"description": "ویرایش نقش کاربران با Authorize و تنها با نقش Godadmin امکان پذیر است."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Shop",
+					"item": [
+						{
+							"name": "ProductCategory",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDkzNzg3NDg4MjQiLCJleHAiOjE3MjEzOTU5MzgsInJvbGVzIjoiR29kQWRtaW4ifQ.BX4FIvGyJpmyjI5b6HWADFEjP7RCI7VM_WYa4hqn9MY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"Electronic\",\r\n  \"parentId\": \"BDD45D4C-6EE1-42D3-BB54-08DCA74CD211\",\r\n  \"entityDescription\": \"For Example\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeProductCategory",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeProductCategory"
+									]
+								},
+								"description": "افزودن یک Product category جدید نیاز به Authorize دارد و تنها توسط Admin یا Godadmin قابل انجام است."
+							},
+							"response": []
+						},
+						{
+							"name": "ProductCategory",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDkzNzg3NDg4MjQiLCJleHAiOjE3MjEzOTg1NTMsInJvbGVzIjoiR29kQWRtaW4ifQ.QbC5srK8n4MLBjRlCZ7X600kK2nLLPauwhmrAeNBmmg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"010f1f6b-b5d5-40cc-9d70-08dca7f32f27\",\r\n  \"title\": \"Clothes\",\r\n  \"isActive\": true,\r\n  \"parentId\": \"819bfff0-79a8-4a7d-9d71-08dca7f32f28\",\r\n  \"entityDescription\": \"For test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeProductCategory",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeProductCategory"
+									]
+								},
+								"description": "ویرایش یک Product category نیاز به Authorize دارد و تنها توسط Admin یا Godadmin قابل انجام است.\n\nشناسه Product category و شناسه Parent نمیتواند یکی باشد."
+							},
+							"response": []
+						},
+						{
+							"name": "ProductCategories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeProductCategory",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeProductCategory"
+									]
+								},
+								"description": "توسط تمامی اعضا قابل فراخوانی میباشد و لیست تمامی Product category ها را نمایش میدهد."
+							},
+							"response": []
+						},
+						{
+							"name": "ProductCategory",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJyb2xlcyI6IkdvZEFkbWluIn0.RNPZJP6t1PRzX6utIMB1PyKxes2qK58OYkIWLxBcRcM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"35269901-5584-4069-ffa2-08dca492e720\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeProductCategory",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeProductCategory"
+									]
+								},
+								"description": "حذف یک Product category نیاز به Authorize دارد و تنها توسط Admin یا Godadmin قابل انجام است."
+							},
+							"response": []
+						},
+						{
+							"name": "Product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJyb2xlcyI6IkdvZEFkbWluIn0.RNPZJP6t1PRzX6utIMB1PyKxes2qK58OYkIWLxBcRcM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"productCategoryId\": \"1f912d22-9f12-4667-ffa0-08dca492e720\",\r\n  \"title\": \"TV\",\r\n  \"code\": \"P1\",\r\n  \"unitPrice\": 1000,\r\n  \"entityDescription\": \"Television\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeProduct",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeProduct"
+									]
+								},
+								"description": "افزودن یک محصول جدید نیاز به Authorize دارد و تنها توسط Admin یا Godadmin قابل انجام است."
+							},
+							"response": []
+						},
+						{
+							"name": "Product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJyb2xlcyI6IkdvZEFkbWluIn0.RNPZJP6t1PRzX6utIMB1PyKxes2qK58OYkIWLxBcRcM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"05b71292-bf8e-4f2d-984b-08dca499cf3b\",\r\n  \"productCategoryId\": \"1f912d22-9f12-4667-ffa0-08dca492e720\",\r\n  \"title\": \"TV\",\r\n  \"code\": \"P1\",\r\n  \"unitPrice\": 2000,\r\n  \"isActive\": true,\r\n  \"entityDescription\": \"Television\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeProduct",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeProduct"
+									]
+								},
+								"description": "ویرایش یک محصول نیاز به Authorize دارد و تنها توسط Admin یا Godadmin قابل انجام است."
+							},
+							"response": []
+						},
+						{
+							"name": "Product",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"05b71292-bf8e-4f2d-984b-08dca499cf3b\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeProduct/GetProduct",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeProduct",
+										"GetProduct"
+									]
+								},
+								"description": "توسط تمامی اعضا قابل فراخوانی میباشد و اطلاعات محصول مورد نظر را نمایش میدهد."
+							},
+							"response": []
+						},
+						{
+							"name": "Products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeProduct",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeProduct"
+									]
+								},
+								"description": "توسط تمامی اعضا قابل فراخوانی میباشد، لیست و اطلاعات تمامی محصولات را نمایش میدهد."
+							},
+							"response": []
+						},
+						{
+							"name": "Product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJyb2xlcyI6IkdvZEFkbWluIn0.RNPZJP6t1PRzX6utIMB1PyKxes2qK58OYkIWLxBcRcM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"05b71292-bf8e-4f2d-984b-08dca499cf3b\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeProduct",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeProduct"
+									]
+								},
+								"description": "غیر فعال کردن یا به نوعی Soft delete یک محصول نیاز به Authorize دارد و تنها توسط Admin یا Godadmin قابل انجام است."
+							},
+							"response": []
+						},
+						{
+							"name": "Order",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJleHAiOjE3MjEwMzkwNDYsInJvbGVzIjoiR29kQWRtaW4ifQ.a0lUu7R82-k46P1YGleN-iHyXtPGwstw1Wco84lLLjo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"orderHeader\": {\r\n    \"code\": \"o1\",\r\n    \"title\": \"Post order\",\r\n    \"sellerId\": \"fea790bd-6651-4b21-8807-68b28850cf26\",\r\n    \"entityDescription\": \"Post Order\"\r\n  },\r\n  \"orderDetails\": [\r\n    {\r\n      \"productId\": \"05B71292-BF8E-4F2D-984B-08DCA499CF3B\",\r\n      \"code\": \"od1\",\r\n      \"title\": \"Post order Detail\",\r\n      \"unitPrice\": 10000,\r\n      \"quantity\": 10,\r\n      \"entityDescription\": \"Post order Detail\"\r\n    },\r\n    {\r\n      \"productId\": \"E79BB34A-904E-4874-984A-08DCA499CF3B\",\r\n      \"code\": \"od2\",\r\n      \"title\": \"Post order Detail\",\r\n      \"unitPrice\": 20000,\r\n      \"quantity\": 20,\r\n      \"entityDescription\": \"Post order Detail\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeOrder",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeOrder"
+									]
+								},
+								"description": "برای ثبت یک فاکتور نیاز به Authorize میباشد و کاربر حتما باید لاگین انجام داده باشد.\n\nشناسه ای که به عنوان SellerId ثبت میشود حتما باید دارای نقش Seller باشد.\n\nاظلاعات مربوط به Buyer از کاربری که لاگین کرده به صورت اتوماتیک فراخوانی میشود.\n\nدر یک فاکتور Seller و Buyer نمیتواند همزمان یک شخص باشد و همچنین امکان ثبت کالای تکراری و یا Soft delete شده وجود ندارد."
+							},
+							"response": []
+						},
+						{
+							"name": "Order",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJleHAiOjE3MjEwMzk5NTksInJvbGVzIjoiR29kQWRtaW4ifQ.FuG5azjDQhcjZ47bWC1Bj_r3EBcYXsx56SL2gY7OUic",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"orderHeader\": {\r\n    \"id\": \"75532E00-1005-40EE-967D-08DCA4B0B846\",\r\n    \"entityDescription\": \"Put Order\",\r\n    \"isActive\": true\r\n  },\r\n  \"orderDetails\": [\r\n    {\r\n      \"id\": \"E635A79C-DE11-42E7-B554-08DCA4B0B8A0\",\r\n      \"productId\": \"05B71292-BF8E-4F2D-984B-08DCA499CF3B\",\r\n      \"code\": \"Od1\",\r\n      \"title\": \"Order Detail1\",\r\n      \"unitPrice\": 1000,\r\n      \"quantity\": 10,\r\n      \"entityDescription\": \"Od1\",\r\n      \"isActive\": true\r\n    },\r\n    {\r\n      \"id\": null,\r\n      \"productId\": \"E79BB34A-904E-4874-984A-08DCA499CF3B\",\r\n      \"code\": \"Od2\",\r\n      \"title\": \"Order Detail2\",\r\n      \"unitPrice\": 2000,\r\n      \"quantity\": 20,\r\n      \"entityDescription\": \"od2\",\r\n      \"isActive\": true\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeOrder",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeOrder"
+									]
+								},
+								"description": "برای ویرایش یک فاکتور نیاز به Authorize میباشد و تنها توسط کاربر ثبت کننده و Admin یا Godadmin قابل انجام است.\n\nشناسه ای که به عنوان SellerId ثبت میشود حتما باید دارای نقش Seller باشد.\n\nاظلاعات مربوط به Buyer از کاربری که لاگین کرده به صورت اتوماتیک فراخوانی میشود.\n\nدر یک فاکتور Seller و Buyer نمیتواند همزمان یک شخص باشد و همچنین امکان ثبت کالای تکراری و یا Soft delete شده وجود ندارد.\n\nدر ویرایش فاکتور سه حالت وجود دارد:\n\n\\-اقلام فاکتور که هم در دیتابیس هم در ورودی وجود دارند : برای این حالت اگر فیلدی تغییر کرده باشد ویرایش انجام میشود.\n\n\\-اقلامی که در دیتابیس هستند ولی در ورودی نیستند : این اقلام از دیتابیش حذف میشوند چون به منزله ی حدف یک قلم از فاکتور میباشد.\n\n\\-اقلامی که در ورودی هستند ولی در دیتابیس نیستند : این اقلام به عنوان اقلام جدید به فاکتور مربوطه اضافه میشوند."
+							},
+							"response": []
+						},
+						{
+							"name": "Orders",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJleHAiOjE3MjEwNDMxOTAsInJvbGVzIjoiR29kQWRtaW4ifQ.gA-xTqiAfJ2uzownwJXItZNU9zENHJaunPZzAibRcQU",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeOrder",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeOrder"
+									]
+								},
+								"description": "مشاده لیست فاکتورها نیاز به Authorize میباشد و تنها توسط Admin یا Godadmin قابل انجام است."
+							},
+							"response": []
+						},
+						{
+							"name": "Order",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJleHAiOjE3MjEwNDMzMTksInJvbGVzIjoiR29kQWRtaW4ifQ.liCpKYpq4uNRZ3Ok0kYMBKIg5044wHiGfot9yxcCQ2g",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"75532e00-1005-40ee-967d-08dca4b0b846\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7053/api/BackOfficeOrder",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7053",
+									"path": [
+										"api",
+										"BackOfficeOrder"
+									]
+								},
+								"description": "برای Soft delete یک فاکتور نیاز به Authorize میباشد و تنها توسط Admin یا Godadmin قابل انجام است.\n\nبه دلیل عدم وجود State این دسترسی فقط به این دو نقش داده شده است."
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Office",
+			"item": [
+				{
+					"name": "Account",
+					"item": [
+						{
+							"name": "Signin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"firstName\": \"Roya\",\r\n  \"lastName\": \"Arefi\",\r\n  \"password\": \"!QAZ1qaz\",\r\n  \"confirmPassword\": \"!QAZ1qaz\",\r\n  \"cellphone\": \"09121212121\",\r\n  \"picture\": null,\r\n  \"location\": \"Tehran\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeAccount/Signin",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeAccount",
+										"Signin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"userName\": \"09121212121\",\r\n  \"password\": \"!QAZ1qaz\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeAccount/Login",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeAccount",
+										"Login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJleHAiOjE3MjE0MTc0ODEsInJvbGVzIjoiTm9ybWFsIn0.vI9pxJI1__eDQ-j6-ZKHlBvYtEQNyWthly2IHB-XoBE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeAccount/Logout",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeAccount",
+										"Logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Signout",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5OTk5OTk5OTkiLCJleHAiOjE3MjE0MTc4MjgsInJvbGVzIjoiTm9ybWFsIn0.gGT69ZIWAKftwsJoTXFgq3uN7ozSrosxj16dGTO0SKc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeAccount/Signout",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeAccount",
+										"Signout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"firstName\": \"Buyer first name\",\r\n  \"lastName\": \"Buyer last name\",\r\n  \"password\": \"!QAZ1qaz\",\r\n  \"confirmPassword\": \"!QAZ1qaz\",\r\n  \"cellphone\": \"09122222222\",\r\n  \"picture\": null,\r\n  \"location\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeUser",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJleHAiOjE3MjEwNDU0MjMsInJvbGVzIjoiR29kQWRtaW4ifQ.PkL2acn4_YzdSXynlL2l25wl-6GcLVdGH4reVVYizTg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"b3b1c6bf-521f-4ed4-9545-d0b8936958dc\",\r\n  \"firstName\": \"Buyer 1\",\r\n  \"lastName\": \"Buyer 1\",\r\n  \"cellphone\": \"09122222222\",\r\n  \"picture\": null,\r\n  \"location\": \"Tehran\",\r\n  \"isActive\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeUser",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ShowAccount",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDk5MjE4MDg0NDEiLCJleHAiOjE3MjE0MTg2NzcsInJvbGVzIjoiTm9ybWFsIn0.E5Apzgthh1rwfnEAzeUswnykJLV39sozjL0AZehg8H0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"a7e49fbc-cd47-4057-a263-c47d23d9b00e\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeUser/ShowAccount",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeUser",
+										"ShowAccount"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDkxMjIyMjIyMjIiLCJleHAiOjE3MjE0MTgxNDcsInJvbGVzIjoiTm9ybWFsIn0.SD0UaFXP0p1w4bzl307kUBNRj1dwexceOwO5x08t3K0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"869b1d4e-28bf-4b33-bf13-31435238f94b\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeUser",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ResetPassword",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDkxMjIyMjIyMjIiLCJleHAiOjE3MjEwNDc2NzEsInJvbGVzIjoiQnV5ZXIifQ.SRdL8_klN7NkrFlsEsERtz_tBNzAcBL7iVzK6S7NVRc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"userName\": \"09122222222\",\r\n  \"password\": \"@WSX2wsx\",\r\n  \"confirmPassword\": \"@WSX2wsx\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeUser/ResetPassword",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeUser",
+										"ResetPassword"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Shop",
+					"item": [
+						{
+							"name": "ProductCategories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeProductCategory",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeProductCategory"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeProduct",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeProduct"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"05B71292-BF8E-4F2D-984B-08DCA499CF3B\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeProduct/GetProduct",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeProduct",
+										"GetProduct"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDkzNzg3NDg4MjQiLCJleHAiOjE3MjE0MTk4OTUsInJvbGVzIjoiR29kQWRtaW4ifQ.lYPq9TUrvpjyp7a_GCt9WCa0PKQCzzhJMhEy0a83XII",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"orderHeader\": {\r\n    \"code\": \"O1\",\r\n    \"title\": \"Order1\",\r\n    \"sellerId\": \"a7e49fbc-cd47-4057-a263-c47d23d9b00e\",\r\n    \"entityDescription\": \"Order\"\r\n  },\r\n  \"orderDetails\": [\r\n    {\r\n      \"productId\": \"726EFA05-F30F-46E0-FDD5-08DCA8146F6F\",\r\n      \"code\": \"Od1\",\r\n      \"title\": \"OrderDetail1\",\r\n      \"unitPrice\": 1000,\r\n      \"quantity\": 20,\r\n      \"entityDescription\": \"OrderDetail\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeOrder",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeOrder"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDkzNzg3NDg4MjQiLCJleHAiOjE3MjE0MTk4OTUsInJvbGVzIjoiR29kQWRtaW4ifQ.lYPq9TUrvpjyp7a_GCt9WCa0PKQCzzhJMhEy0a83XII",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"orderHeader\": {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"entityDescription\": \"Order\",\r\n    \"sellerId\": \"726EFA05-F30F-46E0-FDD5-08DCA8146F6F\",\r\n    \"isActive\": true\r\n  },\r\n  \"orderDetails\": [\r\n    {\r\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n      \"productId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n      \"code\": \"Od1\",\r\n      \"title\": \"OrderDetail1\",\r\n      \"unitPrice\": 2000,\r\n      \"quantity\": 10,\r\n      \"entityDescription\": \"OrderDetail\",\r\n      \"isActive\": true\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeOrder",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeOrder"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDkzNzg3NDg4MjQiLCJleHAiOjE3MjE0MTk4OTUsInJvbGVzIjoiR29kQWRtaW4ifQ.lYPq9TUrvpjyp7a_GCt9WCa0PKQCzzhJMhEy0a83XII",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeOrder",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeOrder"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Orders",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiMDkzNzg3NDg4MjQiLCJleHAiOjE3MjE0MjAzNDYsInJvbGVzIjoiR29kQWRtaW4ifQ.sPXtTUNbUvppFnOTtb9fa_ZX07NXcVa-4p0vRtESpk0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7264/api/OfficeOrder",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7264",
+									"path": [
+										"api",
+										"OfficeOrder"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}

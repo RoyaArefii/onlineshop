@@ -114,3 +114,16 @@ D:\Projects\NewWebProject\OnlineShop\ResponseFramework\obj\Debug\net8.0\Response
 D:\Projects\NewWebProject\OnlineShop\ResponseFramework\obj\Debug\net8.0\refint\ResponseFramework.dll
 D:\Projects\NewWebProject\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.pdb
 D:\Projects\NewWebProject\OnlineShop\ResponseFramework\obj\Debug\net8.0\ref\ResponseFramework.dll
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\bin\Debug\net8.0\ResponseFramework.deps.json
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\bin\Debug\net8.0\ResponseFramework.dll
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\bin\Debug\net8.0\ResponseFramework.pdb
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.csproj.AssemblyReference.cache
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.AssemblyInfoInputs.cache
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.AssemblyInfo.cs
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.csproj.CoreCompileInputs.cache
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.sourcelink.json
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.dll
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\obj\Debug\net8.0\refint\ResponseFramework.dll
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\obj\Debug\net8.0\ResponseFramework.pdb
+D:\Projects\OnlineShop\OnlineShop\ResponseFramework\obj\Debug\net8.0\ref\ResponseFramework.dll

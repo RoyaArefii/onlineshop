@@ -6,7 +6,6 @@ using OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.Acc
 using OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos;
 using PublicTools.Resources;
 using ResponseFramework;
-using System.Data;
 using System.Security.Claims;
 
 namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement
@@ -17,19 +16,19 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
     {
         #region [-Fields-]
         private readonly UserService _userService;
-        //private string? userName;
+
         #endregion
 
         #region [-Ctor-]
         public BackOfficeUserController(UserService appUserService)
         {
             _userService = appUserService;
-            //userName = GetCurrentUser().Value.ToString();
+            
         }
         #endregion
 
         #region [- Guards -]
-        private static JsonResult Guard(PostUserAppDto model)
+        private static JsonResult Guard(PostUserControllerDto model)
         {
             if (model == null) return new JsonResult(new Response<object>(MessageResource.Error_FailToFindObject));
             if (model.FirstName.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
@@ -52,7 +51,6 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
             if (model == null) return new JsonResult(new Response<object>(MessageResource.Error_FailToFindObject));
             if (model.Password.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             if (model.ConfirmPassword.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            //if (model.Token.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             return (model.UserName.Equals(null)) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
         #endregion
@@ -61,11 +59,21 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
 
         #region [- Post -]
         [HttpPost(Name = "PostUser")]
-        //[Authorize(Roles = "GodAdmin")]
-        public async Task<IActionResult> Post(PostUserAppDto model)
+        public async Task<IActionResult> Post(PostUserControllerDto model)
         {
             Guard(model);
-            var postResult = await _userService.PostAsync(model);
+            var postModel = new PostUserAppDto()
+            {
+                Picture = model.Picture,
+                Location = model.Location,
+                ConfirmPassword = model.ConfirmPassword,
+                Cellphone = model.Cellphone,
+                Password = model.Password,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Endpoint = "BackOffice"
+            };
+            var postResult = await _userService.PostAsync(postModel);
             return new JsonResult(postResult);
         }
         #endregion
@@ -96,7 +104,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
         #endregion
 
         #region [- Delete -]
-        [HttpDelete("SoftDelete" , Name = "SoftDeleteUser")]
+        [HttpDelete(Name = "DeleteUser")]
         [Authorize]
         public async Task<IActionResult> Delete(DeleteUserControllerDto model)
         {
@@ -140,7 +148,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
             var result = await _userService.FindById(getUser);
             if (!result.IsSuccessful) return new JsonResult(new Response<Object>(result.ErrorMessage));
             return new JsonResult(result);
-        } 
+        }
         #endregion
 
         #endregion

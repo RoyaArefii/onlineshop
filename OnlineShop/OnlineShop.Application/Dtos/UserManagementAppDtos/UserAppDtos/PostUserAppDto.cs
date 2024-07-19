@@ -24,5 +24,6 @@ namespace OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos
         public string Cellphone { get; set; }
         public byte[]? Picture { get; set; }
         public string? Location { get; set; }
+        public string? Endpoint { get; set; }
     }
 }

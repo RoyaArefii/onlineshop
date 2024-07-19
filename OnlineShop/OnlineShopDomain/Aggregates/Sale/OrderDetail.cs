@@ -9,13 +9,9 @@ namespace OnlineShopDomain.Aggregates.Sale
 {
     public class OrderDetail:MainEntityBase
     {
-        //forign Key
         public Guid ProductId { get; set; }
-        //Navigation Property 
         public Product Product { get; set; }
-        //forign Key
         public Guid OrderHeaderId { get; set; }
-        //Navigation Property
        [JsonIgnore]
         public OrderHeader OrderHeader { get; set; }
         public decimal UnitPrice { get; set; }

@@ -20,7 +20,7 @@ namespace OnlineShop.Application.Services.SaleServices
         private readonly UserManager<AppUser> _userManager;
 
 
-        public ProductService(IRepository<Product, Guid> repository, UserManager<AppUser> userManager, IRepository<OrderDetail, Guid> detailRepository , IRepository<ProductCategory, Guid> catrgoryRepository /*, OrderService orderService */)
+        public ProductService(IRepository<Product, Guid> repository, UserManager<AppUser> userManager, IRepository<OrderDetail, Guid> detailRepository, IRepository<ProductCategory, Guid> catrgoryRepository /*, OrderService orderService */)
         {
             _productRepository = repository;
             _userManager = userManager;
@@ -30,21 +30,20 @@ namespace OnlineShop.Application.Services.SaleServices
         }
         #endregion
 
-        #region [-     Ok     -]
-
         #region [- DeleteAsync(string id) -]
         public async Task<IResponse<object>> DeleteAsync(Guid id)
         {
+            #region [-Validation -]
             if (id.Equals(null))
             {
                 return new Response<object>(MessageResource.Error_TheParameterIsNull);
             }
             var findProduct = await _productRepository.FindById(id);
             var deleteProduct = findProduct.Result;
-            if (deleteProduct == null)
-            {
-                return new Response<object>(MessageResource.Error_FailToFindObject);
-            }
+            if (deleteProduct == null || Helpers.IsDeleted(findProduct)) return new Response<object>(MessageResource.Error_FailToFindObject);
+            #endregion
+
+            #region [-Task-]
             var product = new Product();
             product.Id = deleteProduct.Id;
             product.IsDeleted = true;
@@ -53,17 +52,23 @@ namespace OnlineShop.Application.Services.SaleServices
 
             var resultDelete = await _productRepository.UpdateAsync(product);
             await _productRepository.SaveChanges();
+            #endregion
+
+            #region [- Result -]
+
             if (resultDelete.IsSuccessful)
                 return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, deleteProduct, HttpStatusCode.OK);
-            return new Response<object>(MessageResource.Error_FailProcess);
+            return new Response<object>(MessageResource.Error_FailProcess); 
+            #endregion
         }
-        #endregion  
-              
+        #endregion
+
         #region [- DeleteAsync(DeleteProductAppDto model) -]
         public async Task<IResponse<object>> DeleteAsync(DeleteProductAppDto model)
         {
+            #region [- Validation -]
             var userLogin = await _userManager.FindByNameAsync(model.UserName);
-            if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            if (userLogin == null || Helpers.IsDeleted(userLogin)) return new Response<object>(MessageResource.Error_UserNotFound);
             if (!(await _userManager.IsInRoleAsync(userLogin, "GodAdmin") || await _userManager.IsInRoleAsync(userLogin, "Admin")))
                 return new Response<object>(MessageResource.Error_Accessdenied);
 
@@ -71,12 +76,15 @@ namespace OnlineShop.Application.Services.SaleServices
             if (model.Id.Equals(null)) return new Response<object>(MessageResource.Error_ModelNull);
 
             var findProduct = await _productRepository.FindById(model.Id);
-            if (!findProduct.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
+            if (Helpers.IsDeleted(findProduct.Result) || !findProduct.IsSuccessful) return new Response<object>(MessageResource.Error_FaildToFindProduct);
             var details = await _detailRepository.Select();
-            if( details.Result.Any(x=>x.ProductId==findProduct.Result.Id))
+            if (details.Result.Any(x => x.ProductId == findProduct.Result.Id))
             {
-                return new Response<object>(MessageResource.Error_DataWasUsed); 
+                return new Response<object>(MessageResource.Error_DataWasUsed);
             }
+            #endregion
+
+            #region [- Task -]
             var deleteProduct = findProduct.Result;
 
             deleteProduct.Id = model.Id;
@@ -86,12 +94,16 @@ namespace OnlineShop.Application.Services.SaleServices
 
             var resultDelete = await _productRepository.UpdateAsync(deleteProduct);
             await _productRepository.SaveChanges();
+            #endregion
+
+            #region [- Result -]
             if (!resultDelete.IsSuccessful)
                 return new Response<object>(MessageResource.Error_FailProcess);
-            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, deleteProduct, HttpStatusCode.OK);
+            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, deleteProduct, HttpStatusCode.OK); 
+            #endregion
         }
-        #endregion       
-        
+        #endregion
+
         #region [-Task<IResponse<List<GetProductAppDto>>> GetAsync()-]
         public async Task<IResponse<List<GetProductAppDto>>> GetAsync()
         {
@@ -115,19 +127,19 @@ namespace OnlineShop.Application.Services.SaleServices
                 IsDeleted = item.IsDeleted,
                 DateSoftDeletedLatin = item.DateSoftDeletedLatin,
                 DateSoftDeletedPersian = item.DateSoftDeletedPersian
-            }).ToList();
+            }).Where(p=>p.IsDeleted==false).ToList();
 
             return new Response<List<GetProductAppDto>>(true, MessageResource.Info_SuccessfullProcess, string.Empty, getProducts, HttpStatusCode.OK);
         }
         #endregion
-                
+
         #region [-PutAsync(PutProductAppDto model)-]
         public async Task<IResponse<object>> PutAsync(PutProductAppDto model)
         {
-            
+
             #region [- Validation -]
             var userLogin = await _userManager.FindByNameAsync(model.UserName);
-            if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            if (userLogin == null || Helpers.IsDeleted(userLogin)) return new Response<object>(MessageResource.Error_UserNotFound);
             if (!(await _userManager.IsInRoleAsync(userLogin, "GodAdmin") || await _userManager.IsInRoleAsync(userLogin, "Admin")))
                 return new Response<object>(MessageResource.Error_Accessdenied);
 
@@ -138,11 +150,11 @@ namespace OnlineShop.Application.Services.SaleServices
             if (model.Code.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.UnitPrice.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.IsActive.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            #endregion
-           
-            #region [-Task-]
             var product = await _productRepository.FindById(model.Id);
-            if (product == null) return new Response<object>(MessageResource.Error_FailToFindObject);
+            if (Helpers.IsDeleted(product.Result) || product == null) return new Response<object>(MessageResource.Error_FaildToFindProduct);
+            #endregion
+
+            #region [-Task-]
 
             var putProduct = product.Result;
 
@@ -161,7 +173,7 @@ namespace OnlineShop.Application.Services.SaleServices
             var putResult = await _productRepository.UpdateAsync(putProduct);
             await SaveChanges();
             #endregion
-            
+
             #region [-Result-] 
             if (!putResult.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, putResult, HttpStatusCode.OK);
@@ -175,14 +187,14 @@ namespace OnlineShop.Application.Services.SaleServices
             await _productRepository.SaveChanges();
         }
         #endregion
-        
+
         #region [-PostAsync(PutProductAppDto model)-]
         public async Task<IResponse<object>> PostAsync(PostProductAppDto model)
         {
-            
+
             #region [- Validation -]
             var userLogin = await _userManager.FindByNameAsync(model.UserName);
-            if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            if ( Helpers.IsDeleted(userLogin) || userLogin == null ) return new Response<object>(MessageResource.Error_UserNotFound);
             if (!(await _userManager.IsInRoleAsync(userLogin, "GodAdmin") || await _userManager.IsInRoleAsync(userLogin, "Admin")))
                 return new Response<object>(MessageResource.Error_Accessdenied);
 
@@ -191,14 +203,13 @@ namespace OnlineShop.Application.Services.SaleServices
             if (model.Title.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Code.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.UnitPrice.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-            var productCategory =await _productCategoryRepository.FindById(model.ProductCategoryId);
-            if(!productCategory.IsSuccessful) return new Response<object>(MessageResource.Error_ProductCategoryNotFound);
+            var productCategory = await _productCategoryRepository.FindById(model.ProductCategoryId);
+            if (!productCategory.IsSuccessful) return new Response<object>(MessageResource.Error_ProductCategoryNotFound);
             #endregion
-            
+
             #region [-Task-]
             var postProduct = new Product()
             {
-               // Id = new Guid(),
                 Title = model.Title,
                 Code = model.Code,
                 UnitPrice = model.UnitPrice,
@@ -213,27 +224,26 @@ namespace OnlineShop.Application.Services.SaleServices
             var postResult = await _productRepository.InsertAsync(postProduct);
             await SaveChanges();
             #endregion
-            
+
             #region [-Result-]
             if (!postResult.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
-            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, postResult, HttpStatusCode.OK);
+            return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, postProduct, HttpStatusCode.OK);
             #endregion
 
         }
         #endregion
-                
+
         #region [-FindById(string id)-]
         public async Task<IResponse<GetProductAppDto>> FindById(Guid id)
         {
-            
+
             #region [-Validation-]
             if (id.Equals(null)) return new Response<GetProductAppDto>(MessageResource.Error_ThisFieldIsMandatory);
-            #endregion
-            
-            #region [-Task-]
-
             var findResult = await _productRepository.FindById(id);
-            if (!findResult.IsSuccessful) return new Response<GetProductAppDto>(MessageResource.Error_FailToFindObject);
+            if (Helpers.IsDeleted(findResult.Result)|| !findResult.IsSuccessful) return new Response<GetProductAppDto>(MessageResource.Error_FailToFindObject);
+            #endregion
+
+            #region [-Task-]
             var findProduct = new GetProductAppDto()
             {
                 Id = findResult.Result.Id,
@@ -243,15 +253,13 @@ namespace OnlineShop.Application.Services.SaleServices
                 ProductCategoryId = findResult.Result.ProductCategoryId,
             };
             #endregion
-          
+
             #region [-Result-]
-            if (findProduct==null ) return new Response<GetProductAppDto>(MessageResource.Error_FailProcess);
+            if (findProduct == null) return new Response<GetProductAppDto>(MessageResource.Error_FailProcess);
             return new Response<GetProductAppDto>(true, MessageResource.Info_SuccessfullProcess, string.Empty, findProduct, HttpStatusCode.OK);
             #endregion
         }
         #endregion
 
-        #endregion
-        
     }
 }

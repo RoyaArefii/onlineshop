@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {}
+    "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {
+    "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj",
+        "projectUniqueName": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj",
         "projectName": "OnlineShop.EFCore",
-        "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj",
+        "projectPath": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.EFCore\\obj\\",
+        "outputPath": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.EFCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,11 +33,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
-                "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj"
+              "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
+                "projectPath": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj"
               },
-              "D:\\Projects\\NewWebProject\\OnlineShop\\PublicTools\\PublicTools.csproj": {
-                "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\PublicTools\\PublicTools.csproj"
+              "D:\\Projects\\OnlineShop\\OnlineShop\\PublicTools\\PublicTools.csproj": {
+                "projectPath": "D:\\Projects\\OnlineShop\\OnlineShop\\PublicTools\\PublicTools.csproj"
               }
             }
           }
@@ -96,14 +96,14 @@
         }
       }
     },
-    "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
+    "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj",
+        "projectUniqueName": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj",
         "projectName": "OnlineShopDomain",
-        "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj",
+        "projectPath": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\obj\\",
+        "outputPath": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -181,14 +181,14 @@
         }
       }
     },
-    "D:\\Projects\\NewWebProject\\OnlineShop\\PublicTools\\PublicTools.csproj": {
+    "D:\\Projects\\OnlineShop\\OnlineShop\\PublicTools\\PublicTools.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\NewWebProject\\OnlineShop\\PublicTools\\PublicTools.csproj",
+        "projectUniqueName": "D:\\Projects\\OnlineShop\\OnlineShop\\PublicTools\\PublicTools.csproj",
         "projectName": "PublicTools",
-        "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\PublicTools\\PublicTools.csproj",
+        "projectPath": "D:\\Projects\\OnlineShop\\OnlineShop\\PublicTools\\PublicTools.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\NewWebProject\\OnlineShop\\PublicTools\\obj\\",
+        "outputPath": "D:\\Projects\\OnlineShop\\OnlineShop\\PublicTools\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

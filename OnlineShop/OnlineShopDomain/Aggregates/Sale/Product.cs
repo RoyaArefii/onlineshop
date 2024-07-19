@@ -16,7 +16,6 @@ namespace OnlineShopDomain.Aggregates.Sale
 
         public decimal UnitPrice { get; set; }
 
-        //One to Mnay Product& OrderDetail
         List<OrderDetail> OrderDetails { get; set; }
     }
 }

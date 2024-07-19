@@ -18,7 +18,7 @@ namespace OnlineShop.Application.Services.SaleServices
 {
     public class OrderService : IAppOrderService<GetAllOrderAppDto, GetOrdersAppDto>
     {
-        #region [-     OK     -]
+
         #region [-Ctor & Fields-]
         private readonly IRepository<OrderHeader, Guid> _headerRepository;
         private readonly IRepository<OrderDetail, Guid> _detailRepository;
@@ -52,7 +52,7 @@ namespace OnlineShop.Application.Services.SaleServices
             if (modelHeader.Title.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (modelHeader.SellerId.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             var seller = await _userManager.FindByIdAsync(modelHeader.SellerId);
-            if (seller==null ) return new Response<object>(MessageResource.Error_FailToFindObject);
+            if (Helpers.IsDeleted(seller) || seller == null) return new Response<object>(MessageResource.Error_IncorrectSellerId);
             var hasSellerRole = await _userManager.IsInRoleAsync(seller, "Seller");
             if (!hasSellerRole) return new Response<object>(MessageResource.Error_IncorrectSellerId);
             var user = await _userManager.FindByNameAsync(model.UserName);
@@ -65,15 +65,14 @@ namespace OnlineShop.Application.Services.SaleServices
             foreach (var detail in modelDetails)
             {
                 if (detail == null) return new Response<object>(MessageResource.Error_OrderNoDetails);
-                if (detail.Code.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-                if (detail.Title.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+                if (detail.Code.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+                if (detail.Title.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
                 if (detail.Quantity.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
                 if (detail.UnitPrice.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             }
             var duplicateProducts = modelDetails
                 .GroupBy(e => e.ProductId)
                 .Where(e => e.Count() > 1)
-                //.Select(e => e.Key)
                 .ToList();
             if (duplicateProducts.Any())
             {
@@ -94,34 +93,27 @@ namespace OnlineShop.Application.Services.SaleServices
                 {
                     header = new OrderHeader()
                     {
-                        //Id = new Guid(),
-                        Code = orderHeaderDto.Code, //generate shavad ,
+                        Code = orderHeaderDto.Code, 
                         Title = orderHeaderDto.Title,
                         DateCreatedLatin = DateTime.Now,
                         DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now),
                         IsActive = true,
                         IsDeleted = false,
                         IsModified = false,
-                        SellerId = orderHeaderDto.SellerId,//in ya bayad az Dto gerefte shavad ya az product
-                        BuyerId = user.Id,//orderHeaderDto.BuyerId,
+                        SellerId = orderHeaderDto.SellerId,
+                        BuyerId = user.Id,
                         EntityDescription = orderHeaderDto.EntityDescription
                     };
                     var postResult = await _headerRepository.InsertAsync(header);
-                    //_context.SaveChanges();
-                    //if (!postResult.IsSuccessful)
-                    //{
-                    //    _context.Database.RollbackTransaction();
-                    //    // return error Response 
-                    //}
+
                     var results = header;
                     foreach (var dto in modelDetails)
                     {
                         var productResponse = await _productRepository.FindById(dto.ProductId);
-                        if (productResponse == null) return new Response<object>(MessageResource.Error_FaildToFindProduct);
+                        if (Helpers.IsDeleted(productResponse.Result) || productResponse.Result.IsActive == false || !productResponse.IsSuccessful) return new Response<object>(MessageResource.Error_FaildToFindProduct);
                         var product = productResponse.Result;
 
                         var detail = new OrderDetail();
-                        //detail.Id = new Guid();
                         detail.OrderHeaderId = postResult.Result.Id;
                         detail.Quantity = dto.Quantity;
                         detail.Code = dto.Code;
@@ -206,10 +198,11 @@ namespace OnlineShop.Application.Services.SaleServices
             #region [-Validation-]
             if (id.Equals(null)) return new Response<List<GetOrderDetailAppDto>>(MessageResource.Error_ThisFieldIsMandatory);
             #endregion
-            
+
             #region [-Task-]
             var orderDeatilFinal = new List<GetOrderDetailAppDto>();
             var findHeaderResult = await _headerRepository.FindById(id);
+            if (Helpers.IsDeleted(findHeaderResult.Result) || !findHeaderResult.IsSuccessful) return new Response<List<GetOrderDetailAppDto>>(MessageResource.Error_FailToFindObject);
             var getOrderDetailList = new List<GetOrderDetailAppDto>();
             if (findHeaderResult.Result == null || findHeaderResult == null)
             {
@@ -237,9 +230,9 @@ namespace OnlineShop.Application.Services.SaleServices
                 Quantity = item.Quantity,
                 Title = item.Title,
                 UnitPrice = item.UnitPrice
-            }).ToList();
+            }).Where(p=> p.IsDeleted==false).ToList();
             #endregion
-           
+
             #region [ - Result - ]
             return new Response<List<GetOrderDetailAppDto>>(true, MessageResource.Info_SuccessfullProcess, string.Empty, getOrderDetailList, HttpStatusCode.OK);
             #endregion
@@ -251,12 +244,11 @@ namespace OnlineShop.Application.Services.SaleServices
         {
             #region [-Validation-]
             if (id.Equals(null)) return new Response<GetOrderHeaderAppDto>(MessageResource.Error_ThisFieldIsMandatory);
+            var find = await _headerRepository.FindById(id);
+            if (Helpers.IsDeleted(find.Result)|| !find.IsSuccessful) return new Response<GetOrderHeaderAppDto>(MessageResource.Error_FailToFindObject);
             #endregion
 
-            #region [-Task-]
-            var find = await _headerRepository.FindById(id);
-            if (!find.IsSuccessful)
-                return new Response<GetOrderHeaderAppDto>(MessageResource.Error_FailToFindObject);
+            #region [-Task-]          
             var findResult = find.Result;
             var orderHeader = new GetOrderHeaderAppDto()
             {
@@ -293,8 +285,8 @@ namespace OnlineShop.Application.Services.SaleServices
 
             #region [-Task-]
             var find = await _headerRepository.FindById(id);
-            if (!find.IsSuccessful)
-                return new Response<GetOrdersAppDto>(MessageResource.Error_FailToFindObject);
+            if (Helpers.IsDeleted(find.Result) || !find.IsSuccessful) return new Response<GetOrdersAppDto>(MessageResource.Error_FailToFindObject);
+
             var findResult = find.Result;
             var getOrderHeader = new GetOrderHeaderAppDto()
             {
@@ -319,7 +311,7 @@ namespace OnlineShop.Application.Services.SaleServices
             if (!details.IsSuccessful)
                 return new Response<GetOrdersAppDto>(MessageResource.Error_FailProcess);
             var detailResult = details.Result;
-            var getOrderDetailList = detailResult.Where(item => item.OrderHeaderId == id).Select(item => new GetOrderDetailAppDto()
+            var getOrderDetailList = detailResult.Where(item => item.OrderHeaderId == id && item.IsDeleted==false).Select(item => new GetOrderDetailAppDto()
             {
                 Code = item.Code,
                 DateCreatedLatin = item.DateCreatedLatin,
@@ -357,7 +349,7 @@ namespace OnlineShop.Application.Services.SaleServices
         {
             var headerList = await _headerRepository.Select();
             var orderFinalList = new List<GetOrdersAppDto>();
-            var detailsDto = new GetOrdersAppDto().OrderDetails;
+            var detailsDto = new GetOrdersAppDto().OrderDetails.Where(p=>p.IsDeleted==false);
             if (headerList != null)
                 foreach (var header in headerList.Result)
                 {
@@ -385,7 +377,7 @@ namespace OnlineShop.Application.Services.SaleServices
                             Price = detail.UnitPrice * detail.Quantity,
                             Quantity = detail.Quantity,
                             UnitPrice = detail.UnitPrice
-                        }).ToList();
+                        }).Where(p=>p.IsDeleted==false).ToList();
                         var totalPriceOrderHeader = detailDtoList.Sum(p => p.Price);
                         var headerDto = new GetOrderHeaderAppDto()
                         {
@@ -424,14 +416,14 @@ namespace OnlineShop.Application.Services.SaleServices
         {
             #region [- Validation -]
             var userLogin = await _userManager.FindByNameAsync(model.UserName);
-            if (userLogin == null) return new Response<List<GetOrdersAppDto>>(MessageResource.Error_UserNotFound);
+            if (Helpers.IsDeleted(userLogin)|| userLogin == null) return new Response<List<GetOrdersAppDto>>(MessageResource.Error_UserNotFound);
             if (!(await _userManager.IsInRoleAsync(userLogin, "GodAdmin") || await _userManager.IsInRoleAsync(userLogin, "Admin")))
                 return new Response<List<GetOrdersAppDto>>(MessageResource.Error_Accessdenied);
             #endregion
 
             #region [- Task -]
             var headerList = await _headerRepository.Select();
-            var userHeaderList = headerList.Result.Where(p => p.SellerId == userLogin.Id.ToString()).ToList();
+            var userHeaderList = headerList.Result.Where(p => p.SellerId == userLogin.Id.ToString()&& p.IsDeleted==false).ToList();
             var orderFinalList = new List<GetOrdersAppDto>();
             var detailsDto = new GetOrdersAppDto().OrderDetails;
             if (headerList != null)
@@ -461,7 +453,7 @@ namespace OnlineShop.Application.Services.SaleServices
                             Price = detail.UnitPrice * detail.Quantity,
                             Quantity = detail.Quantity,
                             UnitPrice = detail.UnitPrice
-                        }).ToList();
+                        }).Where(p=>p.IsDeleted==false).ToList();
                         var totalPriceOrderHeader = detailDtoList.Sum(p => p.Price);
                         var headerDto = new GetOrderHeaderAppDto()
                         {
@@ -512,15 +504,15 @@ namespace OnlineShop.Application.Services.SaleServices
         {
             #region [- Validation -]
             var userLogin = await _userManager.FindByNameAsync(model.UserName);
-            if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            if (Helpers.IsDeleted(userLogin)||userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
             var modelHeader = model.orderHeader;
             var modelDetails = model.orderDetails;
             if (model == null) return new Response<object>(MessageResource.Error_ModelNull);
             if (modelHeader.Id.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             var orderHeader = await _headerRepository.FindById(modelHeader.Id);
-            if (!orderHeader.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
+            if (Helpers.IsDeleted(orderHeader.Result) ||!orderHeader.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
             var seller = await _userManager.FindByIdAsync(modelHeader.SellerId);
-            if (seller == null) return new Response<object>(MessageResource.Error_IncorrectSellerId);
+            if (Helpers.IsDeleted(seller)||seller == null) return new Response<object>(MessageResource.Error_IncorrectSellerId);
             var hasSellerRole = await _userManager.IsInRoleAsync(seller, "Seller");
             if (!hasSellerRole) return new Response<object>(MessageResource.Error_IncorrectSellerId);
             var putHeader = orderHeader.Result;
@@ -534,20 +526,13 @@ namespace OnlineShop.Application.Services.SaleServices
             foreach (var detail in modelDetails)
             {
                 if (detail == null) return new Response<object>(MessageResource.Error_OrderNoDetails);
-                //if (detail.Id.Equals(null)) return new Response<object>(MessageResource.Error_FailToFindObject);به خاطر وجود اردر جدید کامنت شد
                 var productResponse = await _productRepository.FindById(detail.ProductId);
-                if (productResponse.Result == null) return new Response<object>(MessageResource.Error_FaildToFindProduct);
+                if (Helpers.IsDeleted(productResponse.Result)||!productResponse.IsSuccessful) return new Response<object>(MessageResource.Error_FaildToFindProduct);
                 var product = productResponse.Result;
-                //تـــــــــــــــستـــــــــــــ شود 
-                //if (detail.Code.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-                //if (detail.Title.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-                //if (detail.Quantity.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-                //if (detail.UnitPrice.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             }
             var duplicateProducts = modelDetails
                 .GroupBy(e => e.ProductId)
                 .Where(e => e.Count() > 1)
-                //.Select(e => e.Key)
                 .ToList();
             if (duplicateProducts.Any())
             {
@@ -560,7 +545,7 @@ namespace OnlineShop.Application.Services.SaleServices
             var findDetails = await FindOrderDetailsByHeaderId(modelHeader.Id);
             if (!findDetails.IsSuccessful) return new Response<object>(MessageResource.Error_OrderNoDetails);
             var orderDetailList = findDetails.Result;
-            //var modelOrderDetail = model.orderDetails;
+            
             var detailsToDelete = orderDetailList.Where(od => !modelDetails.Any(dto => dto.Id == od.DetailId)).ToList();
             var detailsToAdd = modelDetails.Where(dto => !orderDetailList.Any(od => od.DetailId == dto.Id)).ToList();
             var detailsToUpdate = orderDetailList.Where(od => modelDetails.Any(dto => dto.Id == od.DetailId)).ToList();
@@ -580,9 +565,11 @@ namespace OnlineShop.Application.Services.SaleServices
                 #region [Update_OrderDetails_Task]
                 foreach (var dto in detailsToUpdate)
                 {
-                   if (dto.DetailId.Equals(null)) return new Response<object>(MessageResource.Error_FailToFindObject);
+                    if (dto.DetailId.Equals(null)) return new Response<object>(MessageResource.Error_FailToFindObject);
 
                     var findDetail = await _detailRepository.FindById(dto.DetailId);
+                    if (Helpers.IsDeleted(findDetail.Result) || !findDetail.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
+
                     var putModel = modelDetails.Where(p => p.Id == dto.DetailId).First();
                     var detail = findDetail.Result;
                     detail.Id = dto.DetailId;
@@ -608,7 +595,7 @@ namespace OnlineShop.Application.Services.SaleServices
                     var addDetail = new OrderDetail();
                     //detail.Id = new Guid();
                     var productResponse = await _productRepository.FindById(dto.ProductId);
-                    if (productResponse == null) return new Response<object>(MessageResource.Error_FaildToFindProduct);
+                    if (Helpers.IsDeleted(productResponse.Result)||!productResponse.IsSuccessful) return new Response<object>(MessageResource.Error_FaildToFindProduct);
                     var product = productResponse.Result;
                     addDetail.OrderHeaderId = orderHeader.Result.Id;
                     addDetail.Quantity = dto.Quantity;
@@ -655,7 +642,7 @@ namespace OnlineShop.Application.Services.SaleServices
         {
             #region [- Validation -]
             var userLogin = await _userManager.FindByNameAsync(model.UserName);
-            if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            if (Helpers.IsDeleted(userLogin)|| userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
             if (!(await _userManager.IsInRoleAsync(userLogin, "GodAdmin") || await _userManager.IsInRoleAsync(userLogin, "Admin")))
                 return new Response<object>(MessageResource.Error_Accessdenied);
             if (model.Id.Equals(null))
@@ -663,26 +650,23 @@ namespace OnlineShop.Application.Services.SaleServices
                 return new Response<object>(MessageResource.Error_TheParameterIsNull);
             }
             var orderHeaderResponse = await _headerRepository.FindById(model.Id);
-            if (!orderHeaderResponse.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
+            if (Helpers.IsDeleted(orderHeaderResponse.Result)||!orderHeaderResponse.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
             var orderHeader = orderHeaderResponse.Result;
             #endregion
 
             #region [- Task -]
             var deleteDetail = new OrderDetail();
             var deleteHeader = new OrderHeader();
-            /*using (_context.Database.BeginTransaction())
-            {*/
             try
             {
                 var detailsOrderHeader = await FindOrderDetailsByHeaderId(orderHeader.Id);
-                if (!detailsOrderHeader.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
+                if (Helpers.IsDeleted(detailsOrderHeader.Result) || !detailsOrderHeader.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
                 if (detailsOrderHeader != null && detailsOrderHeader.IsSuccessful)
                 {
                     foreach (var detail in detailsOrderHeader.Result)
                     {
-                        // if (detailsOrderHeader.Result.Count == 1 && detailsOrderHeader.Result.First().DetailId == detail.DetailId)
-                        // return new Response<object>(MessageResource.Finalobject);
                         var detailResponse = await _detailRepository.FindById(detail.DetailId);
+
                         deleteDetail = detailResponse.Result;
 
                         deleteDetail.IsDeleted = true;
@@ -690,7 +674,6 @@ namespace OnlineShop.Application.Services.SaleServices
                         deleteDetail.DateSoftDeletedPersian = Helpers.ConvertToPersianDate(DateTime.Now);
 
                         var orderDetailDeleteResult = await _detailRepository.UpdateAsync(deleteDetail);
-                        //var orderDetailDeleteResult = await _detailRepository.DeleteByIdAsync(detail.DetailId);
                         if (!orderDetailDeleteResult.IsSuccessful)
                         {
                             return new Response<object>(MessageResource.Error_FailProcess);
@@ -700,15 +683,7 @@ namespace OnlineShop.Application.Services.SaleServices
                     deleteHeader.IsDeleted = true;
                     deleteHeader.DateSoftDeletedLatin = DateTime.Now;
                     deleteHeader.DateSoftDeletedPersian = Helpers.ConvertToPersianDate(DateTime.Now);
-                    // در صورتیکه کدهای زیر اضافه شوند خطا دریافت می شود :
 
-
-                    //var orderHeaderDeleteResult = await _headerRepository.UpdateAsync(deleteHeader);
-                    //if (!orderHeaderDeleteResult.IsSuccessful)
-                    //{
-                    //    //_context.Database.RollbackTransaction();
-                    //    return new Response<object>(MessageResource.Error_FailProcess);
-                    //}
                     await _headerRepository.SaveChanges();
                 }
             }
@@ -723,8 +698,6 @@ namespace OnlineShop.Application.Services.SaleServices
 
             #endregion
         }
-        #endregion
-
         #endregion
 
         #region [-Task<IResponse<object>> DeleteAsync(Guid id)-]
@@ -764,7 +737,7 @@ namespace OnlineShop.Application.Services.SaleServices
                             deleteDetail.DateSoftDeletedPersian = Helpers.ConvertToPersianDate(DateTime.Now);
 
                             var orderDetailDeleteResult = await _detailRepository.UpdateAsync(deleteDetail);
-                            //var orderDetailDeleteResult = await _detailRepository.DeleteByIdAsync(detail.DetailId);
+                         
                             if (!orderDetailDeleteResult.IsSuccessful)
                             {
                                 return new Response<object>(MessageResource.Error_FailProcess);
@@ -776,7 +749,6 @@ namespace OnlineShop.Application.Services.SaleServices
                         deleteHeader.DateSoftDeletedPersian = Helpers.ConvertToPersianDate(DateTime.Now);
 
                         var orderHeaderDeleteResult = await _headerRepository.UpdateAsync(deleteHeader);
-                        //await _headerRepository.DeleteByIdAsync(orderHeader.Result.HeaderId);
                         if (!orderHeaderDeleteResult.IsSuccessful)
                         {
                             _context.Database.RollbackTransaction();
@@ -799,33 +771,5 @@ namespace OnlineShop.Application.Services.SaleServices
         }
         #endregion
 
-        //#region [- Task<IResponse<object>> DeleteOrderDetailAsync(List<DeleteOrderDetailsAppDto> model) -]
-        ///// <summary>
-        /////  ریزالت برای زمانی که یکی از دیتیل ها حذف نشوند درست نیست و باید اصلاح شود
-        ///// </summary>
-        //public async Task<IResponse<object>> DeleteOrderDetailAsync(List<DeleteOrderDetailAppDto> model)
-        //{
-        //    var details = model;
-        //    var finalList = new List<DeleteOrderDetailAppDto>();
-        //    if (details.Count == 0) return new Response<object>(MessageResource.Error_TheParameterIsNull);
-        //    foreach (var detail in details)
-        //    {
-        //        if (detail.Id.Equals(null)) return new Response<object>(MessageResource.Error_TheParameterIsNull);
-        //        var findDetail = await _detailRepository.FindById(detail.Id);
-        //        if (!findDetail.IsSuccessful) return new Response<object>(MessageResource.Error_FailToFindObject);
-
-
-        //        var orderDetailList = await FindOrderDetailsByHeaderId(findDetail.Result.OrderHeaderId);
-        //        if (orderDetailList.Result.Count == 1 && orderDetailList.Result.First().DetailId == detail.Id)
-        //            return new Response<object>(MessageResource.Finalobject);
-
-        //        var result = await _detailRepository.DeleteByIdAsync(detail.Id);
-        //        if (!result.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
-        //        finalList.Add(detail);
-        //        await SaveChanges();
-        //    }
-        //    return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, finalList, HttpStatusCode.OK);
-        //}
-        //#endregion
     }
 }

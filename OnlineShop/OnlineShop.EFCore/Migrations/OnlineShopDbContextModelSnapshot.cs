@@ -114,6 +114,24 @@ namespace OnlineShop.EFCore.Migrations
                     b.ToTable("AspNetUserTokens", "UserManagement");
                 });
 
+            modelBuilder.Entity("OnlineShopDomain.Aggregates.JWT.BlackListToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BlackListToken", "UserManagement");
+                });
+
             modelBuilder.Entity("OnlineShopDomain.Aggregates.Sale.OrderDetail", b =>
                 {
                     b.Property<Guid>("Id")
@@ -383,8 +401,8 @@ namespace OnlineShop.EFCore.Migrations
                         new
                         {
                             Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbo",
-                            DateCreatedLatin = new DateTime(2024, 7, 16, 20, 9, 40, 92, DateTimeKind.Local).AddTicks(9154),
-                            DateCreatedPersian = "1403/4/26",
+                            DateCreatedLatin = new DateTime(2024, 7, 18, 12, 4, 4, 546, DateTimeKind.Local).AddTicks(7607),
+                            DateCreatedPersian = "1403/4/28",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
@@ -394,8 +412,8 @@ namespace OnlineShop.EFCore.Migrations
                         new
                         {
                             Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbl",
-                            DateCreatedLatin = new DateTime(2024, 7, 16, 20, 9, 40, 93, DateTimeKind.Local).AddTicks(1899),
-                            DateCreatedPersian = "1403/4/26",
+                            DateCreatedLatin = new DateTime(2024, 7, 18, 12, 4, 4, 546, DateTimeKind.Local).AddTicks(9089),
+                            DateCreatedPersian = "1403/4/28",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
@@ -405,8 +423,8 @@ namespace OnlineShop.EFCore.Migrations
                         new
                         {
                             Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbp",
-                            DateCreatedLatin = new DateTime(2024, 7, 16, 20, 9, 40, 93, DateTimeKind.Local).AddTicks(3583),
-                            DateCreatedPersian = "1403/4/26",
+                            DateCreatedLatin = new DateTime(2024, 7, 18, 12, 4, 4, 547, DateTimeKind.Local).AddTicks(475),
+                            DateCreatedPersian = "1403/4/28",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
@@ -416,8 +434,8 @@ namespace OnlineShop.EFCore.Migrations
                         new
                         {
                             Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbmm",
-                            DateCreatedLatin = new DateTime(2024, 7, 16, 20, 9, 40, 93, DateTimeKind.Local).AddTicks(5073),
-                            DateCreatedPersian = "1403/4/26",
+                            DateCreatedLatin = new DateTime(2024, 7, 18, 12, 4, 4, 547, DateTimeKind.Local).AddTicks(1896),
+                            DateCreatedPersian = "1403/4/28",
                             IsActive = true,
                             IsDeleted = false,
                             IsModified = false,
@@ -446,13 +464,13 @@ namespace OnlineShop.EFCore.Migrations
                     b.Property<DateTime>("DateCreatedLatin")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 7, 16, 20, 9, 40, 94, DateTimeKind.Local).AddTicks(903));
+                        .HasDefaultValue(new DateTime(2024, 7, 18, 12, 4, 4, 547, DateTimeKind.Local).AddTicks(7133));
 
                     b.Property<string>("DateCreatedPersian")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("1403/4/26");
+                        .HasDefaultValue("1403/4/28");
 
                     b.Property<DateTime?>("DateModifiedLatin")
                         .HasColumnType("datetime2");
@@ -553,9 +571,9 @@ namespace OnlineShop.EFCore.Migrations
                             Id = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbbn",
                             AccessFailedCount = 0,
                             Cellphone = "09378748824",
-                            ConcurrencyStamp = "7e9ec4ea-76dc-4efd-a5dc-6f846de5b373",
-                            DateCreatedLatin = new DateTime(2024, 7, 16, 20, 9, 40, 93, DateTimeKind.Local).AddTicks(8353),
-                            DateCreatedPersian = "1403/4/26",
+                            ConcurrencyStamp = "8d562113-3928-4801-b823-3f64b4bdca4a",
+                            DateCreatedLatin = new DateTime(2024, 7, 18, 12, 4, 4, 547, DateTimeKind.Local).AddTicks(4787),
+                            DateCreatedPersian = "1403/4/28",
                             EmailConfirmed = false,
                             FirstName = "Roya",
                             IsActive = true,
@@ -566,7 +584,7 @@ namespace OnlineShop.EFCore.Migrations
                             NormalizedUserName = "09378748824",
                             PasswordHash = "AQAAAAIAAYagAAAAEEA9Xu3Vqw19qGPCF+O/kiEMRnmVmS8D5bLILKtlYkiuzjIWlSa9c+qvrr1qnJdQdg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "092749b4-633c-4947-b3f6-093b10ca9986",
+                            SecurityStamp = "6ce21caa-20c0-4694-a7bb-f4c8d1f80111",
                             TwoFactorEnabled = false,
                             UserName = "09378748824"
                         });

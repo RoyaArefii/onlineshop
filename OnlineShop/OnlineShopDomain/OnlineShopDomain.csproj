@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Aggregates\Infrustructure\" />
-    <Folder Include="Enums\" />
+    <Compile Remove="Aggregates\Infrustructure\**" />
+    <Compile Remove="Enums\**" />
+    <EmbeddedResource Remove="Aggregates\Infrustructure\**" />
+    <EmbeddedResource Remove="Enums\**" />
+    <None Remove="Aggregates\Infrustructure\**" />
+    <None Remove="Enums\**" />
   </ItemGroup>
 
   <ItemGroup>

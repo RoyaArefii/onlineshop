@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos;
@@ -33,7 +34,6 @@ namespace OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale
             var header = model.orderHeader;
             foreach (var detail in details)
             {
-                //if (detail.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
                 if (detail.Code.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
                 if (detail.IsActive.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
                 if (detail.ProductId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
@@ -51,15 +51,15 @@ namespace OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale
             var header = model.OrderHeader;
             foreach (var detail in details)
             {
-                if (detail.Code.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+                if (detail.Code.IsNullOrEmpty()) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
                 if (detail.ProductId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
                 if (detail.Quantity.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-                if (detail.Title.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+                if (detail.Title.IsNullOrEmpty()) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
                 if (detail.UnitPrice.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
             }
-            if (header.Code.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            if (header.SellerId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-            return header.Title.Equals(null) ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
+            if (header.Code.IsNullOrEmpty()) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            if (header.SellerId.IsNullOrEmpty()) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
+            return header.Title.IsNullOrEmpty() ? new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory)) : new JsonResult(null);
         }
         #endregion
 
@@ -105,7 +105,7 @@ namespace OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale
         #endregion
 
         #region [- Post -]
-        [HttpPost(Name = "PostOrderHeader")]
+        [HttpPost(Name = "PostOrder")]
         [Authorize(Roles = "Admin , GodAdmin ,Seller , Buyer")]
         public async Task<IActionResult> Post(PostOrderControllerDto model)
         {

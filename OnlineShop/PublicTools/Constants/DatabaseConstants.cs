@@ -73,6 +73,16 @@ namespace PublicTools.Constants
             public const string NormalName = "Normal";
             public const string NormalNormalizedName = "NORMAL";
             public const string NormalCuncurencyStamp = "4";
+
+            public const string SellerId = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbml";
+            public const string SellerName = "Seller";
+            public const string SellerNormalizedName = "SELLER";
+            public const string SellerCuncurencyStamp = "5";
+
+            public const string BuyerId = "7b43aed3-cbdc-4fa2-9516-9e99d3e5dbmk";
+            public const string BuyerName = "Buyer";
+            public const string BuyerNormalizedName = "BUYER";
+            public const string BuyerCuncurencyStamp = "6";
         }
         public static class GodAdminUsers
         {

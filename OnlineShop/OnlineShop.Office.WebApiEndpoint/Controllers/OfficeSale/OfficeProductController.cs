@@ -1,7 +1,7 @@
 ﻿using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Application.Contracts.SaleContracts;
-using OnlineShop.Application.Services.SaleServices;
+using OnlineShop.Application.Dtos.SaleAppDtos.ProductAppDtos;
 using OnlineShop.Office.WebApiEndpoint.ControllerDtos.SaleDtos;
 using PublicTools.Resources;
 using ResponseFramework;
@@ -33,9 +33,6 @@ namespace OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale
         #endregion
 
         #region [GetProduct]
-        /// <summary>
-        /// خطا داد که 	TypeError: Failed to execute 'fetch' on 'Window': Request with GET/HEAD method cannot have body.
-        /// </summary>
         [HttpGet("GetProduct", Name = "GetProduct")]
         public async Task<IActionResult> GetProduct(GetProductByIdControllerDto model)
         {

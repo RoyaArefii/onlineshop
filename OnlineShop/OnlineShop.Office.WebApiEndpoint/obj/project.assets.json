@@ -4090,11 +4090,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Office.WebApiEndpoint\\OnlineShop.Office.WebApiEndpoint.csproj",
+      "projectUniqueName": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.Office.WebApiEndpoint\\OnlineShop.Office.WebApiEndpoint.csproj",
       "projectName": "OnlineShop.Office.WebApiEndpoint",
-      "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Office.WebApiEndpoint\\OnlineShop.Office.WebApiEndpoint.csproj",
+      "projectPath": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.Office.WebApiEndpoint\\OnlineShop.Office.WebApiEndpoint.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Office.WebApiEndpoint\\obj\\",
+      "outputPath": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.Office.WebApiEndpoint\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4116,14 +4116,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Application\\OnlineShop.Application.csproj": {
-              "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.Application\\OnlineShop.Application.csproj"
+            "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.Application\\OnlineShop.Application.csproj": {
+              "projectPath": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.Application\\OnlineShop.Application.csproj"
             },
-            "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {
-              "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj"
+            "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj": {
+              "projectPath": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.EFCore\\OnlineShop.EFCore.csproj"
             },
-            "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
-              "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj"
+            "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
+              "projectPath": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj"
             }
           }
         }

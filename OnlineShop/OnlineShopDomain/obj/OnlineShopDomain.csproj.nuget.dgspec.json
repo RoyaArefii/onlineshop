@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {}
+    "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
+    "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj",
+        "projectUniqueName": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj",
         "projectName": "OnlineShopDomain",
-        "projectPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj",
+        "projectPath": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\OnlineShopDomain.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\NewWebProject\\OnlineShop\\OnlineShopDomain\\obj\\",
+        "outputPath": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShopDomain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

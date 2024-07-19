@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShopDomain.Aggregates.UserManagement
 {
-    public class AppUser : IdentityUser, IActiveEntity, ICreatedEntity, IModifiedEntity, ISoftDeletedEntity //, IDbSetEntity
+    public class AppUser : IdentityUser, IActiveEntity, ICreatedEntity, IModifiedEntity, ISoftDeletedEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.ProductAppDtos;
-using OnlineShop.Application.Services.SaleServices;
 using OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.SaleDtos.Product;
 using PublicTools.Resources;
 using ResponseFramework;

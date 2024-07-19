@@ -10,17 +10,18 @@ namespace onlineshop.repositorydesignpatern.frameworks.bases
 {
     public class BaseRepository<TDbContext, TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
                                                                     where TEntity : class
-                                                                    where TDbContext :  IdentityDbContext<AppUser, AppRole, string,
+                                                                    where TDbContext : IdentityDbContext<AppUser, AppRole, string,
                                                                                         IdentityUserClaim<string>,
                                                                                         AppUserRole,
                                                                                         IdentityUserLogin<string>,
                                                                                         IdentityRoleClaim<string>,
                                                                                         IdentityUserToken<string>>
     {
-        protected readonly TDbContext _dbContext;
-        protected readonly DbSet<TEntity> dbSet;
 
         #region [-Ctor-]
+
+        protected readonly TDbContext _dbContext;
+        protected readonly DbSet<TEntity> dbSet;
         public BaseRepository(TDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -31,15 +32,10 @@ namespace onlineshop.repositorydesignpatern.frameworks.bases
         #region [-InsertAsync(TEntity entity)-]
         public async Task<IResponse<TEntity>> InsertAsync(TEntity entity)
         {
-            //await using (_dbContext)
-            //{
-            ///for error : System.ObjectDisposedException: 'Cannot access a disposed context instance. A common cause of this error is disposing a context instance that was resolved from dependency injection and then later trying to use the same context instance elsewhere in your application. This may occur if you are calling 'Dispose' on the context instance, or wrapping it in a using statement. If you are using dependency injection, you should let the dependency injection container take care of disposing context instances. Object name: 'OnlineShopDbContext'.'
-          
-            await dbSet.AddAsync(entity);
-                //await SaveChanges();
-                return new Response<TEntity>(entity);
 
-            //}
+            await dbSet.AddAsync(entity);
+            return new Response<TEntity>(entity);
+
         }
         #endregion
 
@@ -48,42 +44,38 @@ namespace onlineshop.repositorydesignpatern.frameworks.bases
         {
             dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
-            //await SaveChanges();
             return new Response<object>(entity);
         }
         #endregion
-       
+
         #region [-DeleteAsync(TPrimaryKey id)-]
         public async Task<IResponse<object>> DeleteByIdAsync(TPrimaryKey id)
         {
             var deleteEntity = await dbSet.FindAsync(id);
-            if (deleteEntity ==null) return new Response<object>(MessageResource.Error_FailToFindObject);
+            if (deleteEntity == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             dbSet.Remove(deleteEntity);
-            //await SaveChanges();
-            return new Response<object>(deleteEntity);//چرا اینجا entity برگردوندیم؟ به نظرم باید message  برگردونیم
+            return new Response<object>(deleteEntity);
         }
         #endregion
 
         #region [-Task<IResponse<object>> DeleteAsync(TEntity entity)-]
         public async Task<IResponse<object>> DeleteAsync(TEntity entity)
         {
-            if (_dbContext.Entry(entity).State==EntityState.Detached)
+            if (_dbContext.Entry(entity).State == EntityState.Detached)
             {
                 dbSet.Attach(entity);
             }
             dbSet.Remove(entity);
             await SaveChanges();
-            return new Response<object>(entity);    
+            return new Response<object>(entity);
         }
         #endregion
 
         #region [-Task<IResponse<List<TEntity>>> Select()-]
         public async Task<IResponse<List<TEntity>>> Select()
         {
-           var q = await dbSet.AsNoTracking().ToListAsync();
-            //var response = new ResponseFramework.Response<List<TEntity>>(new List<TEntity>()) { Result = q };
-            //return response;
-            return new Response<List<TEntity>>(q);  
+            var q = await dbSet.AsNoTracking().ToListAsync();
+            return new Response<List<TEntity>>(q);
 
         }
         #endregion
@@ -92,7 +84,7 @@ namespace onlineshop.repositorydesignpatern.frameworks.bases
         public async Task<IResponse<TEntity>> FindById(TPrimaryKey id)
         {
             var q = await dbSet.FindAsync(id);
-            return q == null ? new Response<TEntity>(MessageResource.Error_FailToFindObject) : new Response<TEntity>(q); 
+            return q == null ? new Response<TEntity>(MessageResource.Error_FailToFindObject) : new Response<TEntity>(q);
         }
         #endregion
 
@@ -101,6 +93,7 @@ namespace onlineshop.repositorydesignpatern.frameworks.bases
         {
             await _dbContext.SaveChangesAsync();
         }
+
         #endregion
     }
 }

@@ -14,7 +14,7 @@ namespace OnlineShop.EFCore.Configurations.SaleConfiguration
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable(nameof(Product) , "Sale");
-            //builder.HasKey(p => p.Id);
+           
         }
     }
 }

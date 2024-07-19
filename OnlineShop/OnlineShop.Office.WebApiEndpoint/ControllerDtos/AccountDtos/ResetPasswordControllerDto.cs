@@ -6,8 +6,6 @@ namespace OnlineShop.Office.WebApiEndpoint.ControllerDtos.AccountDtos
     {
             [Required]
             public string UserName { get; set; }
-            //[Required]
-            //public string Token { get; set; }
             [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }

@@ -16,6 +16,100 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeAccount.OfficeAccountController",
+    "Method": "Logout",
+    "RelativePath": "api/OfficeAccount/Logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeAccount.OfficeAccountController",
+    "Method": "Signin",
+    "RelativePath": "api/OfficeAccount/Signin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.PostUserControllerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeAccount.OfficeAccountController",
+    "Method": "Signout",
+    "RelativePath": "api/OfficeAccount/Signout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale.OfficeOrderController",
+    "Method": "Put",
+    "RelativePath": "api/OfficeOrder",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.SaleDtos.PutOrderControllerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale.OfficeOrderController",
+    "Method": "Post",
+    "RelativePath": "api/OfficeOrder",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.SaleDtos.PostOrderControllerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale.OfficeOrderController",
+    "Method": "Delete",
+    "RelativePath": "api/OfficeOrder",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.SaleDtos.DeleteOrderDetailControllerDtos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale.OfficeOrderController",
+    "Method": "GetAll",
+    "RelativePath": "api/OfficeOrder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "OnlineShop.Office.WebApiEndpoint.Controllers.OfficeSale.OfficeProductController",
     "Method": "GetAll",
     "RelativePath": "api/OfficeProduct",
@@ -61,7 +155,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos.PostUserAppDto",
+        "Type": "OnlineShop.Office.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.PostUserControllerDto",
         "IsRequired": true
       }
     ],

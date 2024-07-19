@@ -70,7 +70,7 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can not assignee godadmin role.
+        ///   Looks up a localized string similar to You can not assign godadmin role.
         /// </summary>
         public static string Error_AddGodAdminRole {
             get {
@@ -133,7 +133,7 @@ namespace PublicTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You ca not delete Godadmin role!.
+        ///   Looks up a localized string similar to You can not delete or update Godadmin role!.
         /// </summary>
         public static string Error_GodAdminRole {
             get {
@@ -156,6 +156,24 @@ namespace PublicTools.Resources {
         public static string Error_IncorrectSellerId {
             get {
                 return ResourceManager.GetString("Error_IncorrectSellerId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter valid or active parentid..
+        /// </summary>
+        public static string Error_InValidProductCateegoryParentId {
+            get {
+                return ResourceManager.GetString("Error_InValidProductCateegoryParentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout was not successful....
+        /// </summary>
+        public static string Error_LogoutNotSuccessful {
+            get {
+                return ResourceManager.GetString("Error_LogoutNotSuccessful", resourceCulture);
             }
         }
         
@@ -282,6 +300,24 @@ namespace PublicTools.Resources {
         public static string Finalobject {
             get {
                 return ResourceManager.GetString("Finalobject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout was successful....
+        /// </summary>
+        public static string Info_LogoutSuccessFul {
+            get {
+                return ResourceManager.GetString("Info_LogoutSuccessFul", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signingout was successfull..
+        /// </summary>
+        public static string Info_SignoutSuccessFull {
+            get {
+                return ResourceManager.GetString("Info_SignoutSuccessFull", resourceCulture);
             }
         }
         

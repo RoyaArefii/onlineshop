@@ -10,7 +10,7 @@ namespace OnlineShop.EFCore.Configurations.SaleConfiguration
         public void Configure(EntityTypeBuilder<OrderHeader> builder)
         {
             builder.ToTable(nameof(OrderHeader) , "Sale"); 
-            //builder.HasKey(x=>x.Id);
+            
         }
     }
 }

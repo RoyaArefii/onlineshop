@@ -13,7 +13,6 @@ namespace OnlineShopDomain.Aggregates.UserManagement
         public AppUserRole AppUserRole{ get; set; }
         public string Pincode { get; set; }
         public string TargetCellphone { get; set; }
-       // public ActivityType ActivityType { get; set; }
         public TimeOnly ExpirationTime { get; set; }
         public DateOnly ExpirationDate { get; set; }
         public bool ISUsed { get; set; }

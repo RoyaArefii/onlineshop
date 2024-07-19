@@ -121,7 +121,7 @@
     <value>You do not have permission</value>
   </data>
   <data name="Error_AddGodAdminRole" xml:space="preserve">
-    <value>You can not assignee godadmin role</value>
+    <value>You can not assign godadmin role</value>
   </data>
   <data name="Error_DataWasUsed" xml:space="preserve">
     <value>This record is used, Please Inactive it</value>
@@ -142,13 +142,19 @@
     <value>Object was not found</value>
   </data>
   <data name="Error_GodAdminRole" xml:space="preserve">
-    <value>You ca not delete Godadmin role!</value>
+    <value>You can not delete or update Godadmin role!</value>
   </data>
   <data name="Error_GodAdminUser" xml:space="preserve">
     <value>You can not delete GodAdmin user</value>
   </data>
   <data name="Error_IncorrectSellerId" xml:space="preserve">
     <value>Please enter a valid sellerId</value>
+  </data>
+  <data name="Error_InValidProductCateegoryParentId" xml:space="preserve">
+    <value>Please enter valid or active parentid.</value>
+  </data>
+  <data name="Error_LogoutNotSuccessful" xml:space="preserve">
+    <value>Logout was not successful...</value>
   </data>
   <data name="Error_ModelNull" xml:space="preserve">
     <value>The model is null </value>
@@ -191,6 +197,12 @@
   </data>
   <data name="Finalobject" xml:space="preserve">
     <value>This object is final, you can't delete it</value>
+  </data>
+  <data name="Info_LogoutSuccessFul" xml:space="preserve">
+    <value>Logout was successful...</value>
+  </data>
+  <data name="Info_SignoutSuccessFull" xml:space="preserve">
+    <value>Signingout was successfull.</value>
   </data>
   <data name="Info_SuccessfullProcess" xml:space="preserve">
     <value>Process was Successfull</value>

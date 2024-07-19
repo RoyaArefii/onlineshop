@@ -3,16 +3,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using onlineshop.repositorydesignpatern.frameworks.bases;
+using OnlineShop.Application.Contracts.JWT;
 using OnlineShop.Application.Contracts.SaleContracts;
 using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos;
-using OnlineShop.Application.Dtos.SaleAppDtos.OrderAppDtos.OrderDetailAppDtos;
 using OnlineShop.Application.Services.Account;
 using OnlineShop.Application.Services.SaleServices;
 using OnlineShop.Application.Services.UserManagmentServices;
 using OnlineShop.EFCore;
+using OnlineShop.Office.WebApiEndpoint.Middleware;
 using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
+using OnlineShop.RepositoryDesignPatern.Frameworks.Contracs.JWT;
 using OnlineShop.RepositoryDesignPatern.Frameworks.Contracs.SaleContracts;
+using OnlineShop.RepositoryDesignPatern.Services.JWT;
 using OnlineShop.RepositoryDesignPatern.Services.Sale;
+using OnlineShopDomain.Aggregates.JWT;
 using OnlineShopDomain.Aggregates.Sale;
 using OnlineShopDomain.Aggregates.UserManagement;
 using System.Text;
@@ -65,26 +69,54 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
 });
 
-builder.Services.AddAuthorization();
+//builder.Services.AddAuthorization();
+//builder.Services.AddScoped<IProductRepository, ProductRepository>();
+//builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+//builder.Services.AddScoped<IOrderHeaderRepository, OrderHeaderRepository>();
+//builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+//builder.Services.AddScoped<IAppProductCategoryService, ProductCategoryService>();
+//builder.Services.AddScoped<IAppProductService, ProductService>();
+//builder.Services.AddScoped<IAppOrderService< GetAllOrderAppDto, GetOrdersAppDto>, OrderService>();
+////builder.Services.AddScoped<IAppOrderDetailService, OrderDdetailService>();
+//builder.Services.AddScoped<IRepository<Product, Guid>, BaseRepository<OnlineShopDbContext, Product, Guid>>();
+//builder.Services.AddScoped<IRepository<ProductCategory, Guid>, BaseRepository<OnlineShopDbContext, ProductCategory, Guid>>();
+//builder.Services.AddScoped<IRepository<OrderHeader, Guid>, BaseRepository<OnlineShopDbContext, OrderHeader, Guid>>();
+//builder.Services.AddScoped<IRepository<OrderDetail, Guid>, BaseRepository<OnlineShopDbContext, OrderDetail, Guid>>();
+//builder.Services.AddScoped<ProductService>();
+//builder.Services.AddScoped<OrderService>();
+//builder.Services.AddScoped<UserService>();
+//builder.Services.AddScoped<RoleService>();
+//builder.Services.AddScoped<UserRoleService>();
+//builder.Services.AddScoped<AccountService>();
+
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IRepository<Product, Guid>, BaseRepository<OnlineShopDbContext, Product, Guid>>();
+builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<IAppProductService, ProductService>();
+
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<IRepository<ProductCategory, Guid>, BaseRepository<OnlineShopDbContext, ProductCategory, Guid>>();
+builder.Services.AddScoped<IAppProductCategoryService, ProductCategoryService>();
+
 builder.Services.AddScoped<IOrderHeaderRepository, OrderHeaderRepository>();
 builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
-builder.Services.AddScoped<IAppProductCategoryService, ProductCategoryService>();
-builder.Services.AddScoped<IAppProductService, ProductService>();
-builder.Services.AddScoped<IAppOrderService< GetAllOrderAppDto, GetOrdersAppDto>, OrderService>();
-//builder.Services.AddScoped<IAppOrderDetailService, OrderDdetailService>();
-builder.Services.AddScoped<IRepository<Product, Guid>, BaseRepository<OnlineShopDbContext, Product, Guid>>();
-builder.Services.AddScoped<IRepository<ProductCategory, Guid>, BaseRepository<OnlineShopDbContext, ProductCategory, Guid>>();
+builder.Services.AddScoped<IAppOrderService<GetAllOrderAppDto, GetOrdersAppDto>, OrderService>();
 builder.Services.AddScoped<IRepository<OrderHeader, Guid>, BaseRepository<OnlineShopDbContext, OrderHeader, Guid>>();
 builder.Services.AddScoped<IRepository<OrderDetail, Guid>, BaseRepository<OnlineShopDbContext, OrderDetail, Guid>>();
-builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<OrderService>();
+
+//builder.Services.AddScoped<IAppOrderDetailService, OrderDdetailService>();
+
+builder.Services.AddScoped<IJwtRepository, JwtTokenManagement>();
+builder.Services.AddScoped<IRepository<BlackListToken, Guid>, BaseRepository<OnlineShopDbContext, BlackListToken, Guid>>();
+builder.Services.AddScoped<IAppJwtBlacklistService, JwtBlacklistService>();
+//builder.Services.AddScoped<JwtBlacklistTokenService>();
+//builder.Services.AddScoped<IRepository<ProductCategory, Guid>>();
+
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RoleService>();
 builder.Services.AddScoped<UserRoleService>();
 builder.Services.AddScoped<AccountService>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -94,8 +126,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<BlacklistMiddleware>();
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();

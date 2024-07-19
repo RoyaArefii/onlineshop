@@ -4,7 +4,6 @@ using OnlineShop.Application.Dtos.UserManagementAppDtos.RoleAppDtos;
 using OnlineShop.Application.Services.UserManagmentServices;
 using OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.RoleControllerDtos;
 using PublicTools.Resources;
-using PublicTools.Tools;
 using ResponseFramework;
 using System.Security.Claims;
 
@@ -39,6 +38,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
         #endregion
 
         #region [- CRUD -]
+
         #region [- Post -]
         [HttpPost(Name = "PostRole")]
         [Authorize(Roles = "GodAdmin")]
@@ -110,7 +110,8 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagem
 
         #endregion
 
-        #region [- Other -]        
+        #region [- Other -]
+        
         #region [-JsonResult GetCurrentUser()-]
         private JsonResult GetCurrentUser()
         {

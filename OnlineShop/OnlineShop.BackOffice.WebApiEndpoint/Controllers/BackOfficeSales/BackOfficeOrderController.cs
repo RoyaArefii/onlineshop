@@ -32,7 +32,6 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
             var header = model.orderHeader;
             foreach (var detail in details)
             {
-                //if (detail.Id.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
                 if (detail.Code.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
                 if (detail.IsActive.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
                 if (detail.ProductId.Equals(null)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
@@ -150,17 +149,6 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeSales
         }
         #endregion
        
-        //#region [- DeleteOrderDetailAsync -]
-        //[HttpDelete("DeleteOrderDetails", Name = "DeleteOrderDetails")]
-        //[Authorize(Roles = "Admin , GodAdmin")]
-        //public async Task<IActionResult> DeleteOrderDetail(List<DeleteOrderAppDtos> model)
-        //{
-        //    if (model.Count.Equals(0)) return new JsonResult(new Response<object>(MessageResource.Error_ThisFieldIsMandatory));
-        //    var postResult = await _appOrderHeaderlService.DeleteOrderDetailAsync(model);
-        //    return new JsonResult(postResult);
-        //} 
-        //#endregion
-
         #region [- OtherMethods -]
         private JsonResult GetCurrentUser()
         {

@@ -7,7 +7,9 @@ using OnlineShop.RepositoryDesignPatern.Frameworks.Abstracts;
 using OnlineShopDomain.Aggregates.Sale;
 using OnlineShopDomain.Aggregates.UserManagement;
 using PublicTools.Resources;
+using PublicTools.Tools;
 using ResponseFramework;
+using System.Data;
 using System.Net;
 
 namespace OnlineShop.Application.Services.SaleServices
@@ -28,7 +30,6 @@ namespace OnlineShop.Application.Services.SaleServices
         }
         #endregion
 
-        #region [-    Ok     -]
         #region [- DeleteAsync(string id) -]
         public async Task<IResponse<object>> DeleteAsync(Guid id)
         {
@@ -92,7 +93,7 @@ namespace OnlineShop.Application.Services.SaleServices
             if (!getResult.IsSuccessful) return new Response<List<GetProductCategoryAppDto>>(MessageResource.Error_FailProcess);
             var getProductCategoryList = new List<GetProductCategoryAppDto>();
 
-            var getProductCategorys = getResult.Result.Select(item => new GetProductCategoryAppDto()
+            var getProductCategorys = getResult.Result.Where(p => p.IsActive == true).Select(item => new GetProductCategoryAppDto()
             {
                 Id = item.Id,
                 ParentId = item.ParentId,
@@ -117,7 +118,8 @@ namespace OnlineShop.Application.Services.SaleServices
         {
             #region [- Validation -]
             var userLogin = await _userService.FindByNameAsync(model.UserName);
-            if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            if (Helpers.IsDeleted(userLogin) || userLogin == null) return new Response<object>(true, string.Empty, MessageResource.Error_UserNotFound, null, HttpStatusCode.OK);
+
             if (!(await _userService.IsInRoleAsync(userLogin, "GodAdmin") || await _userService.IsInRoleAsync(userLogin, "Admin")))
                 return new Response<object>(MessageResource.Error_Accessdenied);
 
@@ -125,30 +127,41 @@ namespace OnlineShop.Application.Services.SaleServices
             if (model.Id.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Title.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             var productCategory = await _repository.FindById(model.Id);
-            if (productCategory == null) return new Response<object>(MessageResource.Error_FailToFindObject);
-            #endregion
+            if (productCategory.IsSuccessful == null || productCategory.Result.IsActive == false) return new Response<object>(MessageResource.Error_FailToFindObject);
+            if (!model.ParentId.Equals(null))
+            {
+                Guid? nullParent = model.ParentId;
+                Guid parent = nullParent ?? Guid.Empty;
+                if (parent != null)
+                {
+                    var finalParent = await _repository.FindById(parent);
+                    if (finalParent.Result == null) return new Response<object>(MessageResource.Error_InValidProductCateegoryParentId);
+                    else if (finalParent.Result != null && finalParent.Result.IsActive == false || finalParent.Result.Id == model.Id) return new Response<object>(MessageResource.Error_InValidProductCateegoryParentId);
+                }
+            }
+                #endregion
 
-            #region [-Task-]
+                #region [-Task-]
 
-            //var putProductCategory = new ProductCategory
-            //{
-            //    Id = productCategory.Result.Id,
-            //    ParentId = productCategory.Result.ParentId,
-            //    IsActive = productCategory.Result.IsActive,
-            //    Title = productCategory.Result.Title,
-            //    EntityDescription = productCategory.Result.EntityDescription,
-            //};
+                //var putProductCategory = new ProductCategory
+                //{
+                //    Id = productCategory.Result.Id,
+                //    ParentId = productCategory.Result.ParentId,
+                //    IsActive = productCategory.Result.IsActive,
+                //    Title = productCategory.Result.Title,
+                //    EntityDescription = productCategory.Result.EntityDescription,
+                //};
 
-            //به خاطر خطای زیر کدهای بالا کامنت شد -
-            //پاسخ chatgpt:
-            //System.InvalidOperationException: The instance of entity type 'ProductCategory' cannot be tracked because another instance with the same key value for { 'Id'} is already being tracked.When attaching existing entities, ensure that only one entity instance with a given key value is attached.Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
-            //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.ThrowIdentityConflict(InternalEntityEntry entry)
-            //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(TKey key, InternalEntityEntry entry, Boolean updateDuplicate)
-            //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(TKey key, InternalEntityEntry entry)
-            //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(InternalEntityEntry entry)
-            //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.
+                //به خاطر خطای زیر کدهای بالا کامنت شد -
+                //پاسخ chatgpt:
+                //System.InvalidOperationException: The instance of entity type 'ProductCategory' cannot be tracked because another instance with the same key value for { 'Id'} is already being tracked.When attaching existing entities, ensure that only one entity instance with a given key value is attached.Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+                //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.ThrowIdentityConflict(InternalEntityEntry entry)
+                //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(TKey key, InternalEntityEntry entry, Boolean updateDuplicate)
+                //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(TKey key, InternalEntityEntry entry)
+                //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(InternalEntityEntry entry)
+                //at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.
 
-            var putProductCategory = productCategory.Result;
+                var putProductCategory = productCategory.Result;
             putProductCategory.ParentId = model.ParentId;
             putProductCategory.IsActive = model.IsActive;
             putProductCategory.Title = model.Title;
@@ -164,24 +177,34 @@ namespace OnlineShop.Application.Services.SaleServices
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, putResult, HttpStatusCode.OK);
             #endregion
         }
-        #endregion
+        #endregion       
 
         #region [-PostAsync(PutProductCategoryAppDto model)-]
         public async Task<IResponse<object>> PostAsync(PostProductCategoryAppDto model)
-        {
+        {            
             #region [-Validation-]
             var userLogin = await _userService.FindByNameAsync(model.UserName);
-            if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            if (Helpers.IsDeleted(userLogin) || userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
             if (!(await _userService.IsInRoleAsync(userLogin, "GodAdmin") || await _userService.IsInRoleAsync(userLogin, "Admin")))
                 return new Response<object>(MessageResource.Error_Accessdenied);
 
             if (model.Title.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
+            if (!model.ParentId.Equals(null))
+            {
+                Guid? nullParent = model.ParentId;
+                Guid parent = nullParent ?? Guid.Empty;
+                if (parent != null)
+                {
+                    var finalParent = await _repository.FindById(parent);
+                    if (finalParent.Result == null ) return new Response<object>(MessageResource.Error_InValidProductCateegoryParentId);
+                    else if (finalParent.Result!=null && finalParent.Result.IsActive == false) return new Response<object>(MessageResource.Error_InValidProductCateegoryParentId);
+                }
+            }
             #endregion
-
+          
             #region [-Task-]
             var postProductCategory = new ProductCategory()
             {
-                //Id = new Guid(),
                 ParentId = model.ParentId,
                 IsActive = true,
                 Title = model.Title,
@@ -190,7 +213,7 @@ namespace OnlineShop.Application.Services.SaleServices
             var postResult = await _repository.InsertAsync(postProductCategory);
             await SaveChanges();
             #endregion
-
+           
             #region [-Result-]
             if (!postResult.IsSuccessful) return new Response<object>(MessageResource.Error_FailProcess);
             return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, postProductCategory, HttpStatusCode.OK);
@@ -209,6 +232,8 @@ namespace OnlineShop.Application.Services.SaleServices
             #region [-Task-]
 
             var findResult = await _repository.FindById(id);
+            if (findResult.Result.IsActive == false || findResult == null) return new Response<GetProductCategoryAppDto>(true, string.Empty, MessageResource.Error_RoleNotFound, null, HttpStatusCode.OK);
+
             var findProductCategory = new GetProductCategoryAppDto()
             {
                 Id = findResult.Result.Id,
@@ -226,7 +251,6 @@ namespace OnlineShop.Application.Services.SaleServices
         }
         #endregion
 
-        #endregion
 
     }
 }

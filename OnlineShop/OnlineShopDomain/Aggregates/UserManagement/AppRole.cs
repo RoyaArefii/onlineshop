@@ -9,7 +9,6 @@ namespace OnlineShopDomain.Aggregates.UserManagement
 {
     public class AppRole :  IdentityRole, IActiveEntity, ICreatedEntity, IModifiedEntity, ISoftDeletedEntity
     {
-        //id , name --> IdentityProp
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime ?DateSoftDeletedLatin { get; set; }

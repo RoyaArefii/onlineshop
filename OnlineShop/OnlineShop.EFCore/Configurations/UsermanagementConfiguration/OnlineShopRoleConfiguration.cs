@@ -20,7 +20,7 @@ namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
                 IsActive = true,
                 DateCreatedLatin = DateTime.Now,
                 DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now),
-                NormalizedName=DatabaseConstants.DefaultRoles.GodAadminNormalizedName,
+                NormalizedName = DatabaseConstants.DefaultRoles.GodAadminNormalizedName,
                 IsDeleted = false,
                 IsModified = false
             },
@@ -51,6 +51,28 @@ namespace OnlineShop.EFCore.Configurations.IdentityConfiguration
                 Id = DatabaseConstants.DefaultRoles.NormalId,
                 Name = DatabaseConstants.DefaultRoles.NormalName,
                 NormalizedName = DatabaseConstants.DefaultRoles.NormalNormalizedName,
+                IsActive = true,
+                DateCreatedLatin = DateTime.Now,
+                DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now),
+                IsDeleted = false,
+                IsModified = false
+            },
+            new AppRole()
+            {
+                Id = DatabaseConstants.DefaultRoles.SellerId,
+                Name = DatabaseConstants.DefaultRoles.SellerName,
+                NormalizedName = DatabaseConstants.DefaultRoles.SellerNormalizedName,
+                IsActive = true,
+                DateCreatedLatin = DateTime.Now,
+                DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now),
+                IsDeleted = false,
+                IsModified = false
+            },
+            new AppRole()
+            {
+                Id = DatabaseConstants.DefaultRoles.BuyerId,
+                Name = DatabaseConstants.DefaultRoles.BuyerName,
+                NormalizedName = DatabaseConstants.DefaultRoles.BuyerNormalizedName,
                 IsActive = true,
                 DateCreatedLatin = DateTime.Now,
                 DateCreatedPersian = Helpers.ConvertToPersianDate(DateTime.Now),

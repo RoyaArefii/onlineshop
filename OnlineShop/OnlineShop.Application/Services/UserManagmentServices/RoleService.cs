@@ -6,6 +6,7 @@ using OnlineShopDomain.Aggregates.UserManagement;
 using PublicTools.Resources;
 using PublicTools.Tools;
 using ResponseFramework;
+using System.Data;
 using System.Net;
 
 
@@ -23,8 +24,6 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         }
         #endregion
 
-        #region [Ok]
-
         #region [-Task<IResponse<object>> DeleteAsync(string id)-]
         public async Task<IResponse<object>> DeleteAsync(string id)
         {
@@ -33,10 +32,8 @@ namespace OnlineShop.Application.Services.UserManagmentServices
                 return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             }
             var role = await _roleRepository.FindByIdAsync(id);
-            if (role == null)
-            {
-                return new Response<object>(MessageResource.Error_FailToFindObject);
-            }
+            if (Helpers.IsDeleted(role) || role == null) return new Response<object>(true, string.Empty, MessageResource.Error_RoleNotFound, null, HttpStatusCode.OK);
+
             var roleDelete = new AppRole()
             {
                 Id = role.Id,
@@ -45,7 +42,6 @@ namespace OnlineShop.Application.Services.UserManagmentServices
                 IsDeleted = true
             };
             var result = await _roleRepository.UpdateAsync(roleDelete);
-            //await _repository.DeleteAsync(roleDelete);
             if (!result.Succeeded)
             {
                 return new Response<object>(MessageResource.Error_FailProcess);
@@ -54,30 +50,24 @@ namespace OnlineShop.Application.Services.UserManagmentServices
         }
         #endregion
 
-        #region [-Task<IResponse<object>> DeleteAsync(DeleteUserAppDto model)-]
+        #region [-Task<IResponse<object>> DeleteAsync(DeleteRoleAppDto model)-]
         public async Task<IResponse<object>> DeleteAsync(DeleteRoleAppDto model)
         {
             #region [-Validation-]
             if (model.Id == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             var appRole = await _roleRepository.FindByIdAsync(model.Id);
-            if (appRole == null) return new Response<object>(MessageResource.Error_FailToFindObject);
+            if (Helpers.IsDeleted(appRole) || appRole == null) return new Response<object>(true, string.Empty, MessageResource.Error_RoleNotFound, null, HttpStatusCode.OK);
             if (appRole.Name == "GodAdmin") return new Response<object>(MessageResource.Error_GodAdminRole);
-
             var userLogin = await _userRepository.FindByNameAsync(model.UserName);
-            if (userLogin.Id == null) return new Response<object>(MessageResource.Error_UserNotFound);
-
-            var accessFlag = false;
-            if (await _userRepository.IsInRoleAsync(userLogin, "GodAdmin"))
-                accessFlag = true;
-            if (!accessFlag) return new Response<object>(MessageResource.Error_Accessdenied);
+            if (Helpers.IsDeleted(userLogin) || userLogin == null) return new Response<object>(true, string.Empty, MessageResource.Error_UserNotFound, null, HttpStatusCode.OK);
+            if (!await _userRepository.IsInRoleAsync(userLogin, "GodAdmin")) return new Response<object>(MessageResource.Error_Accessdenied);
             #endregion
 
             #region [-Task-]
             appRole.IsDeleted = true;
             appRole.DateSoftDeletedLatin = DateTime.UtcNow;
             appRole.DateSoftDeletedPersian = Helpers.ConvertToPersianDate(DateTime.Now);
-            var resultDelete = await _roleRepository.UpdateAsync(appRole);
-            //await _roleRepository.DeleteAsync(appRole);            
+            var resultDelete = await _roleRepository.UpdateAsync(appRole);          
             #endregion
             
             #region [-Result-]
@@ -97,11 +87,8 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             if (model.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Name.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             var userLogin = await _userRepository.FindByNameAsync(model.UserName);
-            if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
-            var accessFlag = false;
-            if (await _userRepository.IsInRoleAsync(userLogin, "GodAdmin"))
-                accessFlag = true;
-            if (!accessFlag) return new Response<object>(MessageResource.Error_Accessdenied);
+            if (Helpers.IsDeleted(userLogin) || userLogin == null) return new Response<object>(true, string.Empty, MessageResource.Error_UserNotFound, null, HttpStatusCode.OK);
+            if (!await _userRepository.IsInRoleAsync(userLogin, "GodAdmin")) return new Response<object>(MessageResource.Error_Accessdenied);
             #endregion 
             
             #region [-Task-]
@@ -124,11 +111,11 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             #endregion
         }
         #endregion
-     
-        #region [-Task<IResponse<List<GetUserAppDto>>> GetAsync()-]
+
+        #region [-Task<IResponse<List<GetRoleAppDto>>> GetAsync()-]
         public async Task<IResponse<List<GetRoleAppDto>>> GetAsync()
         {
-            var getResult = await _roleRepository.Roles.ToListAsync();
+            var getResult = await _roleRepository.Roles.Where(p=>p.IsDeleted==false).ToListAsync();
             var getAppRoleList = new List<GetRoleAppDto>();
             foreach (var role in getResult)
             {
@@ -152,8 +139,8 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             return new Response<List<GetRoleAppDto>>(true, MessageResource.Info_SuccessfullProcess, string.Empty, getAppRoleList, HttpStatusCode.OK);
         }
         #endregion
-           
-        #region [-Task<IResponse<object>> PutAsync(PutUserAppDto model)-]
+
+        #region [-Task<IResponse<object>> PutAsync(PutRoleAppDto model)-]
         public async Task<IResponse<object>> PutAsync(PutRoleAppDto model)
         {
             
@@ -164,15 +151,13 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             if (model.IsActive.Equals(null)) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
 
             var role = await _roleRepository.FindByIdAsync(model.Id);
-            if (role==null) return new Response<object>(MessageResource.Error_RoleNotFound);
+            if (Helpers.IsDeleted(role) || role == null) return new Response<object>(true, string.Empty, MessageResource.Error_RoleNotFound, null, HttpStatusCode.OK);
             if (role.Name == "GodAdmin") return new Response<object>(MessageResource.Error_GodAdminRole);
 
             var userLogin = await _userRepository.FindByNameAsync(model.UserName);
-            if (userLogin == null) return new Response<object>(MessageResource.Error_UserNotFound);
+            if (Helpers.IsDeleted(userLogin) || userLogin == null) return new Response<object>(true, string.Empty, MessageResource.Error_UserNotFound, null, HttpStatusCode.OK);
             var accessFlag = false;
-            if (await _userRepository.IsInRoleAsync(userLogin, "GodAdmin"))
-                accessFlag = true;
-            if (!accessFlag) return new Response<object>(MessageResource.Error_Accessdenied);
+            if (!await _userRepository.IsInRoleAsync(userLogin, "GodAdmin")) return new Response<object>(MessageResource.Error_Accessdenied);
             #endregion
             
             #region [-Task-]
@@ -197,23 +182,24 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             #endregion
         }
         #endregion
-                
-        #region [-Task<IResponse<GetRoleAppDto>> FindById(string id)-]
+
+        #region [-Task<IResponse<GetRoleAppDto>> FindById(GetRoleAppDto model)-]
         public async Task<IResponse<GetRoleAppDto>> FindById(GetRoleAppDto model)
         {
             #region [-Validation-]
             if (model.Id.Equals(null)) return new Response<GetRoleAppDto>(MessageResource.Error_ThisFieldIsMandatory);
 
             var userLogin = await _userRepository.FindByNameAsync(model.UserName);
-            if (userLogin == null) return new Response<GetRoleAppDto>(MessageResource.Error_UserNotFound);
+            if (Helpers.IsDeleted(userLogin) || userLogin == null) return new Response<GetRoleAppDto>(true, string.Empty, MessageResource.Error_UserNotFound, null, HttpStatusCode.OK);
 
             var isGodAdmin = await _userRepository.IsInRoleAsync(userLogin, "GodAdmin");
             if (!isGodAdmin) return new Response<GetRoleAppDto>(MessageResource.Error_Accessdenied);
+
+            var findResult = await _roleRepository.FindByIdAsync(model.Id);
+            if (Helpers.IsDeleted(findResult) || findResult == null) return new Response<GetRoleAppDto>(true, string.Empty, MessageResource.Error_RoleNotFound, null, HttpStatusCode.OK);
             #endregion
 
             #region [-Task-]
-            var findResult = await _roleRepository.FindByIdAsync(model.Id);
-            if (findResult == null) return new Response<GetRoleAppDto>(MessageResource.Error_FailProcess);
             var findAppRole = new GetRoleAppDto()
             {
                 Id = findResult.Id,
@@ -228,14 +214,13 @@ namespace OnlineShop.Application.Services.UserManagmentServices
                 DateSoftDeletedLatin = findResult.DateSoftDeletedLatin,
                 DateSoftDeletedPersian = findResult.DateSoftDeletedPersian
             };
+            
             #endregion
 
             #region [-Result-]
             return new Response<GetRoleAppDto>(true, MessageResource.Info_SuccessfullProcess, string.Empty, findAppRole, HttpStatusCode.OK);
             #endregion
         }
-        #endregion
-        
         #endregion
 
     }

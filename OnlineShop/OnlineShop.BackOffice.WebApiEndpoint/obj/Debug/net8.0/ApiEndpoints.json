@@ -17,18 +17,38 @@
   },
   {
     "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeAccount.BackOfficeAccountController",
-    "Method": "RemoveToken",
-    "RelativePath": "api/BackOfficeAccount/Logout_Alaki",
+    "Method": "Logout",
+    "RelativePath": "api/BackOfficeAccount/Logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeAccount.BackOfficeAccountController",
+    "Method": "Signin",
+    "RelativePath": "api/BackOfficeAccount/Signin",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "loginDto",
-        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.AccountDtos.LoginDto",
+        "Name": "model",
+        "Type": "OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.PostUserControllerDto",
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeAccount.BackOfficeAccountController",
+    "Method": "Signout",
+    "RelativePath": "api/BackOfficeAccount/Signout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -289,7 +309,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "OnlineShop.Application.Dtos.UserManagementAppDtos.UserAppDtos.PostUserAppDto",
+        "Type": "OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.PostUserControllerDto",
         "IsRequired": true
       }
     ],
@@ -306,6 +326,22 @@
       {
         "Name": "model",
         "Type": "OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.PutUserControllerDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserController",
+    "Method": "Delete",
+    "RelativePath": "api/BackOfficeUser",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.DeleteUserControllerDto",
         "IsRequired": true
       }
     ],
@@ -348,22 +384,6 @@
       {
         "Name": "model",
         "Type": "OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.AccountDtos.ResetPasswordControllerDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeUserManagement.BackOfficeUserController",
-    "Method": "Delete",
-    "RelativePath": "api/BackOfficeUser/SoftDelete",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "model",
-        "Type": "OnlineShop.BackOffice.WebApiEndpoint.ControllerDtos.UserManagementDtos.UserControllerDtos.DeleteUserControllerDto",
         "IsRequired": true
       }
     ],
