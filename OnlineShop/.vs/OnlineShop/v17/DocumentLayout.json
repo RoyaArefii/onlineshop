@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Projects\\OnlineShop\\OnlineShop\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B9604605-38CF-45E2-8A6A-E1B424459959}|OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj|d:\\projects\\onlineshop\\onlineshop\\onlineshop.backoffice.webapiendpoint\\controllers\\backofficeaccount\\backofficeaccountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9604605-38CF-45E2-8A6A-E1B424459959}|OnlineShop.BackOffice.WebApiEndpoint\\OnlineShop.BackOffice.WebApiEndpoint.csproj|solutionrelative:onlineshop.backoffice.webapiendpoint\\controllers\\backofficeaccount\\backofficeaccountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +14,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BackOfficeAccountController.cs",
+              "DocumentMoniker": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeAccount\\BackOfficeAccountController.cs",
+              "RelativeDocumentMoniker": "OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeAccount\\BackOfficeAccountController.cs",
+              "ToolTip": "D:\\Projects\\OnlineShop\\OnlineShop\\OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeAccount\\BackOfficeAccountController.cs",
+              "RelativeToolTip": "OnlineShop.BackOffice.WebApiEndpoint\\Controllers\\BackOfficeAccount\\BackOfficeAccountController.cs",
+              "ViewState": "AQIAADQAAAAAAAAAAAAowEkAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-20T15:13:39.489Z",
+              "EditorCaption": ""
             }
           ]
         }

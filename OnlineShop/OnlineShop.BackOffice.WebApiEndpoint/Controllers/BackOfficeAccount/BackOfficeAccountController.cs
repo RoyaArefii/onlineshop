@@ -85,6 +85,7 @@ namespace OnlineShop.BackOffice.WebApiEndpoint.Controllers.BackOfficeAccount
                 Location = model.Location,
                 Password = model.Password,
                 Picture = model.Picture,
+                Endpoint = "BackOffice"
             };
             var result = await _accountService.Signin(signinModel);
             if (!result.IsSuccessful) return new JsonResult(result.Result);

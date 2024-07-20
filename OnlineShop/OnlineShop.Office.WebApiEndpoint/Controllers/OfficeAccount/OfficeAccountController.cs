@@ -82,6 +82,7 @@ namespace OnlineShop.Office.WebApiEndpoint.Controllers.OfficeAccount
                 Location = model.Location,
                 Password = model.Password,
                 Picture = model.Picture,
+                Endpoint ="Office"
             };
             var result = await _accountService.Signin(signinModel);
             if (!result.IsSuccessful) return new JsonResult(result.Result);
