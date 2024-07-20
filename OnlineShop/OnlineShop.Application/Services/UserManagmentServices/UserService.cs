@@ -37,7 +37,7 @@ namespace OnlineShop.Application.Services.UserManagmentServices
             if (model.Password.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.ConfirmPassword.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
             if (model.Cellphone.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
-
+            if (model.Endpoint.IsNullOrEmpty()) model.Endpoint = "Backoffice";
             if (!(UniqUser(model.Cellphone, null).Result)) return new Response<object>(MessageResource.Error_UserDuplicate);
 
             #endregion

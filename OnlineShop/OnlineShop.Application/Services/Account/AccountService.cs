@@ -52,7 +52,7 @@ namespace OnlineShop.Application.Services.Account
             {
                 var token = GenerateJwtToken(user.UserName, roles);
                 var refreshToken = GenerateRefreshToken();
-                return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, token/* new { token, refreshToken }*/, HttpStatusCode.OK);
+                return new Response<object>(true, MessageResource.Info_SuccessfullProcess, string.Empty, token, HttpStatusCode.OK);
             }
 
             return new Response<object>(false, string.Empty, MessageResource.Error_FailProcess, null, HttpStatusCode.OK);
@@ -122,7 +122,7 @@ namespace OnlineShop.Application.Services.Account
         #endregion
 
         #region [-Signout-]
-        public async Task<IResponse<object>> Signout(SignoutDto model/*DeleteUserAppDto*/ )
+        public async Task<IResponse<object>> Signout(SignoutDto model )
         {
             if (model == null) return new Response<object>(MessageResource.Error_FailToFindObject);
             if (model.Token.IsNullOrEmpty() || model.UserName.IsNullOrEmpty()) return new Response<object>(MessageResource.Error_ThisFieldIsMandatory);
@@ -155,23 +155,6 @@ namespace OnlineShop.Application.Services.Account
 
             return new Response<object>(true, MessageResource.Info_SignoutSuccessFull, string.Empty, null, HttpStatusCode.OK);
         }
-        #endregion
-
-        #region [-Cookie-]
-        // برای حالت کوکی
-        //public async Task<IResponse<object>> Login(LoginDto model)
-        //{
-        //    if (model == null) return new Response<object>(MessageResource.Error_ModelNull);
-        //    var userResult = await _userManager.FindByNameAsync(model.UserName); 
-        //    if (userResult == null)return new Response<object>(MessageResource.Error_UserNotFound);
-        //    var passwordResult = await _userManager.CheckPasswordAsync(userResult , model.Password);
-        //    if (!passwordResult)return new Response<object>(MessageResource.Error_WrongPassword);
-
-
-        //    var resultLogin= await _signInManager.PasswordSignInAsync(model.UserName, model.Password, true, true);
-        //    if (!resultLogin.Succeeded) return new Response<object>(MessageResource.Error_FailProcess);
-        //    return new Response<object>(true , MessageResource.Info_SuccessfullProcess , string.Empty , resultLogin , HttpStatusCode.OK);              
-        //} 
         #endregion
 
     }
